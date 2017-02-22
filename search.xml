@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+    
+    <entry>
+      <title><![CDATA[hexo搭建blog]]></title>
+      <url>%2F2017%2F02%2F22%2Ffirst-blog%2F</url>
+      <content type="text"><![CDATA[正在学习前段知识，发现了一个很好玩的blog框架Hexo,于是用来搭建自己的blog.第一篇就用来介绍如何一步一步完成搭建的. 目录 准备 构建 创建 配置 主题 插件 写作 生成 运行 发布与部署 发布到云服务器 部署到github.io 准备需要在电脑中安装以下： node.js node 安装后 自带 npm 包管理器。安装方式请参考官网。 git git 用于创建hexo项目、更换主题、管理创建的hexo项目源码以及部署到github.io使用。安装方式请参考官网。 hexo-cli 用于创建、管理、发布hexo项目。使用npm包管理器安装：1npm install -g hexo-cli 构建创建配置主题插件写作生成运行发布与部署发布到云服务器部署到github.io]]></content>
+    </entry>
+
+    
+  
+  
+</search>
