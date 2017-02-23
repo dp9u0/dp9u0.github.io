@@ -3,22 +3,22 @@
 
     <sitemap>
         <loc>http://baochen.name:4000/post-sitemap.xml</loc>
-        <lastmod>2017-02-22T15:32:53.932Z</lastmod>
+        <lastmod>2017-02-23T05:40:07.611Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>http://baochen.name:4000/page-sitemap.xml</loc>
-        <lastmod>2017-02-22T10:12:55.415Z</lastmod>
+        <lastmod>2017-02-23T05:40:07.611Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>http://baochen.name:4000/category-sitemap.xml</loc>
-        <lastmod>2017-02-22T15:32:53.932Z</lastmod>
+        <lastmod>2017-02-23T05:40:07.611Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>http://baochen.name:4000/tag-sitemap.xml</loc>
-        <lastmod>2017-02-22T15:32:53.932Z</lastmod>
+        <lastmod>2017-02-23T05:40:07.611Z</lastmod>
     </sitemap>
 
 </sitemapindex>
