@@ -3,7 +3,7 @@
 
     <sitemap>
         <loc>http://baochen.name:4000/post-sitemap.xml</loc>
-        <lastmod>2017-02-24T07:38:16.002Z</lastmod>
+        <lastmod>2017-02-24T15:04:41.150Z</lastmod>
     </sitemap>
 
     <sitemap>
@@ -13,12 +13,12 @@
 
     <sitemap>
         <loc>http://baochen.name:4000/category-sitemap.xml</loc>
-        <lastmod>2017-02-24T07:38:16.002Z</lastmod>
+        <lastmod>2017-02-24T15:04:41.150Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>http://baochen.name:4000/tag-sitemap.xml</loc>
-        <lastmod>2017-02-24T03:45:10.356Z</lastmod>
+        <lastmod>2017-02-24T15:04:41.146Z</lastmod>
     </sitemap>
 
 </sitemapindex>
