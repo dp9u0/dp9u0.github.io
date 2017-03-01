@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baochen.name:4000/"/>
-  <updated>2017-02-24T15:22:37.778Z</updated>
+  <updated>2017-03-01T05:02:38.695Z</updated>
   <id>http://baochen.name:4000/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于备案后续</title>
+    <link href="http://baochen.name:4000/2017/03/01/about-beian-2/"/>
+    <id>http://baochen.name:4000/2017/03/01/about-beian-2/</id>
+    <published>2017-03-01T04:43:22.000Z</published>
+    <updated>2017-03-01T05:02:38.695Z</updated>
+    
+    <content type="html"><![CDATA[<p>通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。<br>真可谓快。出乎了我的想象。<br>因为是个人备案，步骤很简单，一部手机+身份证就可以了。<br>据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。&lt;br&gt;真可谓快。出乎了我的想象。&lt;br&gt;因为是个人备案，步
+    
+    </summary>
+    
+      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+    
+    
+      <category term="beian" scheme="http://baochen.name:4000/tags/beian/"/>
+    
+  </entry>
   
   <entry>
     <title>关于备案</title>
