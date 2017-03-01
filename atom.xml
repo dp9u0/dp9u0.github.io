@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baochen.name:4000/"/>
-  <updated>2017-03-01T05:02:38.695Z</updated>
+  <updated>2017-03-01T14:30:12.452Z</updated>
   <id>http://baochen.name:4000/</id>
   
   <author>
@@ -14,6 +14,99 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SQL Server 存储单位:页</title>
+    <link href="http://baochen.name:4000/2017/03/01/data-pages-the-foundation-of-sql-server/"/>
+    <id>http://baochen.name:4000/2017/03/01/data-pages-the-foundation-of-sql-server/</id>
+    <published>2017-03-01T13:53:47.000Z</published>
+    <updated>2017-03-01T14:30:12.452Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">USE</span> [<span class="keyword">Test</span>]</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">if</span> <span class="keyword">exists</span> (<span class="keyword">select</span> * <span class="keyword">from</span> sysobjects <span class="keyword">where</span> <span class="keyword">id</span> =  object_id(N<span class="string">'[dbo].[Customers]'</span>) <span class="keyword">and</span> OBJECTPROPERTY(<span class="keyword">id</span>, N<span class="string">'IsUserTable'</span>) = <span class="number">1</span> )</div><div class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> dbo.Customers</div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Customers</div><div class="line">(</div><div class="line">   FirstName <span class="built_in">CHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   LastName <span class="built_in">CHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   Address <span class="built_in">CHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   ZipCode <span class="built_in">CHAR</span>(<span class="number">5</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   Rating <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   ModifiedDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">)</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> dbo.Customers</div><div class="line">        ( FirstName ,</div><div class="line">          LastName ,</div><div class="line">          Address ,</div><div class="line">          ZipCode ,</div><div class="line">          Rating ,</div><div class="line">          ModifiedDate</div><div class="line">        )</div><div class="line"><span class="keyword">VALUES</span>  ( <span class="string">'Philip'</span> , </div><div class="line">          <span class="string">'Aschenbrenner'</span> ,</div><div class="line">          <span class="string">'Pichlagasse 16/6'</span> , </div><div class="line">          <span class="string">'1220'</span> , </div><div class="line">          <span class="number">1</span> ,</div><div class="line">          <span class="string">'2015-03-25 02:22:51'</span> </div><div class="line">        )</div><div class="line"><span class="keyword">GO</span></div></pre></td></tr></table></figure>  
+<p>DBCC IND 命令用于查询一个存储对象的内部存储结构信息，该命令有4个参数, 前3个参数必须指定。语法如下：<br>DBCC IND ( { ‘dbname’ | dbid }, { ‘objname’ | objid },{ nonclustered indid | 1 | 0 | -1 | -2 } [, partition_number] )<br>第一个参数是数据库名或数据库ID。<br>第二个参数是数据库中的对象名或对象ID，对象可以是表或者索引视图。<br>第三个参数是一个非聚集索引ID或者 1, 0, 1, or 2. 值的含义：<br> 0: 只显示对象的in-row data页和 in-row IAM 页。<br> 1: 显示对象的全部页, 包含IAM 页, in-row数据页, LOB 数据页row-overflow 数据页 . 如果请求的对象含有聚集所以则索引页也包括。<br> -1: 显示全部IAM页,数据页, 索引页 也包括 LOB 和row-overflow 数据页。<br> -2: 显示全部IAM页。<br> Nonclustered index ID:显示索引的全部 IAM页, data页和索引页，包含LOB和 row-overflow数据页。<br>为了兼容sql server 2000,第四个参数是可选的,该参数用于指定一个分区号.如果不给定值或者给定0, 则显示全部分区数据。<br>和DBCC PAGE不同的是, SQL Server运行DBCC IND不需要开启3604跟踪标志.<br>结果中 Page type: 1 = data page, 2 = index page, 3 = LOB_MIXED_PAGE, 4 = LOB_TREE_PAGE, 10 = IAM page   </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DBCC IND('InternalStorageFormat','Customers',-1)</div></pre></td></tr></table></figure>
+<p>DBCC Page 命令读取数据页结构的命令DBCC Page。<br>该命令为非文档化的命令，具体如下：<br>　　DBCC Page ({dbid|dbname},filenum,pagenum[,printopt])<br>　　具体参数描述如下：<br>　　dbid 包含页面的数据库ID<br>　　dbname 包含页面的数据库的名称<br>　　filenum 包含页面的文件编号<br>　　pagenum 文件内的页面<br>　　printopt 可选的输出选项;选用其中一个值：<br>　　0:默认值，输出缓冲区的标题和页面标题<br>　　1:输出缓冲区的标题、页面标题(分别输出每一行)，以及行偏移量表<br>　　2:输出缓冲区的标题、页面标题(整体输出页面)，以及行偏移量表<br>　　3:输出缓冲区的标题、页面标题(分别输出每一行)，以及行偏移量表;每一行<br>　　后跟分别列出的它的列值<br>　　要想看到这些输出的结果，还需要设置DBCC TRACEON(3604)。<br>可以使用 WITH TABLERESULTS 显示成表格化的数据形式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DBCC TRACEON(3604)</div><div class="line">DBCC PAGE(InternalStorageFormat,1,41,3) </div><div class="line">GO    </div></pre></td></tr></table></figure>
+<p>查看空间占用情况<br>free_space_in_bytes 表示在指定页面当前有多少空间是可用的。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</div></pre></td></tr></table></figure>
+<p>下面这个查询可以告诉你在你的数据库实例里每个数据有多少空间被浪费，可以找出哪个数据库有糟糕的表设计。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span></div><div class="line">DB_NAME(database_id),</div><div class="line"><span class="keyword">SUM</span>(free_space_in_bytes) / <span class="number">1024</span> <span class="keyword">AS</span> <span class="string">'Free_KB'</span></div><div class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</div><div class="line"><span class="keyword">WHERE</span> database_id &lt;&gt; <span class="number">32767</span></div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> database_id</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">SUM</span>(free_space_in_bytes) <span class="keyword">DESC</span></div><div class="line"><span class="keyword">GO</span></div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div cl
+    
+    </summary>
+    
+      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+    
+    
+      <category term="mssql" scheme="http://baochen.name:4000/tags/mssql/"/>
+    
+      <category term="performance tuning" scheme="http://baochen.name:4000/tags/performance-tuning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>01.SQL SERVER如何执行一个查询</title>
+    <link href="http://baochen.name:4000/2017/03/01/how-sql-server-executes-a-query/"/>
+    <id>http://baochen.name:4000/2017/03/01/how-sql-server-executes-a-query/</id>
+    <published>2017-03-01T12:35:53.000Z</published>
+    <updated>2017-03-01T14:30:12.452Z</updated>
+    
+    <content type="html"><![CDATA[<p>根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。<br><a id="more"></a></p>
+<h1 id="提交查询"><a href="#提交查询" class="headerlink" title="提交查询"></a>提交查询</h1><p>客户端提交给数据库的查询通过SQL Server网络接口等协议层(Protocol Layer)传给命令解析器。</p>
+<h1 id="命令解析器-Command-Parser-处理"><a href="#命令解析器-Command-Parser-处理" class="headerlink" title="命令解析器(Command Parser)处理"></a>命令解析器(Command Parser)处理</h1><p>命令解释器接收到查询会做以下工作：</p>
+<ul>
+<li>检查<ul>
+<li>语法正确</li>
+<li>数据库表存在</li>
+<li>查询列存在</li>
+</ul>
+</li>
+<li>生成查询树(Query Tree)：重现查询</li>
+<li>查询树提交给查询优化器</li>
+</ul>
+<h1 id="查询优化器-Query-Optimizer-处理"><a href="#查询优化器-Query-Optimizer-处理" class="headerlink" title="查询优化器(Query Optimizer)处理"></a>查询优化器(Query Optimizer)处理</h1><ul>
+<li>查询优化器将查询树编译为查询计划(Execution Plan)</li>
+<li>将查询计划缓存到缓冲池(Buffer Pool)中的执行计划缓存区(Plan Cache)</li>
+<li>将查询计划提交给查询执行器</li>
+</ul>
+<h1 id="查询执行器-Query-Executor-处理"><a href="#查询执行器-Query-Executor-处理" class="headerlink" title="查询执行器(Query Executor)处理"></a>查询执行器(Query Executor)处理</h1><ul>
+<li>查询分析器根据查询计划向存取方法(Access Methods)拿指定的读取页,存取方法会向缓冲区管理器读取想要指定页。</li>
+<li>缓存区管理器(Buffer Manager)检查它是否已在数据缓存(data cache)，如果没找到的话就从磁盘加载到缓存。<ul>
+<li>当请求的页面已经被存在缓冲池时,页会被立即读取,称为逻辑读。</li>
+<li>如果请求的页没存在缓冲池,缓冲区管理器会发起异步I/O操作把请求的页存储子系统中读到缓冲池,称为物理读。<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h1></li>
+</ul>
+</li>
+</ul>
+<p>当修改数据(INSERT,DELETE,UPDATE)时，需要与事务管理器进行交互，事务管理器把执行事务中描述的改变通过事务日志写到事务文件。</p>
+<img src="/2017/03/01/how-sql-server-executes-a-query/mssqlarch.png" alt="sql server 核心架构图" title="sql server 核心架构图">
+<h1 id="数据缓存-Data-Cache"><a href="#数据缓存-Data-Cache" class="headerlink" title="数据缓存(Data Cache)"></a>数据缓存(Data Cache)</h1><p>查看每个数据库占用了多大数据缓存(sys.dm_os_buffer_descriptors)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(*)*<span class="number">8</span>/<span class="number">1024</span> <span class="keyword">AS</span> <span class="string">'Cached Size (MB)'</span></div><div class="line">	,<span class="keyword">CASE</span> database_id</div><div class="line">		<span class="keyword">WHEN</span> <span class="number">32767</span> <span class="keyword">THEN</span> <span class="string">'ResourceDb'</span></div><div class="line">		<span class="keyword">ELSE</span> db_name(database_id)</div><div class="line">		<span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Database'</span></div><div class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> db_name(database_id),database_id</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="string">'Cached Size (MB)'</span> <span class="keyword">DESC</span></div></pre></td></tr></table></figure>
+<h1 id="干净页和脏页"><a href="#干净页和脏页" class="headerlink" title="干净页和脏页"></a>干净页和脏页</h1><p>清除干净页</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DBCC DROPCLEANBUFFERS</div></pre></td></tr></table></figure>
+<p>查询脏页</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> db_name(database_id) <span class="keyword">AS</span> <span class="string">'Database'</span>,<span class="keyword">count</span>(page_id) <span class="keyword">AS</span> <span class="string">'Dirty Pages'</span></div><div class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</div><div class="line"><span class="keyword">WHERE</span> is_modified =<span class="number">1</span></div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> db_name(database_id)</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">count</span>(page_id) <span class="keyword">DESC</span></div></pre></td></tr></table></figure>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a href="http://rusanu.com/2013/08/01/understanding-how-sql-server-executes-a-query" target="_blank" rel="external">understanding-how-sql-server-executes-a-query</a><br><a href="http://www.cnblogs.com/woodytu/p/4465649.html" target="_blank" rel="external">第1/24周 SQL Server 如何执行一个查询</a><br><a href="http://www.cnblogs.com/woodytu/p/4471386.html" target="_blank" rel="external">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(1)</a><br><a href="http://www.cnblogs.com/woodytu/p/4472315.html" target="_blank" rel="external">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(2)</a><br><a href="http://www.cnblogs.com/woodytu/p/4474652.html" target="_blank" rel="external">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(3)</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+    
+    
+      <category term="mssql" scheme="http://baochen.name:4000/tags/mssql/"/>
+    
+      <category term="performance tuning" scheme="http://baochen.name:4000/tags/performance-tuning/"/>
+    
+  </entry>
   
   <entry>
     <title>关于备案后续</title>

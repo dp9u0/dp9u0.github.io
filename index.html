@@ -337,6 +337,346 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://baochen.name:4000/2017/03/01/data-pages-the-foundation-of-sql-server/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dengpeng Guo">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/10483023?v=3&u=1e1931d451864cfe0cba9ac7e59e70a342743885&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Dengpeng Guo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Dengpeng Guo" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/01/data-pages-the-foundation-of-sql-server/" itemprop="url">
+                  SQL Server 存储单位:页
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T21:53:47+08:00">
+                2017-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/knowledge/" itemprop="url" rel="index">
+                    <span itemprop="name">knowledge</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/01/data-pages-the-foundation-of-sql-server/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/01/data-pages-the-foundation-of-sql-server/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/01/data-pages-the-foundation-of-sql-server/" class="leancloud_visitors" data-flag-title="SQL Server 存储单位:页">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">USE</span> [<span class="keyword">Test</span>]</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">if</span> <span class="keyword">exists</span> (<span class="keyword">select</span> * <span class="keyword">from</span> sysobjects <span class="keyword">where</span> <span class="keyword">id</span> =  object_id(N<span class="string">'[dbo].[Customers]'</span>) <span class="keyword">and</span> OBJECTPROPERTY(<span class="keyword">id</span>, N<span class="string">'IsUserTable'</span>) = <span class="number">1</span> )</div><div class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> dbo.Customers</div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Customers</div><div class="line">(</div><div class="line">   FirstName <span class="built_in">CHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   LastName <span class="built_in">CHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   Address <span class="built_in">CHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   ZipCode <span class="built_in">CHAR</span>(<span class="number">5</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   Rating <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">   ModifiedDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">)</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> dbo.Customers</div><div class="line">        ( FirstName ,</div><div class="line">          LastName ,</div><div class="line">          Address ,</div><div class="line">          ZipCode ,</div><div class="line">          Rating ,</div><div class="line">          ModifiedDate</div><div class="line">        )</div><div class="line"><span class="keyword">VALUES</span>  ( <span class="string">'Philip'</span> , </div><div class="line">          <span class="string">'Aschenbrenner'</span> ,</div><div class="line">          <span class="string">'Pichlagasse 16/6'</span> , </div><div class="line">          <span class="string">'1220'</span> , </div><div class="line">          <span class="number">1</span> ,</div><div class="line">          <span class="string">'2015-03-25 02:22:51'</span> </div><div class="line">        )</div><div class="line"><span class="keyword">GO</span></div></pre></td></tr></table></figure>  
+<p>DBCC IND 命令用于查询一个存储对象的内部存储结构信息，该命令有4个参数, 前3个参数必须指定。语法如下：<br>DBCC IND ( { ‘dbname’ | dbid }, { ‘objname’ | objid },{ nonclustered indid | 1 | 0 | -1 | -2 } [, partition_number] )<br>第一个参数是数据库名或数据库ID。<br>第二个参数是数据库中的对象名或对象ID，对象可以是表或者索引视图。<br>第三个参数是一个非聚集索引ID或者 1, 0, 1, or 2. 值的含义：<br> 0: 只显示对象的in-row data页和 in-row IAM 页。<br> 1: 显示对象的全部页, 包含IAM 页, in-row数据页, LOB 数据页row-overflow 数据页 . 如果请求的对象含有聚集所以则索引页也包括。<br> -1: 显示全部IAM页,数据页, 索引页 也包括 LOB 和row-overflow 数据页。<br> -2: 显示全部IAM页。<br> Nonclustered index ID:显示索引的全部 IAM页, data页和索引页，包含LOB和 row-overflow数据页。<br>为了兼容sql server 2000,第四个参数是可选的,该参数用于指定一个分区号.如果不给定值或者给定0, 则显示全部分区数据。<br>和DBCC PAGE不同的是, SQL Server运行DBCC IND不需要开启3604跟踪标志.<br>结果中 Page type: 1 = data page, 2 = index page, 3 = LOB_MIXED_PAGE, 4 = LOB_TREE_PAGE, 10 = IAM page   </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DBCC IND('InternalStorageFormat','Customers',-1)</div></pre></td></tr></table></figure>
+<p>DBCC Page 命令读取数据页结构的命令DBCC Page。<br>该命令为非文档化的命令，具体如下：<br>　　DBCC Page ({dbid|dbname},filenum,pagenum[,printopt])<br>　　具体参数描述如下：<br>　　dbid 包含页面的数据库ID<br>　　dbname 包含页面的数据库的名称<br>　　filenum 包含页面的文件编号<br>　　pagenum 文件内的页面<br>　　printopt 可选的输出选项;选用其中一个值：<br>　　0:默认值，输出缓冲区的标题和页面标题<br>　　1:输出缓冲区的标题、页面标题(分别输出每一行)，以及行偏移量表<br>　　2:输出缓冲区的标题、页面标题(整体输出页面)，以及行偏移量表<br>　　3:输出缓冲区的标题、页面标题(分别输出每一行)，以及行偏移量表;每一行<br>　　后跟分别列出的它的列值<br>　　要想看到这些输出的结果，还需要设置DBCC TRACEON(3604)。<br>可以使用 WITH TABLERESULTS 显示成表格化的数据形式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DBCC TRACEON(3604)</div><div class="line">DBCC PAGE(InternalStorageFormat,1,41,3) </div><div class="line">GO    </div></pre></td></tr></table></figure>
+<p>查看空间占用情况<br>free_space_in_bytes 表示在指定页面当前有多少空间是可用的。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</div></pre></td></tr></table></figure>
+<p>下面这个查询可以告诉你在你的数据库实例里每个数据有多少空间被浪费，可以找出哪个数据库有糟糕的表设计。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span></div><div class="line">DB_NAME(database_id),</div><div class="line"><span class="keyword">SUM</span>(free_space_in_bytes) / <span class="number">1024</span> <span class="keyword">AS</span> <span class="string">'Free_KB'</span></div><div class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</div><div class="line"><span class="keyword">WHERE</span> database_id &lt;&gt; <span class="number">32767</span></div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> database_id</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">SUM</span>(free_space_in_bytes) <span class="keyword">DESC</span></div><div class="line"><span class="keyword">GO</span></div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://baochen.name:4000/2017/03/01/how-sql-server-executes-a-query/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dengpeng Guo">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/10483023?v=3&u=1e1931d451864cfe0cba9ac7e59e70a342743885&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Dengpeng Guo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Dengpeng Guo" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/01/how-sql-server-executes-a-query/" itemprop="url">
+                  01.SQL SERVER如何执行一个查询
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T20:35:53+08:00">
+                2017-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/knowledge/" itemprop="url" rel="index">
+                    <span itemprop="name">knowledge</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/01/how-sql-server-executes-a-query/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/01/how-sql-server-executes-a-query/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/01/how-sql-server-executes-a-query/" class="leancloud_visitors" data-flag-title="01.SQL SERVER如何执行一个查询">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/01/how-sql-server-executes-a-query/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://baochen.name:4000/2017/03/01/about-beian-2/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1211,7 +1551,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1229,7 +1569,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
