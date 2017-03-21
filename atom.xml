@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baochen.name:4000/"/>
-  <updated>2017-03-21T14:30:10.489Z</updated>
+  <updated>2017-03-21T14:41:17.562Z</updated>
   <id>http://baochen.name:4000/</id>
   
   <author>
@@ -16,11 +16,91 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>SQL Server存储单位:页</title>
+    <title>sql server 锁</title>
+    <link href="http://baochen.name:4000/2017/03/21/sql-server-locks/"/>
+    <id>http://baochen.name:4000/2017/03/21/sql-server-locks/</id>
+    <published>2017-03-21T14:12:11.000Z</published>
+    <updated>2017-03-21T14:41:17.562Z</updated>
+    
+    <content type="html"><![CDATA[<p>介绍SQL Server 的锁</p>
+<a id="more"></a>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#准备">准备</a></li>
+<li><a href="#关于锁">关于锁</a></li>
+<li><a href="#锁资源和兼容性">锁资源和兼容性</a></li>
+<li><a href="#sqlserver事务隔离级别">sqlserver事务隔离级别</a></li>
+<li><a href="#事务隔离级别和锁释放">事务隔离级别和锁释放</a></li>
+<li><a href="#监视锁释放">监视锁释放</a></li>
+<li><a href="#实际查询中锁的申请与释放">实际查询中锁的申请与释放</a><ul>
+<li><a href="#SELECT">SELECT</a></li>
+<li><a href="#UPDATE">UPDATE</a></li>
+<li><a href="#DELETE">DELETE</a></li>
+<li><a href="#INSERT">INSERT</a></li>
+</ul>
+</li>
+</ul>
+<p>#准备</p>
+<p>下载巨硬提供的<a href="https://msftdbprodsamples.codeplex.com/" target="_blank" rel="external">AdventureWorks</a>,下载的是<a href="https://msftdbprodsamples.codeplex.com/releases/view/125550" target="_blank" rel="external">2014版本</a>.是bak文件，直接恢复数据库就可以了.</p>
+<p>如果比较旧的版本，例如2008R2，提供的是下载的是 mdf和ldf.可以用CRTEATE DATABASE 命令，从文件创建：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> AdventureWorks</div><div class="line"><span class="keyword">ON</span> (FILENAME = <span class="string">'C:\Data\AdventureWorks2008R2_Data.mdf'</span>), (FILENAME = <span class="string">'C:\Data\AdventureWorks2008R2_Log.ldf'</span>) <span class="keyword">FOR</span> ATTACH;</div></pre></td></tr></table></figure>
+<p>创建完成后，创建需要的表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line"><span class="comment">----------------------------------------------B树表聚集索引表-------------------------------------------</span></div><div class="line"><span class="keyword">USE</span> [AdventureWorks]</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">IF</span> <span class="keyword">EXISTS</span> ( <span class="keyword">SELECT</span> TABLE_NAME <span class="keyword">FROM</span> INFORMATION_SCHEMA.TABLES <span class="keyword">WHERE</span> TABLE_NAME = <span class="string">'Employee_Demo_BTree'</span>)</div><div class="line">  <span class="keyword">DROP</span> <span class="keyword">TABLE</span> Employee_Demo_BTree</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Employee_Demo_BTree(</div><div class="line">  EmployeeID <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span>,</div><div class="line">  NationalIDNumber <span class="keyword">NVARCHAR</span>(<span class="number">15</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ContactID <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  LoginID <span class="keyword">NVARCHAR</span>(<span class="number">256</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ManagerID <span class="built_in">INT</span> <span class="literal">NULL</span>,</div><div class="line">  Title <span class="keyword">NVARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  BirthDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  MaritalStatus <span class="keyword">NCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  Gender <span class="keyword">NCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  HireDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ModifiedDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">GETDATE</span>()</div><div class="line">)</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="comment">--主键就已经是聚集索引了,无需再指定</span></div><div class="line"><span class="comment">--CREATE CLUSTERED INDEX PK_Employee_EmployeeID_Demo_BTree ON Employee_Demo_BTree(EmployeeID ASC)</span></div><div class="line"><span class="comment">--添加非聚集索引</span></div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> IX_Employee_ManagerID_Demo_BTree <span class="keyword">ON</span> Employee_Demo_BTree([ManagerID] <span class="keyword">ASC</span>)</div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> IX_Employee_ModifiedDate_Demo_BTree <span class="keyword">ON</span> Employee_Demo_BTree( [ModifiedDate] <span class="keyword">ASC</span>)</div><div class="line"><span class="comment">--插入数据</span></div><div class="line"><span class="keyword">INSERT</span> [dbo].[Employee_Demo_BTree]</div><div class="line">  <span class="keyword">SELECT</span> [BusinessEntityID],</div><div class="line">    [NationalIDNumber],</div><div class="line">    [BusinessEntityID]+<span class="number">100</span>,</div><div class="line">    [LoginID],</div><div class="line">    [BusinessEntityID]%<span class="number">50</span>,</div><div class="line">    [JobTitle],</div><div class="line">    [BirthDate],</div><div class="line">    [MaritalStatus],</div><div class="line">    [Gender],</div><div class="line">    [HireDate],</div><div class="line">    [ModifiedDate]</div><div class="line">  <span class="keyword">FROM</span> [HumanResources].[Employee]</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="comment">----------------------------------------------堆表非聚集索引表-------------------------------------------</span></div><div class="line"><span class="keyword">USE</span> [AdventureWorks]</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">IF</span> <span class="keyword">EXISTS</span>(<span class="keyword">SELECT</span> TABLE_NAME <span class="keyword">FROM</span> INFORMATION_SCHEMA.TABLES <span class="keyword">WHERE</span> TABLE_NAME = <span class="string">'Employee_Demo_Heap'</span>)</div><div class="line">  <span class="keyword">DROP</span> <span class="keyword">TABLE</span> Employee_Demo_Heap</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Employee_Demo_Heap(</div><div class="line">  EmployeeID <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  NationalIDNumber <span class="keyword">NVARCHAR</span>(<span class="number">15</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ContactID <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  LoginID <span class="keyword">NVARCHAR</span>(<span class="number">256</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ManagerID <span class="built_in">INT</span> <span class="literal">NULL</span>,</div><div class="line">  Title <span class="keyword">NVARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  BirthDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  MaritalStatus <span class="keyword">NCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  Gender <span class="keyword">NCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  HireDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ModifiedDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">GETDATE</span>()</div><div class="line">)</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="comment">--因为没有主键所以要指定非聚集索引</span></div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> PK_Employee_EmployeeID_Demo_Heap <span class="keyword">ON</span> Employee_Demo_Heap( [EmployeeID] <span class="keyword">ASC</span>)</div><div class="line"><span class="comment">--添加非聚集索引</span></div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> IX_Employee_ManagerID_Demo_Heap <span class="keyword">ON</span> Employee_Demo_BTree([ManagerID] <span class="keyword">ASC</span>)</div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> IX_Employee_ModifiedDate_Demo_Heap <span class="keyword">ON</span> Employee_Demo_BTree( [ModifiedDate] <span class="keyword">ASC</span>)</div><div class="line"><span class="comment">--插入数据</span></div><div class="line"><span class="keyword">INSERT</span> [dbo].[Employee_Demo_Heap]</div><div class="line">  <span class="keyword">SELECT</span> [BusinessEntityID],</div><div class="line">    [NationalIDNumber],</div><div class="line">    [BusinessEntityID]+<span class="number">100</span>,</div><div class="line">    [LoginID],</div><div class="line">    [BusinessEntityID]%<span class="number">50</span>,</div><div class="line">    [JobTitle],</div><div class="line">    [BirthDate],</div><div class="line">    [MaritalStatus],</div><div class="line">    [Gender],</div><div class="line">    [HireDate],</div><div class="line">    [ModifiedDate]</div><div class="line">  <span class="keyword">FROM</span> [HumanResources].[Employee]</div><div class="line"><span class="keyword">GO</span></div></pre></td></tr></table></figure>
+<h1 id="关于锁"><a href="#关于锁" class="headerlink" title="关于锁"></a>关于锁</h1><h1 id="锁资源和兼容性"><a href="#锁资源和兼容性" class="headerlink" title="锁资源和兼容性"></a>锁资源和兼容性</h1><h1 id="sqlserver事务隔离级别"><a href="#sqlserver事务隔离级别" class="headerlink" title="sqlserver事务隔离级别"></a>sqlserver事务隔离级别</h1><h1 id="事务隔离级别和锁释放"><a href="#事务隔离级别和锁释放" class="headerlink" title="事务隔离级别和锁释放"></a>事务隔离级别和锁释放</h1><h1 id="监视锁释放"><a href="#监视锁释放" class="headerlink" title="监视锁释放"></a>监视锁释放</h1><h1 id="实际查询中锁的申请与释放"><a href="#实际查询中锁的申请与释放" class="headerlink" title="实际查询中锁的申请与释放"></a>实际查询中锁的申请与释放</h1><h2 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h2><h2 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h2><h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><h2 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;介绍SQL Server 的锁&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+    
+    
+      <category term="mssql" scheme="http://baochen.name:4000/tags/mssql/"/>
+    
+      <category term="lock" scheme="http://baochen.name:4000/tags/lock/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQL Server基本管理单位:区(Extend)</title>
+    <link href="http://baochen.name:4000/2017/03/21/sql-server-extend-management/"/>
+    <id>http://baochen.name:4000/2017/03/21/sql-server-extend-management/</id>
+    <published>2017-03-21T13:50:07.000Z</published>
+    <updated>2017-03-21T14:41:17.562Z</updated>
+    
+    <content type="html"><![CDATA[<p>区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：</p>
+<ul>
+<li>混合区</li>
+<li>统一区</li>
+</ul>
+<a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;混合区&lt;/li&gt;
+&lt;li&gt;统一区&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+    
+    
+      <category term="mssql" scheme="http://baochen.name:4000/tags/mssql/"/>
+    
+      <category term="performance tuning" scheme="http://baochen.name:4000/tags/performance-tuning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>02.SQL Server存储单位:页(Page)</title>
     <link href="http://baochen.name:4000/2017/03/01/data-pages-the-foundation-of-sql-server/"/>
     <id>http://baochen.name:4000/2017/03/01/data-pages-the-foundation-of-sql-server/</id>
     <published>2017-03-01T13:53:53.000Z</published>
-    <updated>2017-03-21T14:30:10.489Z</updated>
+    <updated>2017-03-21T14:41:17.562Z</updated>
     
     <content type="html"><![CDATA[<p>SQL Server 基本存储单位是页，一个页大小为8K。<br>页分为不同的类型：</p>
 <a id="more"></a>

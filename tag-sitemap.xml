@@ -38,14 +38,21 @@
 
     <url>
         <loc>http://baochen.name:4000/tags/mssql/</loc>
-        <lastmod>2017-03-21T14:30:10.489Z</lastmod>
+        <lastmod>2017-03-21T14:41:17.562Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://baochen.name:4000/tags/performance-tuning/</loc>
-        <lastmod>2017-03-21T14:30:10.489Z</lastmod>
+        <lastmod>2017-03-21T14:41:17.562Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://baochen.name:4000/tags/lock/</loc>
+        <lastmod>2017-03-21T14:41:17.562Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

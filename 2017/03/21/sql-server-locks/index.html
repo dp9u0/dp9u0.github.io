@@ -75,7 +75,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="beian," />
+  <meta name="keywords" content="mssql,lock," />
 
 
 
@@ -93,16 +93,16 @@
 
 
 
-<meta name="description" content="通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。真可谓快。出乎了我的想象。因为是个人备案，步骤很简单，一部手机+身份证就可以了。据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。">
+<meta name="description" content="介绍SQL Server 的锁">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于备案后续">
-<meta property="og:url" content="http://baochen.name:4000/2017/03/01/about-beian-2/index.html">
+<meta property="og:title" content="sql server 锁">
+<meta property="og:url" content="http://baochen.name:4000/2017/03/21/sql-server-locks/index.html">
 <meta property="og:site_name" content="Dengpeng Guo">
-<meta property="og:description" content="通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。真可谓快。出乎了我的想象。因为是个人备案，步骤很简单，一部手机+身份证就可以了。据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。">
-<meta property="og:updated_time" content="2017-03-01T05:02:38.695Z">
+<meta property="og:description" content="介绍SQL Server 的锁">
+<meta property="og:updated_time" content="2017-03-21T14:41:17.562Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于备案后续">
-<meta name="twitter:description" content="通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。真可谓快。出乎了我的想象。因为是个人备案，步骤很简单，一部手机+身份证就可以了。据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。">
+<meta name="twitter:title" content="sql server 锁">
+<meta name="twitter:description" content="介绍SQL Server 的锁">
 
 
 
@@ -130,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://baochen.name:4000/2017/03/01/about-beian-2/"/>
+  <link rel="canonical" href="http://baochen.name:4000/2017/03/21/sql-server-locks/"/>
 
 
 
 
 
-  <title> 关于备案后续 | Dengpeng Guo </title>
+  <title> sql server 锁 | Dengpeng Guo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -336,7 +336,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://baochen.name:4000/2017/03/01/about-beian-2/">
+  <link itemprop="mainEntityOfPage" href="http://baochen.name:4000/2017/03/21/sql-server-locks/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Dengpeng Guo">
@@ -360,7 +360,7 @@
             
             
               
-                关于备案后续
+                sql server 锁
               
             
           </h2>
@@ -375,8 +375,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T12:43:22+08:00">
-                2017-03-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-21T22:12:11+08:00">
+                2017-03-21
               </time>
             
 
@@ -416,8 +416,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/01/about-beian-2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/01/about-beian-2/" itemprop="commentCount"></span>
+                <a href="/2017/03/21/sql-server-locks/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/21/sql-server-locks/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -425,7 +425,7 @@
 
           
           
-             <span id="/2017/03/01/about-beian-2/" class="leancloud_visitors" data-flag-title="关于备案后续">
+             <span id="/2017/03/21/sql-server-locks/" class="leancloud_visitors" data-flag-title="sql server 锁">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -454,8 +454,30 @@
       
 
       
-        <p>通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。<br>真可谓快。出乎了我的想象。<br>因为是个人备案，步骤很简单，一部手机+身份证就可以了。<br>据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。</p>
-
+        <p>介绍SQL Server 的锁</p>
+<a id="more"></a>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#准备">准备</a></li>
+<li><a href="#关于锁">关于锁</a></li>
+<li><a href="#锁资源和兼容性">锁资源和兼容性</a></li>
+<li><a href="#sqlserver事务隔离级别">sqlserver事务隔离级别</a></li>
+<li><a href="#事务隔离级别和锁释放">事务隔离级别和锁释放</a></li>
+<li><a href="#监视锁释放">监视锁释放</a></li>
+<li><a href="#实际查询中锁的申请与释放">实际查询中锁的申请与释放</a><ul>
+<li><a href="#SELECT">SELECT</a></li>
+<li><a href="#UPDATE">UPDATE</a></li>
+<li><a href="#DELETE">DELETE</a></li>
+<li><a href="#INSERT">INSERT</a></li>
+</ul>
+</li>
+</ul>
+<p>#准备</p>
+<p>下载巨硬提供的<a href="https://msftdbprodsamples.codeplex.com/" target="_blank" rel="external">AdventureWorks</a>,下载的是<a href="https://msftdbprodsamples.codeplex.com/releases/view/125550" target="_blank" rel="external">2014版本</a>.是bak文件，直接恢复数据库就可以了.</p>
+<p>如果比较旧的版本，例如2008R2，提供的是下载的是 mdf和ldf.可以用CRTEATE DATABASE 命令，从文件创建：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> AdventureWorks</div><div class="line"><span class="keyword">ON</span> (FILENAME = <span class="string">'C:\Data\AdventureWorks2008R2_Data.mdf'</span>), (FILENAME = <span class="string">'C:\Data\AdventureWorks2008R2_Log.ldf'</span>) <span class="keyword">FOR</span> ATTACH;</div></pre></td></tr></table></figure>
+<p>创建完成后，创建需要的表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line"><span class="comment">----------------------------------------------B树表聚集索引表-------------------------------------------</span></div><div class="line"><span class="keyword">USE</span> [AdventureWorks]</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">IF</span> <span class="keyword">EXISTS</span> ( <span class="keyword">SELECT</span> TABLE_NAME <span class="keyword">FROM</span> INFORMATION_SCHEMA.TABLES <span class="keyword">WHERE</span> TABLE_NAME = <span class="string">'Employee_Demo_BTree'</span>)</div><div class="line">  <span class="keyword">DROP</span> <span class="keyword">TABLE</span> Employee_Demo_BTree</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Employee_Demo_BTree(</div><div class="line">  EmployeeID <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span>,</div><div class="line">  NationalIDNumber <span class="keyword">NVARCHAR</span>(<span class="number">15</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ContactID <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  LoginID <span class="keyword">NVARCHAR</span>(<span class="number">256</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ManagerID <span class="built_in">INT</span> <span class="literal">NULL</span>,</div><div class="line">  Title <span class="keyword">NVARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  BirthDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  MaritalStatus <span class="keyword">NCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  Gender <span class="keyword">NCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  HireDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ModifiedDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">GETDATE</span>()</div><div class="line">)</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="comment">--主键就已经是聚集索引了,无需再指定</span></div><div class="line"><span class="comment">--CREATE CLUSTERED INDEX PK_Employee_EmployeeID_Demo_BTree ON Employee_Demo_BTree(EmployeeID ASC)</span></div><div class="line"><span class="comment">--添加非聚集索引</span></div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> IX_Employee_ManagerID_Demo_BTree <span class="keyword">ON</span> Employee_Demo_BTree([ManagerID] <span class="keyword">ASC</span>)</div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> IX_Employee_ModifiedDate_Demo_BTree <span class="keyword">ON</span> Employee_Demo_BTree( [ModifiedDate] <span class="keyword">ASC</span>)</div><div class="line"><span class="comment">--插入数据</span></div><div class="line"><span class="keyword">INSERT</span> [dbo].[Employee_Demo_BTree]</div><div class="line">  <span class="keyword">SELECT</span> [BusinessEntityID],</div><div class="line">    [NationalIDNumber],</div><div class="line">    [BusinessEntityID]+<span class="number">100</span>,</div><div class="line">    [LoginID],</div><div class="line">    [BusinessEntityID]%<span class="number">50</span>,</div><div class="line">    [JobTitle],</div><div class="line">    [BirthDate],</div><div class="line">    [MaritalStatus],</div><div class="line">    [Gender],</div><div class="line">    [HireDate],</div><div class="line">    [ModifiedDate]</div><div class="line">  <span class="keyword">FROM</span> [HumanResources].[Employee]</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="comment">----------------------------------------------堆表非聚集索引表-------------------------------------------</span></div><div class="line"><span class="keyword">USE</span> [AdventureWorks]</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">IF</span> <span class="keyword">EXISTS</span>(<span class="keyword">SELECT</span> TABLE_NAME <span class="keyword">FROM</span> INFORMATION_SCHEMA.TABLES <span class="keyword">WHERE</span> TABLE_NAME = <span class="string">'Employee_Demo_Heap'</span>)</div><div class="line">  <span class="keyword">DROP</span> <span class="keyword">TABLE</span> Employee_Demo_Heap</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Employee_Demo_Heap(</div><div class="line">  EmployeeID <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  NationalIDNumber <span class="keyword">NVARCHAR</span>(<span class="number">15</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ContactID <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  LoginID <span class="keyword">NVARCHAR</span>(<span class="number">256</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ManagerID <span class="built_in">INT</span> <span class="literal">NULL</span>,</div><div class="line">  Title <span class="keyword">NVARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  BirthDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  MaritalStatus <span class="keyword">NCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  Gender <span class="keyword">NCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  HireDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">  ModifiedDate DATETIME <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">GETDATE</span>()</div><div class="line">)</div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="comment">--因为没有主键所以要指定非聚集索引</span></div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> PK_Employee_EmployeeID_Demo_Heap <span class="keyword">ON</span> Employee_Demo_Heap( [EmployeeID] <span class="keyword">ASC</span>)</div><div class="line"><span class="comment">--添加非聚集索引</span></div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> IX_Employee_ManagerID_Demo_Heap <span class="keyword">ON</span> Employee_Demo_BTree([ManagerID] <span class="keyword">ASC</span>)</div><div class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> IX_Employee_ModifiedDate_Demo_Heap <span class="keyword">ON</span> Employee_Demo_BTree( [ModifiedDate] <span class="keyword">ASC</span>)</div><div class="line"><span class="comment">--插入数据</span></div><div class="line"><span class="keyword">INSERT</span> [dbo].[Employee_Demo_Heap]</div><div class="line">  <span class="keyword">SELECT</span> [BusinessEntityID],</div><div class="line">    [NationalIDNumber],</div><div class="line">    [BusinessEntityID]+<span class="number">100</span>,</div><div class="line">    [LoginID],</div><div class="line">    [BusinessEntityID]%<span class="number">50</span>,</div><div class="line">    [JobTitle],</div><div class="line">    [BirthDate],</div><div class="line">    [MaritalStatus],</div><div class="line">    [Gender],</div><div class="line">    [HireDate],</div><div class="line">    [ModifiedDate]</div><div class="line">  <span class="keyword">FROM</span> [HumanResources].[Employee]</div><div class="line"><span class="keyword">GO</span></div></pre></td></tr></table></figure>
+<h1 id="关于锁"><a href="#关于锁" class="headerlink" title="关于锁"></a>关于锁</h1><h1 id="锁资源和兼容性"><a href="#锁资源和兼容性" class="headerlink" title="锁资源和兼容性"></a>锁资源和兼容性</h1><h1 id="sqlserver事务隔离级别"><a href="#sqlserver事务隔离级别" class="headerlink" title="sqlserver事务隔离级别"></a>sqlserver事务隔离级别</h1><h1 id="事务隔离级别和锁释放"><a href="#事务隔离级别和锁释放" class="headerlink" title="事务隔离级别和锁释放"></a>事务隔离级别和锁释放</h1><h1 id="监视锁释放"><a href="#监视锁释放" class="headerlink" title="监视锁释放"></a>监视锁释放</h1><h1 id="实际查询中锁的申请与释放"><a href="#实际查询中锁的申请与释放" class="headerlink" title="实际查询中锁的申请与释放"></a>实际查询中锁的申请与释放</h1><h2 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h2><h2 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h2><h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><h2 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h2>
       
     </div>
 
@@ -478,7 +500,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/beian/" rel="tag"># beian</a>
+            <a href="/tags/mssql/" rel="tag"># mssql</a>
+          
+            <a href="/tags/lock/" rel="tag"># lock</a>
           
         </div>
       
@@ -491,8 +515,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/24/about-Beian/" rel="next" title="关于备案">
-                <i class="fa fa-chevron-left"></i> 关于备案
+              <a href="/2017/03/21/sql-server-extend-management/" rel="next" title="SQL Server基本管理单位:区(Extend)">
+                <i class="fa fa-chevron-left"></i> SQL Server基本管理单位:区(Extend)
               </a>
             
           </div>
@@ -500,10 +524,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/01/how-sql-server-executes-a-query/" rel="prev" title="01.SQL SERVER如何执行一个查询">
-                01.SQL SERVER如何执行一个查询 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -529,8 +549,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/01/about-beian-2/"
-           data-title="关于备案后续" data-url="http://baochen.name:4000/2017/03/01/about-beian-2/">
+      <div class="ds-thread" data-thread-key="2017/03/21/sql-server-locks/"
+           data-title="sql server 锁" data-url="http://baochen.name:4000/2017/03/21/sql-server-locks/">
       </div>
     
   </div>
@@ -554,8 +574,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars1.githubusercontent.com/u/10483023?v=3&u=1e1931d451864cfe0cba9ac7e59e70a342743885&s=400"
@@ -640,6 +669,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于锁"><span class="nav-number">2.</span> <span class="nav-text">关于锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁资源和兼容性"><span class="nav-number">3.</span> <span class="nav-text">锁资源和兼容性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sqlserver事务隔离级别"><span class="nav-number">4.</span> <span class="nav-text">sqlserver事务隔离级别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务隔离级别和锁释放"><span class="nav-number">5.</span> <span class="nav-text">事务隔离级别和锁释放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#监视锁释放"><span class="nav-number">6.</span> <span class="nav-text">监视锁释放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际查询中锁的申请与释放"><span class="nav-number">7.</span> <span class="nav-text">实际查询中锁的申请与释放</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SELECT"><span class="nav-number">7.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UPDATE"><span class="nav-number">7.2.</span> <span class="nav-text">UPDATE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">7.3.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#INSERT"><span class="nav-number">7.4.</span> <span class="nav-text">INSERT</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
