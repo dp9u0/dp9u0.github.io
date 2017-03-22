@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Dengpeng Guo">
 <meta property="og:description" content="SQL Server 基本存储单位是页，一个页大小为8K。页分为不同的类型：">
 <meta property="og:image" content="http://baochen.name:4000/2017/03/01/data-pages-the-foundation-of-sql-server/112056586572951.png">
-<meta property="og:updated_time" content="2017-03-21T14:41:17.562Z">
+<meta property="og:updated_time" content="2017-03-22T06:30:09.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="02.SQL Server存储单位:页(Page)">
 <meta name="twitter:description" content="SQL Server 基本存储单位是页，一个页大小为8K。页分为不同的类型：">
@@ -564,6 +564,7 @@
 <p>第10个页，页号9，是启动页（page type 13）。启动页只出现在主数据文件（prmary data file）里的第9页，启动页不会出现在第2个数据文件里。我们可以使用DBCC PAGE命令查看它的页信息，在这个页里保存的页信息值是自说明的。如果这个页因某些原因损坏的话，我们将不能使用命令DBCC CheckDb来修复。页还原也不能改变这个情况。只能从上一次好的数据库备份中恢复才可以修复这个问题。</p>
 <p>从第11页开始，你可以看到各种不同的页混合在一起，像数据页，索引页，IAM页，行溢出页和LOB页等等。数据页的页类型是1，索引页的页类型是2，行溢出（Row-overflow）页和LOB页的页类型是3。数据页和索引页是以同样结构保存的。SQL Server：理解数据页结构。</p>
 <p>行溢出（Row-overflow）页用来存储不能在一页里保存的数据。LOB页用来保存大型对象，并不作为行数据的一部分来保存。</p>
+<p><a href="http://www.cnblogs.com/wcyao/archive/2011/06/28/2092241.html" target="_blank" rel="external">存储引擎揭秘</a><br><a href="http://www.cnblogs.com/woodytu/tag/SQL%20Server%20%E5%AD%98%E5%82%A8/" target="_blank" rel="external">SQL Server 存储</a></p>
 
       
     </div>
@@ -612,8 +613,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/21/sql-server-extend-management/" rel="prev" title="SQL Server基本管理单位:区(Extend)">
-                SQL Server基本管理单位:区(Extend) <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/21/sql-server-extend-management/" rel="prev" title="3.SQL Server基本管理单位:区(Extend)">
+                3.SQL Server基本管理单位:区(Extend) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
