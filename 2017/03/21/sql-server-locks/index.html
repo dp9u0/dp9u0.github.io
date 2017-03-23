@@ -99,7 +99,7 @@
 <meta property="og:url" content="http://baochen.name:4000/2017/03/21/sql-server-locks/index.html">
 <meta property="og:site_name" content="Dengpeng Guo">
 <meta property="og:description" content="介绍 SQL Server 的锁，阻塞以及死锁等问题。">
-<meta property="og:updated_time" content="2017-03-23T10:30:15.197Z">
+<meta property="og:updated_time" content="2017-03-23T15:30:22.141Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql server 锁">
 <meta name="twitter:description" content="介绍 SQL Server 的锁，阻塞以及死锁等问题。">
@@ -461,7 +461,6 @@
 <li><a href="#准备">准备</a></li>
 <li><a href="#关于阻塞与死锁">关于阻塞与死锁</a></li>
 <li><a href="#锁资源和兼容性">锁资源和兼容性</a></li>
-<li><a href="#sqlserver事务隔离级别">sqlserver事务隔离级别</a></li>
 <li><a href="#事务隔离级别和锁释放">事务隔离级别和锁释放</a></li>
 <li><a href="#监视锁释放">监视锁释放</a></li>
 <li><a href="#实际查询中锁的申请与释放">实际查询中锁的申请与释放</a><ul>
@@ -539,7 +538,7 @@
 <li>锁数目过多</li>
 <li>锁粒度过大</li>
 </ul>
-<h1 id="锁资源和兼容性"><a href="#锁资源和兼容性" class="headerlink" title="锁资源和兼容性"></a>锁资源和兼容性</h1><h1 id="sqlserver事务隔离级别"><a href="#sqlserver事务隔离级别" class="headerlink" title="sqlserver事务隔离级别"></a>sqlserver事务隔离级别</h1><h1 id="事务隔离级别和锁释放"><a href="#事务隔离级别和锁释放" class="headerlink" title="事务隔离级别和锁释放"></a>事务隔离级别和锁释放</h1><h1 id="监视锁释放"><a href="#监视锁释放" class="headerlink" title="监视锁释放"></a>监视锁释放</h1><h1 id="实际查询中锁的申请与释放"><a href="#实际查询中锁的申请与释放" class="headerlink" title="实际查询中锁的申请与释放"></a>实际查询中锁的申请与释放</h1><h2 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h2><h2 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h2><h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><h2 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h2>
+<h1 id="锁资源和兼容性"><a href="#锁资源和兼容性" class="headerlink" title="锁资源和兼容性"></a>锁资源和兼容性</h1><h1 id="事务隔离级别和锁释放"><a href="#事务隔离级别和锁释放" class="headerlink" title="事务隔离级别和锁释放"></a>事务隔离级别和锁释放</h1><h1 id="监视锁释放"><a href="#监视锁释放" class="headerlink" title="监视锁释放"></a>监视锁释放</h1><h1 id="实际查询中锁的申请与释放"><a href="#实际查询中锁的申请与释放" class="headerlink" title="实际查询中锁的申请与释放"></a>实际查询中锁的申请与释放</h1><h2 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h2><h2 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h2><h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><h2 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h2>
       
     </div>
 
@@ -741,7 +740,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁产生的背景"><span class="nav-number">3.</span> <span class="nav-text">锁产生的背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于阻塞与死锁"><span class="nav-number">4.</span> <span class="nav-text">关于阻塞与死锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁资源和兼容性"><span class="nav-number">5.</span> <span class="nav-text">锁资源和兼容性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sqlserver事务隔离级别"><span class="nav-number">6.</span> <span class="nav-text">sqlserver事务隔离级别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务隔离级别和锁释放"><span class="nav-number">7.</span> <span class="nav-text">事务隔离级别和锁释放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#监视锁释放"><span class="nav-number">8.</span> <span class="nav-text">监视锁释放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际查询中锁的申请与释放"><span class="nav-number">9.</span> <span class="nav-text">实际查询中锁的申请与释放</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SELECT"><span class="nav-number">9.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UPDATE"><span class="nav-number">9.2.</span> <span class="nav-text">UPDATE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">9.3.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#INSERT"><span class="nav-number">9.4.</span> <span class="nav-text">INSERT</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁产生的背景"><span class="nav-number">3.</span> <span class="nav-text">锁产生的背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于阻塞与死锁"><span class="nav-number">4.</span> <span class="nav-text">关于阻塞与死锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁资源和兼容性"><span class="nav-number">5.</span> <span class="nav-text">锁资源和兼容性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务隔离级别和锁释放"><span class="nav-number">6.</span> <span class="nav-text">事务隔离级别和锁释放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#监视锁释放"><span class="nav-number">7.</span> <span class="nav-text">监视锁释放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际查询中锁的申请与释放"><span class="nav-number">8.</span> <span class="nav-text">实际查询中锁的申请与释放</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SELECT"><span class="nav-number">8.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UPDATE"><span class="nav-number">8.2.</span> <span class="nav-text">UPDATE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">8.3.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#INSERT"><span class="nav-number">8.4.</span> <span class="nav-text">INSERT</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baochen.name:4000/"/>
-  <updated>2017-03-23T10:30:15.197Z</updated>
+  <updated>2017-03-23T15:30:22.141Z</updated>
   <id>http://baochen.name:4000/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://baochen.name:4000/2017/03/21/sql-server-locks/"/>
     <id>http://baochen.name:4000/2017/03/21/sql-server-locks/</id>
     <published>2017-03-21T14:12:11.000Z</published>
-    <updated>2017-03-23T10:30:15.197Z</updated>
+    <updated>2017-03-23T15:30:22.141Z</updated>
     
     <content type="html"><![CDATA[<p>介绍 SQL Server 的锁，阻塞以及死锁等问题。</p>
 <a id="more"></a>
@@ -29,7 +29,6 @@
 <li><a href="#准备">准备</a></li>
 <li><a href="#关于阻塞与死锁">关于阻塞与死锁</a></li>
 <li><a href="#锁资源和兼容性">锁资源和兼容性</a></li>
-<li><a href="#sqlserver事务隔离级别">sqlserver事务隔离级别</a></li>
 <li><a href="#事务隔离级别和锁释放">事务隔离级别和锁释放</a></li>
 <li><a href="#监视锁释放">监视锁释放</a></li>
 <li><a href="#实际查询中锁的申请与释放">实际查询中锁的申请与释放</a><ul>
@@ -107,7 +106,7 @@
 <li>锁数目过多</li>
 <li>锁粒度过大</li>
 </ul>
-<h1 id="锁资源和兼容性"><a href="#锁资源和兼容性" class="headerlink" title="锁资源和兼容性"></a>锁资源和兼容性</h1><h1 id="sqlserver事务隔离级别"><a href="#sqlserver事务隔离级别" class="headerlink" title="sqlserver事务隔离级别"></a>sqlserver事务隔离级别</h1><h1 id="事务隔离级别和锁释放"><a href="#事务隔离级别和锁释放" class="headerlink" title="事务隔离级别和锁释放"></a>事务隔离级别和锁释放</h1><h1 id="监视锁释放"><a href="#监视锁释放" class="headerlink" title="监视锁释放"></a>监视锁释放</h1><h1 id="实际查询中锁的申请与释放"><a href="#实际查询中锁的申请与释放" class="headerlink" title="实际查询中锁的申请与释放"></a>实际查询中锁的申请与释放</h1><h2 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h2><h2 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h2><h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><h2 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h2>]]></content>
+<h1 id="锁资源和兼容性"><a href="#锁资源和兼容性" class="headerlink" title="锁资源和兼容性"></a>锁资源和兼容性</h1><h1 id="事务隔离级别和锁释放"><a href="#事务隔离级别和锁释放" class="headerlink" title="事务隔离级别和锁释放"></a>事务隔离级别和锁释放</h1><h1 id="监视锁释放"><a href="#监视锁释放" class="headerlink" title="监视锁释放"></a>监视锁释放</h1><h1 id="实际查询中锁的申请与释放"><a href="#实际查询中锁的申请与释放" class="headerlink" title="实际查询中锁的申请与释放"></a>实际查询中锁的申请与释放</h1><h2 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h2><h2 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h2><h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><h2 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h2>]]></content>
     
     <summary type="html">
     
