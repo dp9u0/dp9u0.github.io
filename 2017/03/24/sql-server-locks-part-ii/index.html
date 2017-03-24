@@ -93,22 +93,16 @@
 
 
 
-<meta name="description" content="准备下载巨硬提供的AdventureWorks,下载的是2014版本.是bak文件，直接恢复数据库就可以了.
-如果比较旧的版本，例如2008R2，提供的是下载的是 mdf和ldf.可以用CRTEATE DATABASE 命令，从文件创建：
-12CREATE DATABASE AdventureWorksON (FILENAME = &apos;C:\Data\AdventureWorks2008R2_Dat">
+<meta name="description" content="继续学习sql server锁.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql server 锁(2)">
 <meta property="og:url" content="http://baochen.name:4000/2017/03/24/sql-server-locks-part-ii/index.html">
 <meta property="og:site_name" content="Dengpeng Guo">
-<meta property="og:description" content="准备下载巨硬提供的AdventureWorks,下载的是2014版本.是bak文件，直接恢复数据库就可以了.
-如果比较旧的版本，例如2008R2，提供的是下载的是 mdf和ldf.可以用CRTEATE DATABASE 命令，从文件创建：
-12CREATE DATABASE AdventureWorksON (FILENAME = &apos;C:\Data\AdventureWorks2008R2_Dat">
-<meta property="og:updated_time" content="2017-03-24T07:30:10.183Z">
+<meta property="og:description" content="继续学习sql server锁.">
+<meta property="og:updated_time" content="2017-03-24T13:30:18.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql server 锁(2)">
-<meta name="twitter:description" content="准备下载巨硬提供的AdventureWorks,下载的是2014版本.是bak文件，直接恢复数据库就可以了.
-如果比较旧的版本，例如2008R2，提供的是下载的是 mdf和ldf.可以用CRTEATE DATABASE 命令，从文件创建：
-12CREATE DATABASE AdventureWorksON (FILENAME = &apos;C:\Data\AdventureWorks2008R2_Dat">
+<meta name="twitter:description" content="继续学习sql server锁.">
 
 
 
@@ -460,7 +454,9 @@
       
 
       
-        <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>下载巨硬提供的<a href="https://msftdbprodsamples.codeplex.com/" target="_blank" rel="external">AdventureWorks</a>,下载的是<a href="https://msftdbprodsamples.codeplex.com/releases/view/125550" target="_blank" rel="external">2014版本</a>.是bak文件，直接恢复数据库就可以了.</p>
+        <p>继续学习sql server锁.</p>
+<a id="more"></a>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>下载巨硬提供的<a href="https://msftdbprodsamples.codeplex.com/" target="_blank" rel="external">AdventureWorks</a>,下载的是<a href="https://msftdbprodsamples.codeplex.com/releases/view/125550" target="_blank" rel="external">2014版本</a>.是bak文件，直接恢复数据库就可以了.</p>
 <p>如果比较旧的版本，例如2008R2，提供的是下载的是 mdf和ldf.可以用CRTEATE DATABASE 命令，从文件创建：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> AdventureWorks</div><div class="line"><span class="keyword">ON</span> (FILENAME = <span class="string">'C:\Data\AdventureWorks2008R2_Data.mdf'</span>), (FILENAME = <span class="string">'C:\Data\AdventureWorks2008R2_Log.ldf'</span>) <span class="keyword">FOR</span> ATTACH;</div></pre></td></tr></table></figure>
 <p>创建完成后，创建需要的表：</p>

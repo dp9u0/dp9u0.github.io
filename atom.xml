@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baochen.name:4000/"/>
-  <updated>2017-03-24T07:30:10.183Z</updated>
+  <updated>2017-03-24T13:30:18.096Z</updated>
   <id>http://baochen.name:4000/</id>
   
   <author>
@@ -20,9 +20,11 @@
     <link href="http://baochen.name:4000/2017/03/24/sql-server-locks-part-ii/"/>
     <id>http://baochen.name:4000/2017/03/24/sql-server-locks-part-ii/</id>
     <published>2017-03-24T06:23:54.000Z</published>
-    <updated>2017-03-24T07:30:10.183Z</updated>
+    <updated>2017-03-24T13:30:18.096Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>下载巨硬提供的<a href="https://msftdbprodsamples.codeplex.com/" target="_blank" rel="external">AdventureWorks</a>,下载的是<a href="https://msftdbprodsamples.codeplex.com/releases/view/125550" target="_blank" rel="external">2014版本</a>.是bak文件，直接恢复数据库就可以了.</p>
+    <content type="html"><![CDATA[<p>继续学习sql server锁.</p>
+<a id="more"></a>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>下载巨硬提供的<a href="https://msftdbprodsamples.codeplex.com/" target="_blank" rel="external">AdventureWorks</a>,下载的是<a href="https://msftdbprodsamples.codeplex.com/releases/view/125550" target="_blank" rel="external">2014版本</a>.是bak文件，直接恢复数据库就可以了.</p>
 <p>如果比较旧的版本，例如2008R2，提供的是下载的是 mdf和ldf.可以用CRTEATE DATABASE 命令，从文件创建：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> AdventureWorks</div><div class="line"><span class="keyword">ON</span> (FILENAME = <span class="string">'C:\Data\AdventureWorks2008R2_Data.mdf'</span>), (FILENAME = <span class="string">'C:\Data\AdventureWorks2008R2_Log.ldf'</span>) <span class="keyword">FOR</span> ATTACH;</div></pre></td></tr></table></figure>
 <p>创建完成后，创建需要的表：</p>
@@ -31,7 +33,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;准备&quot;&gt;&lt;a href=&quot;#准备&quot; class=&quot;headerlink&quot; title=&quot;准备&quot;&gt;&lt;/a&gt;准备&lt;/h1&gt;&lt;p&gt;下载巨硬提供的&lt;a href=&quot;https://msftdbprodsamples.codeplex.com/&quot; target=&quot;_blan
+      &lt;p&gt;继续学习sql server锁.&lt;/p&gt;
     
     </summary>
     
