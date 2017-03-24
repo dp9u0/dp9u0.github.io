@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Dengpeng Guo">
 <meta property="og:description" content="根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。">
 <meta property="og:image" content="http://baochen.name:4000/2017/03/01/how-sql-server-executes-a-query/mssqlarch.png">
-<meta property="og:updated_time" content="2017-03-01T14:30:12.452Z">
+<meta property="og:updated_time" content="2017-03-24T07:30:10.183Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="01.SQL SERVER如何执行一个查询">
 <meta name="twitter:description" content="根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。">
@@ -456,7 +456,8 @@
       
 
       
-        <p>根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。<br><a id="more"></a></p>
+        <p>根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。</p>
+<a id="more"></a>
 <h1 id="提交查询"><a href="#提交查询" class="headerlink" title="提交查询"></a>提交查询</h1><p>客户端提交给数据库的查询通过SQL Server网络接口等协议层(Protocol Layer)传给命令解析器。</p>
 <h1 id="命令解析器-Command-Parser-处理"><a href="#命令解析器-Command-Parser-处理" class="headerlink" title="命令解析器(Command Parser)处理"></a>命令解析器(Command Parser)处理</h1><p>命令解释器接收到查询会做以下工作：</p>
 <ul>
@@ -478,11 +479,11 @@
 <li>查询分析器根据查询计划向存取方法(Access Methods)拿指定的读取页,存取方法会向缓冲区管理器读取想要指定页。</li>
 <li>缓存区管理器(Buffer Manager)检查它是否已在数据缓存(data cache)，如果没找到的话就从磁盘加载到缓存。<ul>
 <li>当请求的页面已经被存在缓冲池时,页会被立即读取,称为逻辑读。</li>
-<li>如果请求的页没存在缓冲池,缓冲区管理器会发起异步I/O操作把请求的页存储子系统中读到缓冲池,称为物理读。<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h1></li>
+<li>如果请求的页没存在缓冲池,缓冲区管理器会发起异步I/O操作把请求的页存储子系统中读到缓冲池,称为物理读。</li>
 </ul>
 </li>
 </ul>
-<p>当修改数据(INSERT,DELETE,UPDATE)时，需要与事务管理器进行交互，事务管理器把执行事务中描述的改变通过事务日志写到事务文件。</p>
+<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h1><p>当修改数据(INSERT,DELETE,UPDATE)时，需要与事务管理器进行交互，事务管理器把执行事务中描述的改变通过事务日志写到事务文件。</p>
 <img src="/2017/03/01/how-sql-server-executes-a-query/mssqlarch.png" alt="sql server 核心架构图" title="sql server 核心架构图">
 <h1 id="数据缓存-Data-Cache"><a href="#数据缓存-Data-Cache" class="headerlink" title="数据缓存(Data Cache)"></a>数据缓存(Data Cache)</h1><p>查看每个数据库占用了多大数据缓存(sys.dm_os_buffer_descriptors)</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(*)*<span class="number">8</span>/<span class="number">1024</span> <span class="keyword">AS</span> <span class="string">'Cached Size (MB)'</span></div><div class="line">	,<span class="keyword">CASE</span> database_id</div><div class="line">		<span class="keyword">WHEN</span> <span class="number">32767</span> <span class="keyword">THEN</span> <span class="string">'ResourceDb'</span></div><div class="line">		<span class="keyword">ELSE</span> db_name(database_id)</div><div class="line">		<span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Database'</span></div><div class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> db_name(database_id),database_id</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="string">'Cached Size (MB)'</span> <span class="keyword">DESC</span></div></pre></td></tr></table></figure>
@@ -617,7 +618,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
