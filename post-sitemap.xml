@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://baochen.name:4000/2017/03/21/sql-server-locks/</loc>
+        <lastmod>2017-03-27T09:30:11.231Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://baochen.name:4000/2017/03/24/sql-server-locks-part-ii/</loc>
         <lastmod>2017-03-27T09:06:08.031Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -16,14 +24,6 @@
 
     <url>
         <loc>http://baochen.name:4000/2017/03/01/how-sql-server-executes-a-query/</loc>
-        <lastmod>2017-03-24T07:30:10.183Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://baochen.name:4000/2017/03/21/sql-server-locks/</loc>
         <lastmod>2017-03-24T07:30:10.183Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
