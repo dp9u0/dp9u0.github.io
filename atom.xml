@@ -92,25 +92,16 @@
     <link href="http://baochen.name:4000/2017/03/21/sql-server-locks/"/>
     <id>http://baochen.name:4000/2017/03/21/sql-server-locks/</id>
     <published>2017-03-21T14:12:11.000Z</published>
-    <updated>2017-03-27T09:30:11.231Z</updated>
+    <updated>2017-03-27T13:46:11.249Z</updated>
     
     <content type="html"><![CDATA[<p>介绍 SQL Server 的锁，阻塞以及死锁等问题。</p>
 <a id="more"></a>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#锁产生的背景">锁产生的背景</a></li>
+<li><a href="#锁、阻塞、死锁">锁、阻塞、死锁</a></li>
 <li><a href="#锁资源和兼容性">锁资源和兼容性</a></li>
 <li><a href="#事务隔离级别和锁释放">事务隔离级别和锁释放</a></li>
-<li><a href="#监视锁申请、持有和释放">监视锁申请、持有和释放</a></li>
-<li><a href="#准备">准备</a></li>
-<li><a href="#实际查询中锁的申请与释放">实际查询中锁的申请与释放</a><ul>
-<li><a href="#SELECT">SELECT</a></li>
-<li><a href="#UPDATE">UPDATE</a></li>
-<li><a href="#DELETE">DELETE</a></li>
-<li><a href="#INSERT">INSERT</a></li>
 </ul>
-</li>
-</ul>
-<h1 id="锁-阻塞-死锁"><a href="#锁-阻塞-死锁" class="headerlink" title="锁 阻塞 死锁"></a>锁 阻塞 死锁</h1><p>事务是关系型数据库的一个基础概念。他是作为单个逻辑工作单元执行的一系列操作一个逻辑工作单元必须有4个属性，称为原子性，<br>一致性，隔离性，持久性(ACID)只有这样才能成为一个事务.</p>
+<h1 id="锁、阻塞、死锁"><a href="#锁、阻塞、死锁" class="headerlink" title="锁、阻塞、死锁"></a>锁、阻塞、死锁</h1><p>事务是关系型数据库的一个基础概念。他是作为单个逻辑工作单元执行的一系列操作一个逻辑工作单元必须有4个属性，称为原子性，<br>一致性，隔离性，持久性(ACID)只有这样才能成为一个事务.</p>
 <ul>
 <li>原子性</li>
 </ul>

@@ -101,7 +101,7 @@
 <meta property="og:description" content="介绍 SQL Server 的锁，阻塞以及死锁等问题。">
 <meta property="og:image" content="http://baochen.name:4000/2017/03/21/sql-server-locks/001.png">
 <meta property="og:image" content="http://baochen.name:4000/2017/03/21/sql-server-locks/002.gif">
-<meta property="og:updated_time" content="2017-03-27T09:30:11.231Z">
+<meta property="og:updated_time" content="2017-03-27T13:46:11.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql server 锁(1)">
 <meta name="twitter:description" content="介绍 SQL Server 的锁，阻塞以及死锁等问题。">
@@ -460,20 +460,11 @@
         <p>介绍 SQL Server 的锁，阻塞以及死锁等问题。</p>
 <a id="more"></a>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#锁产生的背景">锁产生的背景</a></li>
+<li><a href="#锁、阻塞、死锁">锁、阻塞、死锁</a></li>
 <li><a href="#锁资源和兼容性">锁资源和兼容性</a></li>
 <li><a href="#事务隔离级别和锁释放">事务隔离级别和锁释放</a></li>
-<li><a href="#监视锁申请、持有和释放">监视锁申请、持有和释放</a></li>
-<li><a href="#准备">准备</a></li>
-<li><a href="#实际查询中锁的申请与释放">实际查询中锁的申请与释放</a><ul>
-<li><a href="#SELECT">SELECT</a></li>
-<li><a href="#UPDATE">UPDATE</a></li>
-<li><a href="#DELETE">DELETE</a></li>
-<li><a href="#INSERT">INSERT</a></li>
 </ul>
-</li>
-</ul>
-<h1 id="锁-阻塞-死锁"><a href="#锁-阻塞-死锁" class="headerlink" title="锁 阻塞 死锁"></a>锁 阻塞 死锁</h1><p>事务是关系型数据库的一个基础概念。他是作为单个逻辑工作单元执行的一系列操作一个逻辑工作单元必须有4个属性，称为原子性，<br>一致性，隔离性，持久性(ACID)只有这样才能成为一个事务.</p>
+<h1 id="锁、阻塞、死锁"><a href="#锁、阻塞、死锁" class="headerlink" title="锁、阻塞、死锁"></a>锁、阻塞、死锁</h1><p>事务是关系型数据库的一个基础概念。他是作为单个逻辑工作单元执行的一系列操作一个逻辑工作单元必须有4个属性，称为原子性，<br>一致性，隔离性，持久性(ACID)只有这样才能成为一个事务.</p>
 <ul>
 <li>原子性</li>
 </ul>
@@ -959,7 +950,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁-阻塞-死锁"><span class="nav-number">2.</span> <span class="nav-text">锁 阻塞 死锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁资源和兼容性"><span class="nav-number">3.</span> <span class="nav-text">锁资源和兼容性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#锁粒度和层次结构"><span class="nav-number">3.1.</span> <span class="nav-text">锁粒度和层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁模式"><span class="nav-number">3.2.</span> <span class="nav-text">锁模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#共享锁"><span class="nav-number">3.2.1.</span> <span class="nav-text">共享锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新锁"><span class="nav-number">3.2.2.</span> <span class="nav-text">更新锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排他锁"><span class="nav-number">3.2.3.</span> <span class="nav-text">排他锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#意向锁"><span class="nav-number">3.2.4.</span> <span class="nav-text">意向锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁兼容性"><span class="nav-number">3.3.</span> <span class="nav-text">锁兼容性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键范围锁定"><span class="nav-number">3.4.</span> <span class="nav-text">键范围锁定</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务隔离级别和锁释放"><span class="nav-number">4.</span> <span class="nav-text">事务隔离级别和锁释放</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#未提交读（read-uncommitted）"><span class="nav-number">4.0.1.</span> <span class="nav-text">未提交读（read uncommitted）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已提交读（read-committed）"><span class="nav-number">4.0.2.</span> <span class="nav-text">已提交读（read committed）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可重复读（repeatable-read）"><span class="nav-number">4.0.3.</span> <span class="nav-text">可重复读（repeatable read）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可序列化（serializable）"><span class="nav-number">4.0.4.</span> <span class="nav-text">可序列化（serializable）</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁、阻塞、死锁"><span class="nav-number">2.</span> <span class="nav-text">锁、阻塞、死锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁资源和兼容性"><span class="nav-number">3.</span> <span class="nav-text">锁资源和兼容性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#锁粒度和层次结构"><span class="nav-number">3.1.</span> <span class="nav-text">锁粒度和层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁模式"><span class="nav-number">3.2.</span> <span class="nav-text">锁模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#共享锁"><span class="nav-number">3.2.1.</span> <span class="nav-text">共享锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新锁"><span class="nav-number">3.2.2.</span> <span class="nav-text">更新锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排他锁"><span class="nav-number">3.2.3.</span> <span class="nav-text">排他锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#意向锁"><span class="nav-number">3.2.4.</span> <span class="nav-text">意向锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁兼容性"><span class="nav-number">3.3.</span> <span class="nav-text">锁兼容性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键范围锁定"><span class="nav-number">3.4.</span> <span class="nav-text">键范围锁定</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务隔离级别和锁释放"><span class="nav-number">4.</span> <span class="nav-text">事务隔离级别和锁释放</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#未提交读（read-uncommitted）"><span class="nav-number">4.0.1.</span> <span class="nav-text">未提交读（read uncommitted）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已提交读（read-committed）"><span class="nav-number">4.0.2.</span> <span class="nav-text">已提交读（read committed）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可重复读（repeatable-read）"><span class="nav-number">4.0.3.</span> <span class="nav-text">可重复读（repeatable read）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可序列化（serializable）"><span class="nav-number">4.0.4.</span> <span class="nav-text">可序列化（serializable）</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
