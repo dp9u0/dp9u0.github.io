@@ -75,7 +75,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mssql,performance tuning," />
+  <meta name="keywords" content="work," />
 
 
 
@@ -93,25 +93,16 @@
 
 
 
-<meta name="description" content="区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：
-
-混合区
-统一区">
+<meta name="description" content="准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3.SQL Server基本管理单位:区(Extend)">
-<meta property="og:url" content="http://baochen.name:4000/2017/03/21/sql-server-extend-management/index.html">
+<meta property="og:title" content="离职">
+<meta property="og:url" content="http://baochen.name:4000/2017/04/20/new-job-new-start/index.html">
 <meta property="og:site_name" content="Dengpeng Guo">
-<meta property="og:description" content="区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：
-
-混合区
-统一区">
-<meta property="og:updated_time" content="2017-03-22T06:30:09.683Z">
+<meta property="og:description" content="准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。">
+<meta property="og:updated_time" content="2017-04-20T15:00:07.337Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3.SQL Server基本管理单位:区(Extend)">
-<meta name="twitter:description" content="区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：
-
-混合区
-统一区">
+<meta name="twitter:title" content="离职">
+<meta name="twitter:description" content="准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。">
 
 
 
@@ -139,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://baochen.name:4000/2017/03/21/sql-server-extend-management/"/>
+  <link rel="canonical" href="http://baochen.name:4000/2017/04/20/new-job-new-start/"/>
 
 
 
 
 
-  <title> 3.SQL Server基本管理单位:区(Extend) | Dengpeng Guo </title>
+  <title> 离职 | Dengpeng Guo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -345,7 +336,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://baochen.name:4000/2017/03/21/sql-server-extend-management/">
+  <link itemprop="mainEntityOfPage" href="http://baochen.name:4000/2017/04/20/new-job-new-start/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Dengpeng Guo">
@@ -369,7 +360,7 @@
             
             
               
-                3.SQL Server基本管理单位:区(Extend)
+                离职
               
             
           </h2>
@@ -384,8 +375,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-21T21:50:07+08:00">
-                2017-03-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-20T13:36:37+08:00">
+                2017-04-20
               </time>
             
 
@@ -407,8 +398,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/knowledge/" itemprop="url" rel="index">
-                    <span itemprop="name">knowledge</span>
+                  <a href="/categories/life/" itemprop="url" rel="index">
+                    <span itemprop="name">life</span>
                   </a>
                 </span>
 
@@ -425,8 +416,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/21/sql-server-extend-management/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/21/sql-server-extend-management/" itemprop="commentCount"></span>
+                <a href="/2017/04/20/new-job-new-start/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/20/new-job-new-start/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -434,7 +425,7 @@
 
           
           
-             <span id="/2017/03/21/sql-server-extend-management/" class="leancloud_visitors" data-flag-title="3.SQL Server基本管理单位:区(Extend)">
+             <span id="/2017/04/20/new-job-new-start/" class="leancloud_visitors" data-flag-title="离职">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -463,17 +454,7 @@
       
 
       
-        <p>区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：</p>
-<ul>
-<li>混合区</li>
-<li>统一区</li>
-</ul>
-<a id="more"></a>
-<p>全局分配映射表（GAM: Global Allocation Map Pages） ：GAM页记录哪些些区已被使用分配。对于每个区，GAM都有一个位。如果这个位是1，表示对应的区是空闲可用的。如果这个位是0，表示对应区被统一区或混合区使用。一个GAM页可以保存64000个区的使用信息。这就是说，一个GAM可以保存近4G（64000 <em> 8 </em> 8/ 1024)数据文件的使用信息。简单来说，一个7G的数据文件会有2个GAM页。</p>
-<p>共享全局分配映射表（SGAM: Shared Global Allocation Map Pages） ：SGAM页记录哪些区已被作为混合区使用并至少有一个可用的空闲页。对于每个区，SGAM都有一个位。如果这个位是1，表示对应的区作为混合区使用并至少有一个可用的空闲页。如果这个位是0，表示这个区既没被混合区使用（作为统一区），或这个区的所有页都作为混合区使用了。一个SGAM页可以保存64000个区的使用信息。这就是说，一个SGAM可以保存近4G（64000 <em> 8 </em> 8/ 1024)数据文件的使用信息。简单来说，一个7G的数据文件会有2个SGAM页。</p>
-<p>GAM和SGAM页帮助数据库引擎进行区管理。分配一个区，数据库引擎查找标记1的GAM页，然后标记为0。如果那个区是作为混合区分配，它会在SGAM页把对应区的标记为1。如果那个区是作为统一区分配，那就没有必要在SGAM里修改对应位标记。找一个有空页的混合区，数据库引擎在SGAM页查找标记为1的位。如果没找到，数据文件已经满了。解除一个区分配，数据库引擎会把对应GAM页里对应位设置为1，SGAM页里对应标记设置为0。</p>
-<p>在每个数据文件里，第3个页（页号2，页号从0开始）是GAM页，第4个页（页号3，页号从0开始）是SGAM页。第1个页（页号0）是文件头（file header），第2个页（页号1）是PFS（Page Free Space）页。我们可以使用DBCC PAGE命令查看GAM和SGAM页。</p>
-<p><a href="http://www.cnblogs.com/wcyao/archive/2011/06/28/2092241.html" target="_blank" rel="external">存储引擎揭秘</a><br><a href="http://www.cnblogs.com/woodytu/tag/SQL%20Server%20%E5%AD%98%E5%82%A8/" target="_blank" rel="external">SQL Server 存储</a><br><a href="http://www.cnblogs.com/woodytu/p/4487310.html" target="_blank" rel="external">理解GAM和SGAM页</a></p>
+        <p>准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。</p>
 
       
     </div>
@@ -497,9 +478,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mssql/" rel="tag"># mssql</a>
-          
-            <a href="/tags/performance-tuning/" rel="tag"># performance tuning</a>
+            <a href="/tags/work/" rel="tag"># work</a>
           
         </div>
       
@@ -512,8 +491,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/01/data-pages-the-foundation-of-sql-server/" rel="next" title="02.SQL Server存储单位:页(Page)">
-                <i class="fa fa-chevron-left"></i> 02.SQL Server存储单位:页(Page)
+              <a href="/2017/03/24/sql-server-locks-part-ii/" rel="next" title="sql server 锁(2)">
+                <i class="fa fa-chevron-left"></i> sql server 锁(2)
               </a>
             
           </div>
@@ -521,10 +500,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/21/sql-server-locks/" rel="prev" title="sql server 锁(1)">
-                sql server 锁(1) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -550,8 +525,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/21/sql-server-extend-management/"
-           data-title="3.SQL Server基本管理单位:区(Extend)" data-url="http://baochen.name:4000/2017/03/21/sql-server-extend-management/">
+      <div class="ds-thread" data-thread-key="2017/04/20/new-job-new-start/"
+           data-title="离职" data-url="http://baochen.name:4000/2017/04/20/new-job-new-start/">
       </div>
     
   </div>
