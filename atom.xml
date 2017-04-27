@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baochen.name:4000/"/>
-  <updated>2017-04-20T15:00:07.337Z</updated>
+  <updated>2017-04-27T15:00:07.095Z</updated>
   <id>http://baochen.name:4000/</id>
   
   <author>
@@ -20,14 +20,18 @@
     <link href="http://baochen.name:4000/2017/04/20/new-job-new-start/"/>
     <id>http://baochen.name:4000/2017/04/20/new-job-new-start/</id>
     <published>2017-04-20T05:36:37.000Z</published>
-    <updated>2017-04-20T15:00:07.337Z</updated>
+    <updated>2017-04-27T15:00:07.095Z</updated>
     
     <content type="html"><![CDATA[<p>准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。</p>
+<p>update 20170427</p>
+<p>测试</p>
 ]]></content>
     
     <summary type="html">
     
       &lt;p&gt;准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。&lt;/p&gt;
+&lt;p&gt;update 20170427&lt;/p&gt;
+&lt;p&gt;测试&lt;/p&gt;
 
     
     </summary>
