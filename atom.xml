@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://baochen.name:4000/"/>
-  <updated>2017-04-27T15:00:07.095Z</updated>
+  <updated>2018-04-08T15:00:16.660Z</updated>
   <id>http://baochen.name:4000/</id>
   
   <author>
@@ -14,6 +14,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker 入门</title>
+    <link href="http://baochen.name:4000/2018/04/08/docker-intro/"/>
+    <id>http://baochen.name:4000/2018/04/08/docker-intro/</id>
+    <published>2018-04-08T07:56:31.000Z</published>
+    <updated>2018-04-08T15:00:16.660Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>开发人员总是会这么说：“在我的机器上是正常的呀！”<br>这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。<br>Docker作为一种解决方案，很好的解决了这个问题。</p>
+</blockquote>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#背景">背景</a></li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#HelloWorld">HelloWorld</a></li>
+<li><a href="#Image">Image</a></li>
+<li><a href="#Container">Container</a></li>
+<li><a href="#制作自己的Image">制作自己的Image</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote class=&quot;blockquote-center&quot;&gt;&lt;p&gt;开发人员总是会这么说：“在我的机器上是正常的呀！”&lt;br&gt;这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。&lt;br&gt;Docker作为一种解决方案，很好的解决了这个问题。&lt;/p&gt;
+&lt;/b
+    
+    </summary>
+    
+      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+    
+    
+      <category term="docker" scheme="http://baochen.name:4000/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title>离职</title>
@@ -788,7 +821,7 @@
     <link href="http://baochen.name:4000/2017/02/22/first-blog/"/>
     <id>http://baochen.name:4000/2017/02/22/first-blog/</id>
     <published>2017-02-22T14:00:56.056Z</published>
-    <updated>2017-02-24T15:22:37.778Z</updated>
+    <updated>2018-04-08T15:00:16.660Z</updated>
     
     <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>发现一个基于 Node.js的高效的静态站点生成框架<a href="https://hexo.io/zh-cn/" target="_blank" rel="external">Hexo</a>,使用 Markdown 编写文章,于是用来搭建自己的网站。<br>接下来介绍如何一步一步完成搭建的。</p>
 </blockquote>
@@ -819,7 +852,8 @@
 <ul>
 <li><a href="https://hexo.io/" target="_blank" rel="external">hexo-cli</a></li>
 </ul>
-<p>用于创建、管理、发布hexo项目。使用npm包管理器安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo-cli</div></pre></td></tr></table></figure></p>
+<p>用于创建、管理、发布hexo项目。使用npm包管理器安装：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install -g hexo-cli</div></pre></td></tr></table></figure>
 <h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><p>安装完 node 、git 以及hexo-cli 后，就可以开始构建hexo blog了。</p>
 <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>在源码目录下，命令行运行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init youbsitename</div></pre></td></tr></table></figure>
