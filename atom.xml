@@ -4,9 +4,9 @@
   <subtitle>You&#39;ll Never Walk Alone</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://baochen.name:4000/"/>
+  <link href="http://baochen.name/"/>
   <updated>2018-04-08T15:00:16.660Z</updated>
-  <id>http://baochen.name:4000/</id>
+  <id>http://baochen.name/</id>
   
   <author>
     <name>Dengpeng Guo</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>docker 入门</title>
-    <link href="http://baochen.name:4000/2018/04/08/docker-intro/"/>
-    <id>http://baochen.name:4000/2018/04/08/docker-intro/</id>
+    <link href="http://baochen.name/2018/04/08/docker-intro/"/>
+    <id>http://baochen.name/2018/04/08/docker-intro/</id>
     <published>2018-04-08T07:56:31.000Z</published>
     <updated>2018-04-08T15:00:16.660Z</updated>
     
@@ -41,17 +41,17 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="docker" scheme="http://baochen.name:4000/tags/docker/"/>
+      <category term="docker" scheme="http://baochen.name/tags/docker/"/>
     
   </entry>
   
   <entry>
     <title>离职</title>
-    <link href="http://baochen.name:4000/2017/04/20/new-job-new-start/"/>
-    <id>http://baochen.name:4000/2017/04/20/new-job-new-start/</id>
+    <link href="http://baochen.name/2017/04/20/new-job-new-start/"/>
+    <id>http://baochen.name/2017/04/20/new-job-new-start/</id>
     <published>2017-04-20T05:36:37.000Z</published>
     <updated>2017-04-27T15:00:07.095Z</updated>
     
@@ -69,17 +69,17 @@
     
     </summary>
     
-      <category term="life" scheme="http://baochen.name:4000/categories/life/"/>
+      <category term="life" scheme="http://baochen.name/categories/life/"/>
     
     
-      <category term="work" scheme="http://baochen.name:4000/tags/work/"/>
+      <category term="work" scheme="http://baochen.name/tags/work/"/>
     
   </entry>
   
   <entry>
     <title>sql server 锁(2)</title>
-    <link href="http://baochen.name:4000/2017/03/24/sql-server-locks-part-ii/"/>
-    <id>http://baochen.name:4000/2017/03/24/sql-server-locks-part-ii/</id>
+    <link href="http://baochen.name/2017/03/24/sql-server-locks-part-ii/"/>
+    <id>http://baochen.name/2017/03/24/sql-server-locks-part-ii/</id>
     <published>2017-03-24T06:23:54.000Z</published>
     <updated>2017-03-27T09:06:08.031Z</updated>
     
@@ -139,19 +139,19 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="mssql" scheme="http://baochen.name:4000/tags/mssql/"/>
+      <category term="mssql" scheme="http://baochen.name/tags/mssql/"/>
     
-      <category term="lock" scheme="http://baochen.name:4000/tags/lock/"/>
+      <category term="lock" scheme="http://baochen.name/tags/lock/"/>
     
   </entry>
   
   <entry>
     <title>sql server 锁(1)</title>
-    <link href="http://baochen.name:4000/2017/03/21/sql-server-locks/"/>
-    <id>http://baochen.name:4000/2017/03/21/sql-server-locks/</id>
+    <link href="http://baochen.name/2017/03/21/sql-server-locks/"/>
+    <id>http://baochen.name/2017/03/21/sql-server-locks/</id>
     <published>2017-03-21T14:12:11.000Z</published>
     <updated>2017-03-27T13:46:11.249Z</updated>
     
@@ -450,19 +450,19 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="mssql" scheme="http://baochen.name:4000/tags/mssql/"/>
+      <category term="mssql" scheme="http://baochen.name/tags/mssql/"/>
     
-      <category term="lock" scheme="http://baochen.name:4000/tags/lock/"/>
+      <category term="lock" scheme="http://baochen.name/tags/lock/"/>
     
   </entry>
   
   <entry>
     <title>3.SQL Server基本管理单位:区(Extend)</title>
-    <link href="http://baochen.name:4000/2017/03/21/sql-server-extend-management/"/>
-    <id>http://baochen.name:4000/2017/03/21/sql-server-extend-management/</id>
+    <link href="http://baochen.name/2017/03/21/sql-server-extend-management/"/>
+    <id>http://baochen.name/2017/03/21/sql-server-extend-management/</id>
     <published>2017-03-21T13:50:07.000Z</published>
     <updated>2017-03-22T06:30:09.683Z</updated>
     
@@ -489,19 +489,19 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="mssql" scheme="http://baochen.name:4000/tags/mssql/"/>
+      <category term="mssql" scheme="http://baochen.name/tags/mssql/"/>
     
-      <category term="performance tuning" scheme="http://baochen.name:4000/tags/performance-tuning/"/>
+      <category term="performance tuning" scheme="http://baochen.name/tags/performance-tuning/"/>
     
   </entry>
   
   <entry>
     <title>02.SQL Server存储单位:页(Page)</title>
-    <link href="http://baochen.name:4000/2017/03/01/data-pages-the-foundation-of-sql-server/"/>
-    <id>http://baochen.name:4000/2017/03/01/data-pages-the-foundation-of-sql-server/</id>
+    <link href="http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/"/>
+    <id>http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/</id>
     <published>2017-03-01T13:53:53.000Z</published>
     <updated>2017-03-22T06:30:09.683Z</updated>
     
@@ -622,19 +622,19 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="mssql" scheme="http://baochen.name:4000/tags/mssql/"/>
+      <category term="mssql" scheme="http://baochen.name/tags/mssql/"/>
     
-      <category term="performance tuning" scheme="http://baochen.name:4000/tags/performance-tuning/"/>
+      <category term="performance tuning" scheme="http://baochen.name/tags/performance-tuning/"/>
     
   </entry>
   
   <entry>
     <title>01.SQL SERVER如何执行一个查询</title>
-    <link href="http://baochen.name:4000/2017/03/01/how-sql-server-executes-a-query/"/>
-    <id>http://baochen.name:4000/2017/03/01/how-sql-server-executes-a-query/</id>
+    <link href="http://baochen.name/2017/03/01/how-sql-server-executes-a-query/"/>
+    <id>http://baochen.name/2017/03/01/how-sql-server-executes-a-query/</id>
     <published>2017-03-01T12:35:53.000Z</published>
     <updated>2017-03-24T07:30:10.183Z</updated>
     
@@ -682,19 +682,19 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="mssql" scheme="http://baochen.name:4000/tags/mssql/"/>
+      <category term="mssql" scheme="http://baochen.name/tags/mssql/"/>
     
-      <category term="performance tuning" scheme="http://baochen.name:4000/tags/performance-tuning/"/>
+      <category term="performance tuning" scheme="http://baochen.name/tags/performance-tuning/"/>
     
   </entry>
   
   <entry>
     <title>关于备案后续</title>
-    <link href="http://baochen.name:4000/2017/03/01/about-beian-2/"/>
-    <id>http://baochen.name:4000/2017/03/01/about-beian-2/</id>
+    <link href="http://baochen.name/2017/03/01/about-beian-2/"/>
+    <id>http://baochen.name/2017/03/01/about-beian-2/</id>
     <published>2017-03-01T04:43:22.000Z</published>
     <updated>2017-03-01T05:02:38.695Z</updated>
     
@@ -707,17 +707,17 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="beian" scheme="http://baochen.name:4000/tags/beian/"/>
+      <category term="beian" scheme="http://baochen.name/tags/beian/"/>
     
   </entry>
   
   <entry>
     <title>关于备案</title>
-    <link href="http://baochen.name:4000/2017/02/24/about-Beian/"/>
-    <id>http://baochen.name:4000/2017/02/24/about-Beian/</id>
+    <link href="http://baochen.name/2017/02/24/about-Beian/"/>
+    <id>http://baochen.name/2017/02/24/about-Beian/</id>
     <published>2017-02-24T15:12:14.000Z</published>
     <updated>2017-02-24T15:22:37.778Z</updated>
     
@@ -734,17 +734,17 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="beian" scheme="http://baochen.name:4000/tags/beian/"/>
+      <category term="beian" scheme="http://baochen.name/tags/beian/"/>
     
   </entry>
   
   <entry>
     <title>使用Nginx运行网站</title>
-    <link href="http://baochen.name:4000/2017/02/24/server-with-nginx/"/>
-    <id>http://baochen.name:4000/2017/02/24/server-with-nginx/</id>
+    <link href="http://baochen.name/2017/02/24/server-with-nginx/"/>
+    <id>http://baochen.name/2017/02/24/server-with-nginx/</id>
     <published>2017-02-24T15:10:17.000Z</published>
     <updated>2017-02-24T15:22:37.782Z</updated>
     
@@ -772,17 +772,17 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="nginx" scheme="http://baochen.name:4000/tags/nginx/"/>
+      <category term="nginx" scheme="http://baochen.name/tags/nginx/"/>
     
   </entry>
   
   <entry>
     <title>关于crontab执行脚本环境变量问题</title>
-    <link href="http://baochen.name:4000/2017/02/24/about-crontab/"/>
-    <id>http://baochen.name:4000/2017/02/24/about-crontab/</id>
+    <link href="http://baochen.name/2017/02/24/about-crontab/"/>
+    <id>http://baochen.name/2017/02/24/about-crontab/</id>
     <published>2017-02-24T15:05:37.000Z</published>
     <updated>2017-02-24T15:04:41.146Z</updated>
     
@@ -807,19 +807,19 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="crontab" scheme="http://baochen.name:4000/tags/crontab/"/>
+      <category term="crontab" scheme="http://baochen.name/tags/crontab/"/>
     
-      <category term="shell" scheme="http://baochen.name:4000/tags/shell/"/>
+      <category term="shell" scheme="http://baochen.name/tags/shell/"/>
     
   </entry>
   
   <entry>
     <title>hexo搭建个人博客</title>
-    <link href="http://baochen.name:4000/2017/02/22/first-blog/"/>
-    <id>http://baochen.name:4000/2017/02/22/first-blog/</id>
+    <link href="http://baochen.name/2017/02/22/first-blog/"/>
+    <id>http://baochen.name/2017/02/22/first-blog/</id>
     <published>2017-02-22T14:00:56.056Z</published>
     <updated>2018-04-08T15:00:16.660Z</updated>
     
@@ -950,10 +950,10 @@
     
     </summary>
     
-      <category term="knowledge" scheme="http://baochen.name:4000/categories/knowledge/"/>
+      <category term="knowledge" scheme="http://baochen.name/categories/knowledge/"/>
     
     
-      <category term="hexo" scheme="http://baochen.name:4000/tags/hexo/"/>
+      <category term="hexo" scheme="http://baochen.name/tags/hexo/"/>
     
   </entry>
   
