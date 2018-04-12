@@ -51,6 +51,13 @@
     </url>
 
     <url>
+        <loc>http://baochen.name/tags/beian/</loc>
+        <lastmod>2018-04-10T15:00:25.314Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://baochen.name/tags/work/</loc>
         <lastmod>2018-04-10T15:00:25.314Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -59,14 +66,7 @@
 
     <url>
         <loc>http://baochen.name/tags/docker/</loc>
-        <lastmod>2018-04-10T15:00:25.314Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://baochen.name/tags/beian/</loc>
-        <lastmod>2018-04-10T15:00:25.314Z</lastmod>
+        <lastmod>2018-04-12T15:00:17.821Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
