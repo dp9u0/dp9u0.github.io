@@ -107,25 +107,18 @@
 
 
 
-  <meta name="description" content="区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：
-
-混合区
-统一区">
+  <meta name="description" content="区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：  混合区 统一区">
+<meta name="keywords" content="mssql,performance tuning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.SQL Server基本管理单位:区(Extend)">
 <meta property="og:url" content="http://baochen.name/2017/03/21/sql-server-extend-management/index.html">
 <meta property="og:site_name" content="Dengpeng Guo">
-<meta property="og:description" content="区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：
-
-混合区
-统一区">
+<meta property="og:description" content="区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：  混合区 统一区">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-03-22T06:30:09.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3.SQL Server基本管理单位:区(Extend)">
-<meta name="twitter:description" content="区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：
-
-混合区
-统一区">
+<meta name="twitter:description" content="区就是一组8个页(8K),因此区是64k的块。SQL Server内部有2类区：  混合区 统一区">
 
 
 
@@ -478,7 +471,7 @@
 <p>共享全局分配映射表（SGAM: Shared Global Allocation Map Pages） ：SGAM页记录哪些区已被作为混合区使用并至少有一个可用的空闲页。对于每个区，SGAM都有一个位。如果这个位是1，表示对应的区作为混合区使用并至少有一个可用的空闲页。如果这个位是0，表示这个区既没被混合区使用（作为统一区），或这个区的所有页都作为混合区使用了。一个SGAM页可以保存64000个区的使用信息。这就是说，一个SGAM可以保存近4G（64000 <em> 8 </em> 8/ 1024)数据文件的使用信息。简单来说，一个7G的数据文件会有2个SGAM页。</p>
 <p>GAM和SGAM页帮助数据库引擎进行区管理。分配一个区，数据库引擎查找标记1的GAM页，然后标记为0。如果那个区是作为混合区分配，它会在SGAM页把对应区的标记为1。如果那个区是作为统一区分配，那就没有必要在SGAM里修改对应位标记。找一个有空页的混合区，数据库引擎在SGAM页查找标记为1的位。如果没找到，数据文件已经满了。解除一个区分配，数据库引擎会把对应GAM页里对应位设置为1，SGAM页里对应标记设置为0。</p>
 <p>在每个数据文件里，第3个页（页号2，页号从0开始）是GAM页，第4个页（页号3，页号从0开始）是SGAM页。第1个页（页号0）是文件头（file header），第2个页（页号1）是PFS（Page Free Space）页。我们可以使用DBCC PAGE命令查看GAM和SGAM页。</p>
-<p><a href="http://www.cnblogs.com/wcyao/archive/2011/06/28/2092241.html" target="_blank" rel="external">存储引擎揭秘</a><br><a href="http://www.cnblogs.com/woodytu/tag/SQL%20Server%20%E5%AD%98%E5%82%A8/" target="_blank" rel="external">SQL Server 存储</a><br><a href="http://www.cnblogs.com/woodytu/p/4487310.html" target="_blank" rel="external">理解GAM和SGAM页</a></p>
+<p><a href="http://www.cnblogs.com/wcyao/archive/2011/06/28/2092241.html" target="_blank" rel="noopener">存储引擎揭秘</a><br><a href="http://www.cnblogs.com/woodytu/tag/SQL%20Server%20%E5%AD%98%E5%82%A8/" target="_blank" rel="noopener">SQL Server 存储</a><br><a href="http://www.cnblogs.com/woodytu/p/4487310.html" target="_blank" rel="noopener">理解GAM和SGAM页</a></p>
 
       
     </div>
@@ -730,7 +723,7 @@
 
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.2.2</div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.7.1</div>
 
 
 

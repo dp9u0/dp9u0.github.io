@@ -108,11 +108,13 @@
 
 
   <meta name="description" content="介绍 SQL Server 的锁，阻塞以及死锁等问题。">
+<meta name="keywords" content="mssql,lock">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql server 锁(1)">
 <meta property="og:url" content="http://baochen.name/2017/03/21/sql-server-locks/index.html">
 <meta property="og:site_name" content="Dengpeng Guo">
 <meta property="og:description" content="介绍 SQL Server 的锁，阻塞以及死锁等问题。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://baochen.name/2017/03/21/sql-server-locks/001.png">
 <meta property="og:image" content="http://baochen.name/2017/03/21/sql-server-locks/002.gif">
 <meta property="og:updated_time" content="2017-03-27T13:46:11.249Z">
@@ -684,10 +686,10 @@
 </tr>
 </tbody>
 </table>
-<h2 id="锁兼容性"><a href="#锁兼容性" class="headerlink" title="锁兼容性"></a>锁兼容性</h2><img src="/2017/03/21/sql-server-locks/001.png" alt="锁兼容模式" title="锁兼容模式">
+<h2 id="锁兼容性"><a href="#锁兼容性" class="headerlink" title="锁兼容性"></a>锁兼容性</h2><img src="/2017/03/21/sql-server-locks/001.png" title="锁兼容模式">
 <p>完整的锁兼容性矩阵</p>
-<img src="/2017/03/21/sql-server-locks/002.gif" alt="完整的锁兼容性矩阵" title="完整的锁兼容性矩阵">
-<h2 id="键范围锁定"><a href="#键范围锁定" class="headerlink" title="键范围锁定"></a>键范围锁定</h2><p><a href="https://msdn.microsoft.com/zh-cn/library/ms191272.aspx" target="_blank" rel="external">键范围锁定</a></p>
+<img src="/2017/03/21/sql-server-locks/002.gif" title="完整的锁兼容性矩阵">
+<h2 id="键范围锁定"><a href="#键范围锁定" class="headerlink" title="键范围锁定"></a>键范围锁定</h2><p><a href="https://msdn.microsoft.com/zh-cn/library/ms191272.aspx" target="_blank" rel="noopener">键范围锁定</a></p>
 <h1 id="事务隔离级别和锁释放"><a href="#事务隔离级别和锁释放" class="headerlink" title="事务隔离级别和锁释放"></a>事务隔离级别和锁释放</h1><p>数据库有并发操作的时候，修改数据的事务会影响同时要去读取或修改相同数据的其他事务。如果数据存储系统并没有并发控制，则事务可能会看到以下负面影响：</p>
 <ul>
 <li>丢失更新</li>
@@ -1025,7 +1027,7 @@
 
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.2.2</div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.7.1</div>
 
 
 
