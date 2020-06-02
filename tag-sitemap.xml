@@ -3,6 +3,13 @@
 
 
     <url>
+        <loc>http://baochen.name/tags/lock/</loc>
+        <lastmod>2020-05-07T12:23:55.914Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://baochen.name/tags/utf-8-16-32/</loc>
         <lastmod>2020-05-07T12:23:55.914Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -17,7 +24,7 @@
     </url>
 
     <url>
-        <loc>http://baochen.name/tags/lock/</loc>
+        <loc>http://baochen.name/tags/work/</loc>
         <lastmod>2020-05-07T12:23:55.914Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -25,13 +32,6 @@
 
     <url>
         <loc>http://baochen.name/tags/nginx/</loc>
-        <lastmod>2020-05-07T12:23:55.914Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://baochen.name/tags/work/</loc>
         <lastmod>2020-05-07T12:23:55.914Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -52,20 +52,6 @@
     </url>
 
     <url>
-        <loc>http://baochen.name/tags/prototype/</loc>
-        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://baochen.name/tags/javascript/</loc>
-        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://baochen.name/tags/hexo/</loc>
         <lastmod>2020-05-07T12:23:55.910Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -74,6 +60,20 @@
 
     <url>
         <loc>http://baochen.name/tags/docker/</loc>
+        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://baochen.name/tags/prototype/</loc>
+        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://baochen.name/tags/javascript/</loc>
         <lastmod>2020-05-07T12:23:55.910Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
