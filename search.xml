@@ -18,6 +18,18 @@
       </tags>
   </entry>
   <entry>
+    <title>关于备案后续</title>
+    <url>/2017/03/01/about-beian-2/</url>
+    <content><![CDATA[<p>通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。<br>真可谓快。出乎了我的想象。<br>因为是个人备案，步骤很简单，一部手机+身份证就可以了。<br>据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>beian</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于crontab执行脚本环境变量问题</title>
     <url>/2017/02/24/about-crontab/</url>
     <content><![CDATA[<p>搭建自己的博客配置了自动化脚本，用来同步git仓库、执行hexo命令生成&amp;部署站点。</p>
@@ -44,18 +56,6 @@
       <tags>
         <tag>crontab</tag>
         <tag>shell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于备案后续</title>
-    <url>/2017/03/01/about-beian-2/</url>
-    <content><![CDATA[<p>通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。<br>真可谓快。出乎了我的想象。<br>因为是个人备案，步骤很简单，一部手机+身份证就可以了。<br>据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。</p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>beian</tag>
       </tags>
   </entry>
   <entry>
@@ -529,20 +529,6 @@
       </tags>
   </entry>
   <entry>
-    <title>离职</title>
-    <url>/2017/04/20/new-job-new-start/</url>
-    <content><![CDATA[<p>准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。</p>
-<p>update 20170427</p>
-<p>测试</p>
-]]></content>
-      <categories>
-        <category>work</category>
-      </categories>
-      <tags>
-        <tag>work</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Javascript 原型链</title>
     <url>/2018/09/04/javascript-proto/</url>
     <content><![CDATA[<p>介绍Javascript原型链</p>
@@ -638,6 +624,20 @@
       <tags>
         <tag>javascript</tag>
         <tag>prototype</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离职</title>
+    <url>/2017/04/20/new-job-new-start/</url>
+    <content><![CDATA[<p>准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。</p>
+<p>update 20170427</p>
+<p>测试</p>
+]]></content>
+      <categories>
+        <category>work</category>
+      </categories>
+      <tags>
+        <tag>work</tag>
       </tags>
   </entry>
   <entry>
