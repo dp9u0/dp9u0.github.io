@@ -627,20 +627,6 @@
       </tags>
   </entry>
   <entry>
-    <title>离职</title>
-    <url>/2017/04/20/new-job-new-start/</url>
-    <content><![CDATA[<p>准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。</p>
-<p>update 20170427</p>
-<p>测试</p>
-]]></content>
-      <categories>
-        <category>work</category>
-      </categories>
-      <tags>
-        <tag>work</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用Nginx运行网站</title>
     <url>/2017/02/24/server-with-nginx/</url>
     <content><![CDATA[<p>hexo server 不太好用，决定使用nginx。</p>
@@ -672,6 +658,20 @@
       </categories>
       <tags>
         <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离职</title>
+    <url>/2017/04/20/new-job-new-start/</url>
+    <content><![CDATA[<p>准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。</p>
+<p>update 20170427</p>
+<p>测试</p>
+]]></content>
+      <categories>
+        <category>work</category>
+      </categories>
+      <tags>
+        <tag>work</tag>
       </tags>
   </entry>
   <entry>
