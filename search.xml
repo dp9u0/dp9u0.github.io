@@ -529,20 +529,6 @@
       </tags>
   </entry>
   <entry>
-    <title>离职</title>
-    <url>/2017/04/20/new-job-new-start/</url>
-    <content><![CDATA[<p>准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。</p>
-<p>update 20170427</p>
-<p>测试</p>
-]]></content>
-      <categories>
-        <category>work</category>
-      </categories>
-      <tags>
-        <tag>work</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Javascript 原型链</title>
     <url>/2018/09/04/javascript-proto/</url>
     <content><![CDATA[<p>介绍Javascript原型链</p>
@@ -638,6 +624,20 @@
       <tags>
         <tag>javascript</tag>
         <tag>prototype</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离职</title>
+    <url>/2017/04/20/new-job-new-start/</url>
+    <content><![CDATA[<p>准备换个新的工作环境了，已经找到，并且跟现在的公司申请了离职，顺利的话，5月10日就可以离开了。</p>
+<p>update 20170427</p>
+<p>测试</p>
+]]></content>
+      <categories>
+        <category>work</category>
+      </categories>
+      <tags>
+        <tag>work</tag>
       </tags>
   </entry>
   <entry>
