@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>关于备案后续</title>
-    <url>/2017/03/01/about-beian-2/</url>
-    <content><![CDATA[<p>通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。<br>真可谓快。出乎了我的想象。<br>因为是个人备案，步骤很简单，一部手机+身份证就可以了。<br>据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。</p>
+    <title>关于备案</title>
+    <url>/2017/02/24/about-Beian/</url>
+    <content><![CDATA[<blockquote class="blockquote-center"><p>为了规范互联网信息服务活动，促进互联网信息服务健康有序发展，根据国务院令第292号《互联网信息服务管理办法》和工信部令第33号《非经营性互联网信息服务备案管理办法》规定，国家对经营性互联网信息服务实行许可制度，对非经营性互联网信息服务实行备案制度。未取得许可或者未履行备案手续的，不得从事互联网信息服务，否则就属于违法行为。</p>
+</blockquote>
+
+<a id="more"></a>
+
+<p>因此按照规定，需要对自己的网站进行备案。以防后面无法使用的情况发生。</p>
 ]]></content>
       <categories>
         <category>life</category>
@@ -13,14 +18,9 @@
       </tags>
   </entry>
   <entry>
-    <title>关于备案</title>
-    <url>/2017/02/24/about-Beian/</url>
-    <content><![CDATA[<blockquote class="blockquote-center"><p>为了规范互联网信息服务活动，促进互联网信息服务健康有序发展，根据国务院令第292号《互联网信息服务管理办法》和工信部令第33号《非经营性互联网信息服务备案管理办法》规定，国家对经营性互联网信息服务实行许可制度，对非经营性互联网信息服务实行备案制度。未取得许可或者未履行备案手续的，不得从事互联网信息服务，否则就属于违法行为。</p>
-</blockquote>
-
-<a id="more"></a>
-
-<p>因此按照规定，需要对自己的网站进行备案。以防后面无法使用的情况发生。</p>
+    <title>关于备案后续</title>
+    <url>/2017/03/01/about-beian-2/</url>
+    <content><![CDATA[<p>通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。<br>真可谓快。出乎了我的想象。<br>因为是个人备案，步骤很简单，一部手机+身份证就可以了。<br>据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。</p>
 ]]></content>
       <categories>
         <category>life</category>
@@ -324,158 +324,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Javascript 原型链</title>
-    <url>/2018/09/04/javascript-proto/</url>
-    <content><![CDATA[<p>介绍Javascript原型链</p>
-<a id="more"></a>
-
-<h1 id="Prototype"><a href="#Prototype" class="headerlink" title="Prototype"></a>Prototype</h1><h2 id="普通实例-对象-和函数实例-对象"><a href="#普通实例-对象-和函数实例-对象" class="headerlink" title="普通实例(对象)和函数实例(对象)"></a>普通实例(对象)和函数实例(对象)</h2><p>首先搞清楚一个概念 : 实例</p>
-<blockquote>
-<p>我更喜欢用“实例(instance)”而不是“对象(object)”,当阅读到时,知道是一种东西即可.</p>
-</blockquote>
-<p>简单来说: <strong>实例</strong> 是通过 <em>构造函数</em> <em>new</em> 出来的.</p>
-<p>Javascript中一切都可以是实例,但是实例之间又有所不同:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// Foo : instance &amp; constructor</span></span><br><span class="line"><span class="keyword">let</span> foo = <span class="keyword">new</span> Foo(); <span class="comment">// foo1 : Instance</span></span><br><span class="line"><span class="keyword">let</span> Bar = <span class="keyword">new</span> <span class="built_in">Function</span>(); <span class="comment">//instance 相当于 function Bar()&#123;&#125;</span></span><br><span class="line"><span class="keyword">let</span> ob1 = &#123;&#125; <span class="comment">// Instance 语法糖,相当于 new Object()</span></span><br><span class="line"><span class="keyword">let</span> ob2 = <span class="keyword">new</span> <span class="built_in">Object</span>();<span class="comment">// Instance</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> foo);<span class="comment">//foo是Object类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> ob1);<span class="comment">//ob1是Object类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> ob2);<span class="comment">//ob2是Object类型</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Foo);<span class="comment">//Foo是Function类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Bar);<span class="comment">//Bar是Function类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Object</span>);<span class="comment">//Object 是Function类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Date</span>);<span class="comment">//Date是Function类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Function</span>);<span class="comment">//Function是Function类型</span></span><br><span class="line"><span class="comment">// =&gt;</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// function</span></span><br><span class="line"><span class="comment">// function</span></span><br><span class="line"><span class="comment">// function</span></span><br><span class="line"><span class="comment">// function</span></span><br><span class="line"><span class="comment">// function</span></span><br></pre></td></tr></table></figure>
-
-<p>1.2.3都比较好理解.<br>4.5.6.7:这是由于Javascript的定义:所有<em>函数</em>(例如上面自定义的Foo,Bar,内置的Object,Date甚至Function本身)都是由<code>Function</code>创建的实例.</p>
-<p>可以看到正常的创建一个实例的方法为: 调用 new <em>constructor()</em></p>
-<p>Javascript 也提供了一些语法糖.可以用来创建实例,例如 <code>function Foo(){}</code> 或者 <code>let obj = {}</code>,可以简单认为,其本质还是通过new来创建的.</p>
-<p><strong>最终得出的概念是: 实例或者对象就是 <code>let foo = new Foo();</code> 中通过new后面的Foo(构造函数)构造出来的东西</strong></p>
-<p>同时对象可以分为普通实例和函数实例:</p>
-<ul>
-<li>foo、ob1、ob2 等称为普通实例.通过诸如 Foo()、 Object() 等构造函数构造出来.</li>
-<li>Foo、Bar、Object 等比较特殊,称为函数实例 : 既可以作为构造函数(可以new实例),本身又是个实例,通过构造函数Function构造造出来,例如 <code>let Bar =  new Function()</code> 或者 <code>function Foo(){}</code></li>
-</ul>
-<h2 id="构造函数-函数实例"><a href="#构造函数-函数实例" class="headerlink" title="构造函数(函数实例)"></a>构造函数(函数实例)</h2><p>当使用 <code>let foo = new Foo()</code> 的时候 Foo 就是 foo 的构造函数:</p>
-<blockquote>
-<p>Javascript有个比较奇怪的地方foo是个Foo的实例(foo instanceof Foo),但是foo的类型(typeof foo)却是Object</p>
-<p>这个暂时想不明白为什么(可能是弱类型的原因),因此在描述实例的”类型”,会尽量避免使用”类型”这一概念,而使用”实例的构造函数”.</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> foo1 = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="keyword">let</span> foo2 = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo1的构造函数为 : <span class="subst">$&#123;foo1.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">foo1和foo2的构造函数相等 : <span class="subst">$&#123;foo1.constructor === foo2.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">这是因为foo1,foo2的构造函数都是 Foo : <span class="subst">$&#123;foo1.constructor === Foo &amp;&amp; foo2.constructor === Foo&#125;</span>,</span></span><br><span class="line"><span class="string">即foo1 instance of Foo : <span class="subst">$&#123;foo1 <span class="keyword">instanceof</span> Foo&#125;</span>,</span></span><br><span class="line"><span class="string">即foo2 instance of Foo : <span class="subst">$&#123;foo2 <span class="keyword">instanceof</span> Foo&#125;</span>,</span></span><br><span class="line"><span class="string">`</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ob = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`实例都有对应的构造函数:</span></span><br><span class="line"><span class="string">ob : <span class="subst">$&#123;ob.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">Foo : <span class="subst">$&#123;Foo.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">Object : <span class="subst">$&#123;<span class="built_in">Object</span>.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">Foo Object同时也作为函数实例,因此它们的构造函数相同,都是Function : <span class="subst">$&#123;Foo.constructor === <span class="built_in">Object</span>.constructor &amp;&amp; <span class="built_in">Object</span>.constructor === <span class="built_in">Function</span>&#125;</span></span></span><br><span class="line"><span class="string">`</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="prototype-和-proto"><a href="#prototype-和-proto" class="headerlink" title="prototype 和 proto"></a>prototype 和 <strong>proto</strong></h2><p>很多人搞不清prototype和<strong>proto</strong>的关系,两句话描述 :</p>
-<ul>
-<li>prototype是属于构造函数的,用来访问构造函数的原型</li>
-<li><strong>proto</strong>是属于实例的,用来访问这个实例的构造函数的原型</li>
-</ul>
-<blockquote>
-<p><strong>proto</strong>标准应该为属性:[[Prototype]],但是目前主流浏览器以及Node都为实例实现了getter:<strong>proto</strong>这个 <strong>非标准功能</strong>.</p>
-</blockquote>
-<p>即prototype和<strong>proto</strong> 都是用来访问一个特殊实例的,这个实例就是某个构造函数的原型(这个原型并不是通过构造函数构造的一个实例).</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> foo = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(Foo.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(foo.__proto__);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo.__proto__ 等于 Foo.prototype(foo由Foo构造):<span class="subst">$&#123;foo.__proto__ === Foo.prototype&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo.__proto__ instance of Foo : <span class="subst">$&#123;foo.__proto__ <span class="keyword">instanceof</span> Foo&#125;</span>`</span>); <span class="comment">// 原型并不是通过构造函数构造的一个实例,即不是 new Foo()出来的</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo.__proto__ instance of Object : <span class="subst">$&#123;foo.__proto__ <span class="keyword">instanceof</span> <span class="built_in">Object</span>&#125;</span>`</span>); <span class="comment">// 原型是通过 new Object() 构造出来的</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo instance of Foo : <span class="subst">$&#123;foo <span class="keyword">instanceof</span> Foo&#125;</span>`</span>); <span class="comment">// foo 才是 Foo 的实例</span></span><br></pre></td></tr></table></figure>
-
-<p>下图可以看出<strong>proto</strong>和prototype的区别与联系</p>
-<img src="/2018/09/04/javascript-proto/proto.jpg" class="" title="原型">
-
-<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>Javascript 原型的存在,目的是实现继承.当一个实例上一个属性不存在时,会去<strong>proto</strong>这个实例上去寻找,如果找不到会继续找取<strong>proto</strong>的<strong>proto</strong>去找…. 直到为空(实际如果在没有修改原型链的情况下,最终会找到Object.prototype的<strong>proto</strong>上,Object.prototype.__proto===null)</p>
-<p>可以参照上图:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> foo = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;foo.__proto__&#125;</span>`</span>); <span class="comment">// Foo.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;foo.__proto__.__prpto&#125;</span>`</span>); <span class="comment">// Foo.prototype.__proto__, Object.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;foo.__proto__.__prpto.__proto__&#125;</span>`</span>); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="普通对象和原型链"><a href="#普通对象和原型链" class="headerlink" title="普通对象和原型链"></a>普通对象和原型链</h2><p>先看一段代码</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params">ag = <span class="number">10</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = ag;</span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype.name = <span class="string">'foo.prototype'</span>;</span><br><span class="line">Foo.prototype.alert = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">`from <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> : age is <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>); &#125;</span><br><span class="line"><span class="keyword">let</span> f1 = <span class="keyword">new</span> Foo(<span class="number">11</span>);</span><br><span class="line">f1.name = <span class="string">'f1'</span>;</span><br><span class="line"><span class="keyword">let</span> f2 = <span class="keyword">new</span> Foo(<span class="number">13</span>);</span><br><span class="line">f1.alert(); <span class="comment">// 代码1</span></span><br><span class="line">f2.alert();</span><br><span class="line"><span class="comment">// f1.alert2(); // 代码2 f1.alert2 is not a function</span></span><br><span class="line"><span class="comment">// f2.alert2(); // f2.alert2 is not a function</span></span><br><span class="line">Foo.prototype = &#123; <span class="attr">name</span>: <span class="string">'foo.prototype2'</span>, <span class="attr">alert</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">`来自 <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> : 年龄是 <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>); &#125; &#125;;</span><br><span class="line"><span class="built_in">Object</span>.prototype.alert2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">`来自 Object.prototype :  <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span> !!!!!!!`</span>); &#125;;</span><br><span class="line"><span class="keyword">let</span> f3 = <span class="keyword">new</span> Foo(<span class="number">16</span>);</span><br><span class="line">f1.alert(); <span class="comment">// 依旧指向旧的prototype 代码3</span></span><br><span class="line">f2.alert(); <span class="comment">// 依旧指向旧的prototypeE</span></span><br><span class="line">f3.alert(); <span class="comment">// 代码4</span></span><br><span class="line"><span class="comment">// 通过 f.__proto__.__proto__ 找到 Object.prototype 上的方法</span></span><br><span class="line">f1.alert2(); <span class="comment">// 代码5</span></span><br><span class="line">f2.alert2();</span><br><span class="line">f3.alert2();</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>代码1: f1 f2 本身没有 alert方法 但是通过原型链 找到 f1.<strong>proto</strong>即 Foo.prototype 上有该方法,因此可以调用</li>
-<li>代码2: 找到原型链的最后都没有找到 alert 因此不可调用</li>
-<li>代码3: 这里首先要说明 new 操作做了什么事情: <code>let foo = new Foo()</code> 相当于三个步骤:</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = &#123;&#125;;</span><br><span class="line">foo.__proto__=Foo.prototype;</span><br><span class="line">Foo.call(foo);</span><br></pre></td></tr></table></figure>
-
-<p>因此,foo.<strong>proto</strong>并不会随着 Foo.prototype的改变而改变</p>
-<ul>
-<li>代码4 : 同上</li>
-<li>代码5 : 原型链查找</li>
-</ul>
-<p>常用对象原型链:</p>
-<ul>
-<li>Array</li>
-</ul>
-<p>new Array()._<em>proto_</em> =&gt; Array.prototype</p>
-<p>new Array()._<em>proto_</em>._<em>proto_</em> = Array.prototype._<em>proto_</em> =&gt; Object.prototype</p>
-<p>new Array()._<em>proto_</em>._<em>proto_</em>._<em>proto_</em> = Array.prototype._<em>proto_</em>._<em>proto_</em> = Object.prototype._<em>proto_</em> =&gt; null</p>
-<ul>
-<li>Object</li>
-</ul>
-<p>new Object()._<em>proto_</em> =&gt; Object.prototype</p>
-<p>new Object()._<em>proto_</em>._<em>proto_</em> = Object.prototype._<em>proto_</em> =&gt; null</p>
-<h2 id="函数对象和原型链"><a href="#函数对象和原型链" class="headerlink" title="函数对象和原型链"></a>函数对象和原型链</h2><p>函数对象原型链</p>
-<ul>
-<li>Function</li>
-</ul>
-<p>function Foo(){}</p>
-<p>Foo._<em>proto_</em> =&gt; Function.prototype</p>
-<p>Foo._<em>proto_</em>._<em>proto_</em> = Function.prototype._<em>proto_</em> =&gt; Object.prototype</p>
-<p>Foo._<em>proto_</em>._<em>proto_</em>._<em>proto_</em> = Function.prototype._<em>proto_</em>._<em>proto_</em> =  Object.prototype._<em>proto_</em> =&gt; null</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(Foo));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(<span class="built_in">Function</span>.prototype));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(<span class="built_in">Object</span>.prototype));</span><br></pre></td></tr></table></figure>
-
-<h2 id="proto-with-class"><a href="#proto-with-class" class="headerlink" title="proto with class"></a>proto with class</h2><p>ES6 引入了关键字 class,其本质还是跟原型链有一定关系的.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Polygon</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(height, width) &#123;</span><br><span class="line">        <span class="keyword">this</span>.height = height;</span><br><span class="line">        <span class="keyword">this</span>.width = width;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">get</span> area() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.height * <span class="keyword">this</span>.width;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Polygon</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(sideLength) &#123;</span><br><span class="line">        <span class="keyword">super</span>(sideLength, sideLength);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">set</span> sideLength(newLength) &#123;</span><br><span class="line">        <span class="keyword">this</span>.height = newLength;</span><br><span class="line">        <span class="keyword">this</span>.width = newLength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> square = <span class="keyword">new</span> Square(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(square.area);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Square is : <span class="subst">$&#123;<span class="keyword">typeof</span> Square&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Polygon is : <span class="subst">$&#123;<span class="keyword">typeof</span> Polygon&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(square));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`实例square 的 __proto__ 为类型 Square 的prototype : <span class="subst">$&#123;square.__proto__ === Square.prototype&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(square.__proto__)); <span class="comment">// Square.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`实例square 的 __proto__ 的 __proto__ 为类型 Polygon 的prototype : <span class="subst">$&#123;square.__proto__.__proto__ === Polygon.prototype&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(square.__proto__.__proto__));</span><br></pre></td></tr></table></figure>
-
-<p>可以看出, <strong>class</strong> 其实算是个语法糖,其本质还是通过定义function即构造函数,然后构造对象,而 <strong>extend</strong> 则是通过设置原型链来实现继承</p>
-]]></content>
-      <categories>
-        <category>knowledge</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-        <tag>prototype</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>01.SQL SERVER如何执行一个查询</title>
-    <url>/2017/03/01/how-sql-server-executes-a-query/</url>
-    <content><![CDATA[<p>根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。</p>
-<a id="more"></a>
-
-<h1 id="提交查询"><a href="#提交查询" class="headerlink" title="提交查询"></a>提交查询</h1><p>客户端提交给数据库的查询通过SQL Server网络接口等协议层(Protocol Layer)传给命令解析器。</p>
-<h1 id="命令解析器-Command-Parser-处理"><a href="#命令解析器-Command-Parser-处理" class="headerlink" title="命令解析器(Command Parser)处理"></a>命令解析器(Command Parser)处理</h1><p>命令解释器接收到查询会做以下工作：</p>
-<ul>
-<li>检查<ul>
-<li>语法正确</li>
-<li>数据库表存在</li>
-<li>查询列存在</li>
-</ul>
-</li>
-<li>生成查询树(Query Tree)：重现查询</li>
-<li>查询树提交给查询优化器</li>
-</ul>
-<h1 id="查询优化器-Query-Optimizer-处理"><a href="#查询优化器-Query-Optimizer-处理" class="headerlink" title="查询优化器(Query Optimizer)处理"></a>查询优化器(Query Optimizer)处理</h1><ul>
-<li>查询优化器将查询树编译为查询计划(Execution Plan)</li>
-<li>将查询计划缓存到缓冲池(Buffer Pool)中的执行计划缓存区(Plan Cache)</li>
-<li>将查询计划提交给查询执行器</li>
-</ul>
-<h1 id="查询执行器-Query-Executor-处理"><a href="#查询执行器-Query-Executor-处理" class="headerlink" title="查询执行器(Query Executor)处理"></a>查询执行器(Query Executor)处理</h1><ul>
-<li>查询分析器根据查询计划向存取方法(Access Methods)拿指定的读取页,存取方法会向缓冲区管理器读取想要指定页。</li>
-<li>缓存区管理器(Buffer Manager)检查它是否已在数据缓存(data cache)，如果没找到的话就从磁盘加载到缓存。<ul>
-<li>当请求的页面已经被存在缓冲池时,页会被立即读取,称为逻辑读。</li>
-<li>如果请求的页没存在缓冲池,缓冲区管理器会发起异步I/O操作把请求的页存储子系统中读到缓冲池,称为物理读。</li>
-</ul>
-</li>
-</ul>
-<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h1><p>当修改数据(INSERT,DELETE,UPDATE)时，需要与事务管理器进行交互，事务管理器把执行事务中描述的改变通过事务日志写到事务文件。</p>
-<img src="/2017/03/01/how-sql-server-executes-a-query/mssqlarch.png" class="" title="sql server 核心架构图">
-
-
-<h1 id="数据缓存-Data-Cache"><a href="#数据缓存-Data-Cache" class="headerlink" title="数据缓存(Data Cache)"></a>数据缓存(Data Cache)</h1><p>查看每个数据库占用了多大数据缓存(sys.dm_os_buffer_descriptors)</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(*)*<span class="number">8</span>/<span class="number">1024</span> <span class="keyword">AS</span> <span class="string">'Cached Size (MB)'</span></span><br><span class="line">	,<span class="keyword">CASE</span> database_id</span><br><span class="line">		<span class="keyword">WHEN</span> <span class="number">32767</span> <span class="keyword">THEN</span> <span class="string">'ResourceDb'</span></span><br><span class="line">		<span class="keyword">ELSE</span> db_name(database_id)</span><br><span class="line">		<span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Database'</span></span><br><span class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> db_name(database_id),database_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="string">'Cached Size (MB)'</span> <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="干净页和脏页"><a href="#干净页和脏页" class="headerlink" title="干净页和脏页"></a>干净页和脏页</h1><p>清除干净页</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">DBCC DROPCLEANBUFFERS</span><br></pre></td></tr></table></figure>
-
-<p>查询脏页</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> db_name(database_id) <span class="keyword">AS</span> <span class="string">'Database'</span>,<span class="keyword">count</span>(page_id) <span class="keyword">AS</span> <span class="string">'Dirty Pages'</span></span><br><span class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</span><br><span class="line"><span class="keyword">WHERE</span> is_modified =<span class="number">1</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> db_name(database_id)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">count</span>(page_id) <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a href="http://rusanu.com/2013/08/01/understanding-how-sql-server-executes-a-query" target="_blank" rel="noopener">understanding-how-sql-server-executes-a-query</a><br><a href="http://www.cnblogs.com/woodytu/p/4465649.html" target="_blank" rel="noopener">第1/24周 SQL Server 如何执行一个查询</a><br><a href="http://www.cnblogs.com/woodytu/p/4471386.html" target="_blank" rel="noopener">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(1)</a><br><a href="http://www.cnblogs.com/woodytu/p/4472315.html" target="_blank" rel="noopener">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(2)</a><br><a href="http://www.cnblogs.com/woodytu/p/4474652.html" target="_blank" rel="noopener">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(3)</a></p>
-]]></content>
-      <categories>
-        <category>knowledge</category>
-      </categories>
-      <tags>
-        <tag>mssql</tag>
-        <tag>performance tuning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hexo搭建个人博客</title>
     <url>/2017/02/22/first-blog/</url>
     <content><![CDATA[<blockquote class="blockquote-center"><p>发现一个基于 Node.js的高效的静态站点生成框架<a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a>,使用 Markdown 编写文章,于是用来搭建自己的网站。<br>接下来介绍如何一步一步完成搭建的。</p>
@@ -624,6 +472,158 @@
       </categories>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>01.SQL SERVER如何执行一个查询</title>
+    <url>/2017/03/01/how-sql-server-executes-a-query/</url>
+    <content><![CDATA[<p>根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。</p>
+<a id="more"></a>
+
+<h1 id="提交查询"><a href="#提交查询" class="headerlink" title="提交查询"></a>提交查询</h1><p>客户端提交给数据库的查询通过SQL Server网络接口等协议层(Protocol Layer)传给命令解析器。</p>
+<h1 id="命令解析器-Command-Parser-处理"><a href="#命令解析器-Command-Parser-处理" class="headerlink" title="命令解析器(Command Parser)处理"></a>命令解析器(Command Parser)处理</h1><p>命令解释器接收到查询会做以下工作：</p>
+<ul>
+<li>检查<ul>
+<li>语法正确</li>
+<li>数据库表存在</li>
+<li>查询列存在</li>
+</ul>
+</li>
+<li>生成查询树(Query Tree)：重现查询</li>
+<li>查询树提交给查询优化器</li>
+</ul>
+<h1 id="查询优化器-Query-Optimizer-处理"><a href="#查询优化器-Query-Optimizer-处理" class="headerlink" title="查询优化器(Query Optimizer)处理"></a>查询优化器(Query Optimizer)处理</h1><ul>
+<li>查询优化器将查询树编译为查询计划(Execution Plan)</li>
+<li>将查询计划缓存到缓冲池(Buffer Pool)中的执行计划缓存区(Plan Cache)</li>
+<li>将查询计划提交给查询执行器</li>
+</ul>
+<h1 id="查询执行器-Query-Executor-处理"><a href="#查询执行器-Query-Executor-处理" class="headerlink" title="查询执行器(Query Executor)处理"></a>查询执行器(Query Executor)处理</h1><ul>
+<li>查询分析器根据查询计划向存取方法(Access Methods)拿指定的读取页,存取方法会向缓冲区管理器读取想要指定页。</li>
+<li>缓存区管理器(Buffer Manager)检查它是否已在数据缓存(data cache)，如果没找到的话就从磁盘加载到缓存。<ul>
+<li>当请求的页面已经被存在缓冲池时,页会被立即读取,称为逻辑读。</li>
+<li>如果请求的页没存在缓冲池,缓冲区管理器会发起异步I/O操作把请求的页存储子系统中读到缓冲池,称为物理读。</li>
+</ul>
+</li>
+</ul>
+<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h1><p>当修改数据(INSERT,DELETE,UPDATE)时，需要与事务管理器进行交互，事务管理器把执行事务中描述的改变通过事务日志写到事务文件。</p>
+<img src="/2017/03/01/how-sql-server-executes-a-query/mssqlarch.png" class="" title="sql server 核心架构图">
+
+
+<h1 id="数据缓存-Data-Cache"><a href="#数据缓存-Data-Cache" class="headerlink" title="数据缓存(Data Cache)"></a>数据缓存(Data Cache)</h1><p>查看每个数据库占用了多大数据缓存(sys.dm_os_buffer_descriptors)</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(*)*<span class="number">8</span>/<span class="number">1024</span> <span class="keyword">AS</span> <span class="string">'Cached Size (MB)'</span></span><br><span class="line">	,<span class="keyword">CASE</span> database_id</span><br><span class="line">		<span class="keyword">WHEN</span> <span class="number">32767</span> <span class="keyword">THEN</span> <span class="string">'ResourceDb'</span></span><br><span class="line">		<span class="keyword">ELSE</span> db_name(database_id)</span><br><span class="line">		<span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">'Database'</span></span><br><span class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> db_name(database_id),database_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="string">'Cached Size (MB)'</span> <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="干净页和脏页"><a href="#干净页和脏页" class="headerlink" title="干净页和脏页"></a>干净页和脏页</h1><p>清除干净页</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">DBCC DROPCLEANBUFFERS</span><br></pre></td></tr></table></figure>
+
+<p>查询脏页</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> db_name(database_id) <span class="keyword">AS</span> <span class="string">'Database'</span>,<span class="keyword">count</span>(page_id) <span class="keyword">AS</span> <span class="string">'Dirty Pages'</span></span><br><span class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</span><br><span class="line"><span class="keyword">WHERE</span> is_modified =<span class="number">1</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> db_name(database_id)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">count</span>(page_id) <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a href="http://rusanu.com/2013/08/01/understanding-how-sql-server-executes-a-query" target="_blank" rel="noopener">understanding-how-sql-server-executes-a-query</a><br><a href="http://www.cnblogs.com/woodytu/p/4465649.html" target="_blank" rel="noopener">第1/24周 SQL Server 如何执行一个查询</a><br><a href="http://www.cnblogs.com/woodytu/p/4471386.html" target="_blank" rel="noopener">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(1)</a><br><a href="http://www.cnblogs.com/woodytu/p/4472315.html" target="_blank" rel="noopener">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(2)</a><br><a href="http://www.cnblogs.com/woodytu/p/4474652.html" target="_blank" rel="noopener">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(3)</a></p>
+]]></content>
+      <categories>
+        <category>knowledge</category>
+      </categories>
+      <tags>
+        <tag>mssql</tag>
+        <tag>performance tuning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Javascript 原型链</title>
+    <url>/2018/09/04/javascript-proto/</url>
+    <content><![CDATA[<p>介绍Javascript原型链</p>
+<a id="more"></a>
+
+<h1 id="Prototype"><a href="#Prototype" class="headerlink" title="Prototype"></a>Prototype</h1><h2 id="普通实例-对象-和函数实例-对象"><a href="#普通实例-对象-和函数实例-对象" class="headerlink" title="普通实例(对象)和函数实例(对象)"></a>普通实例(对象)和函数实例(对象)</h2><p>首先搞清楚一个概念 : 实例</p>
+<blockquote>
+<p>我更喜欢用“实例(instance)”而不是“对象(object)”,当阅读到时,知道是一种东西即可.</p>
+</blockquote>
+<p>简单来说: <strong>实例</strong> 是通过 <em>构造函数</em> <em>new</em> 出来的.</p>
+<p>Javascript中一切都可以是实例,但是实例之间又有所不同:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// Foo : instance &amp; constructor</span></span><br><span class="line"><span class="keyword">let</span> foo = <span class="keyword">new</span> Foo(); <span class="comment">// foo1 : Instance</span></span><br><span class="line"><span class="keyword">let</span> Bar = <span class="keyword">new</span> <span class="built_in">Function</span>(); <span class="comment">//instance 相当于 function Bar()&#123;&#125;</span></span><br><span class="line"><span class="keyword">let</span> ob1 = &#123;&#125; <span class="comment">// Instance 语法糖,相当于 new Object()</span></span><br><span class="line"><span class="keyword">let</span> ob2 = <span class="keyword">new</span> <span class="built_in">Object</span>();<span class="comment">// Instance</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> foo);<span class="comment">//foo是Object类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> ob1);<span class="comment">//ob1是Object类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> ob2);<span class="comment">//ob2是Object类型</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Foo);<span class="comment">//Foo是Function类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Bar);<span class="comment">//Bar是Function类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Object</span>);<span class="comment">//Object 是Function类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Date</span>);<span class="comment">//Date是Function类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Function</span>);<span class="comment">//Function是Function类型</span></span><br><span class="line"><span class="comment">// =&gt;</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// function</span></span><br><span class="line"><span class="comment">// function</span></span><br><span class="line"><span class="comment">// function</span></span><br><span class="line"><span class="comment">// function</span></span><br><span class="line"><span class="comment">// function</span></span><br></pre></td></tr></table></figure>
+
+<p>1.2.3都比较好理解.<br>4.5.6.7:这是由于Javascript的定义:所有<em>函数</em>(例如上面自定义的Foo,Bar,内置的Object,Date甚至Function本身)都是由<code>Function</code>创建的实例.</p>
+<p>可以看到正常的创建一个实例的方法为: 调用 new <em>constructor()</em></p>
+<p>Javascript 也提供了一些语法糖.可以用来创建实例,例如 <code>function Foo(){}</code> 或者 <code>let obj = {}</code>,可以简单认为,其本质还是通过new来创建的.</p>
+<p><strong>最终得出的概念是: 实例或者对象就是 <code>let foo = new Foo();</code> 中通过new后面的Foo(构造函数)构造出来的东西</strong></p>
+<p>同时对象可以分为普通实例和函数实例:</p>
+<ul>
+<li>foo、ob1、ob2 等称为普通实例.通过诸如 Foo()、 Object() 等构造函数构造出来.</li>
+<li>Foo、Bar、Object 等比较特殊,称为函数实例 : 既可以作为构造函数(可以new实例),本身又是个实例,通过构造函数Function构造造出来,例如 <code>let Bar =  new Function()</code> 或者 <code>function Foo(){}</code></li>
+</ul>
+<h2 id="构造函数-函数实例"><a href="#构造函数-函数实例" class="headerlink" title="构造函数(函数实例)"></a>构造函数(函数实例)</h2><p>当使用 <code>let foo = new Foo()</code> 的时候 Foo 就是 foo 的构造函数:</p>
+<blockquote>
+<p>Javascript有个比较奇怪的地方foo是个Foo的实例(foo instanceof Foo),但是foo的类型(typeof foo)却是Object</p>
+<p>这个暂时想不明白为什么(可能是弱类型的原因),因此在描述实例的”类型”,会尽量避免使用”类型”这一概念,而使用”实例的构造函数”.</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> foo1 = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="keyword">let</span> foo2 = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo1的构造函数为 : <span class="subst">$&#123;foo1.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">foo1和foo2的构造函数相等 : <span class="subst">$&#123;foo1.constructor === foo2.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">这是因为foo1,foo2的构造函数都是 Foo : <span class="subst">$&#123;foo1.constructor === Foo &amp;&amp; foo2.constructor === Foo&#125;</span>,</span></span><br><span class="line"><span class="string">即foo1 instance of Foo : <span class="subst">$&#123;foo1 <span class="keyword">instanceof</span> Foo&#125;</span>,</span></span><br><span class="line"><span class="string">即foo2 instance of Foo : <span class="subst">$&#123;foo2 <span class="keyword">instanceof</span> Foo&#125;</span>,</span></span><br><span class="line"><span class="string">`</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ob = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`实例都有对应的构造函数:</span></span><br><span class="line"><span class="string">ob : <span class="subst">$&#123;ob.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">Foo : <span class="subst">$&#123;Foo.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">Object : <span class="subst">$&#123;<span class="built_in">Object</span>.constructor&#125;</span>,</span></span><br><span class="line"><span class="string">Foo Object同时也作为函数实例,因此它们的构造函数相同,都是Function : <span class="subst">$&#123;Foo.constructor === <span class="built_in">Object</span>.constructor &amp;&amp; <span class="built_in">Object</span>.constructor === <span class="built_in">Function</span>&#125;</span></span></span><br><span class="line"><span class="string">`</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="prototype-和-proto"><a href="#prototype-和-proto" class="headerlink" title="prototype 和 proto"></a>prototype 和 <strong>proto</strong></h2><p>很多人搞不清prototype和<strong>proto</strong>的关系,两句话描述 :</p>
+<ul>
+<li>prototype是属于构造函数的,用来访问构造函数的原型</li>
+<li><strong>proto</strong>是属于实例的,用来访问这个实例的构造函数的原型</li>
+</ul>
+<blockquote>
+<p><strong>proto</strong>标准应该为属性:[[Prototype]],但是目前主流浏览器以及Node都为实例实现了getter:<strong>proto</strong>这个 <strong>非标准功能</strong>.</p>
+</blockquote>
+<p>即prototype和<strong>proto</strong> 都是用来访问一个特殊实例的,这个实例就是某个构造函数的原型(这个原型并不是通过构造函数构造的一个实例).</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> foo = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(Foo.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(foo.__proto__);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo.__proto__ 等于 Foo.prototype(foo由Foo构造):<span class="subst">$&#123;foo.__proto__ === Foo.prototype&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo.__proto__ instance of Foo : <span class="subst">$&#123;foo.__proto__ <span class="keyword">instanceof</span> Foo&#125;</span>`</span>); <span class="comment">// 原型并不是通过构造函数构造的一个实例,即不是 new Foo()出来的</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo.__proto__ instance of Object : <span class="subst">$&#123;foo.__proto__ <span class="keyword">instanceof</span> <span class="built_in">Object</span>&#125;</span>`</span>); <span class="comment">// 原型是通过 new Object() 构造出来的</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`foo instance of Foo : <span class="subst">$&#123;foo <span class="keyword">instanceof</span> Foo&#125;</span>`</span>); <span class="comment">// foo 才是 Foo 的实例</span></span><br></pre></td></tr></table></figure>
+
+<p>下图可以看出<strong>proto</strong>和prototype的区别与联系</p>
+<img src="/2018/09/04/javascript-proto/proto.jpg" class="" title="原型">
+
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>Javascript 原型的存在,目的是实现继承.当一个实例上一个属性不存在时,会去<strong>proto</strong>这个实例上去寻找,如果找不到会继续找取<strong>proto</strong>的<strong>proto</strong>去找…. 直到为空(实际如果在没有修改原型链的情况下,最终会找到Object.prototype的<strong>proto</strong>上,Object.prototype.__proto===null)</p>
+<p>可以参照上图:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> foo = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;foo.__proto__&#125;</span>`</span>); <span class="comment">// Foo.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;foo.__proto__.__prpto&#125;</span>`</span>); <span class="comment">// Foo.prototype.__proto__, Object.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;foo.__proto__.__prpto.__proto__&#125;</span>`</span>); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="普通对象和原型链"><a href="#普通对象和原型链" class="headerlink" title="普通对象和原型链"></a>普通对象和原型链</h2><p>先看一段代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params">ag = <span class="number">10</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = ag;</span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype.name = <span class="string">'foo.prototype'</span>;</span><br><span class="line">Foo.prototype.alert = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">`from <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> : age is <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>); &#125;</span><br><span class="line"><span class="keyword">let</span> f1 = <span class="keyword">new</span> Foo(<span class="number">11</span>);</span><br><span class="line">f1.name = <span class="string">'f1'</span>;</span><br><span class="line"><span class="keyword">let</span> f2 = <span class="keyword">new</span> Foo(<span class="number">13</span>);</span><br><span class="line">f1.alert(); <span class="comment">// 代码1</span></span><br><span class="line">f2.alert();</span><br><span class="line"><span class="comment">// f1.alert2(); // 代码2 f1.alert2 is not a function</span></span><br><span class="line"><span class="comment">// f2.alert2(); // f2.alert2 is not a function</span></span><br><span class="line">Foo.prototype = &#123; <span class="attr">name</span>: <span class="string">'foo.prototype2'</span>, <span class="attr">alert</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">`来自 <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> : 年龄是 <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>); &#125; &#125;;</span><br><span class="line"><span class="built_in">Object</span>.prototype.alert2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">`来自 Object.prototype :  <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span> !!!!!!!`</span>); &#125;;</span><br><span class="line"><span class="keyword">let</span> f3 = <span class="keyword">new</span> Foo(<span class="number">16</span>);</span><br><span class="line">f1.alert(); <span class="comment">// 依旧指向旧的prototype 代码3</span></span><br><span class="line">f2.alert(); <span class="comment">// 依旧指向旧的prototypeE</span></span><br><span class="line">f3.alert(); <span class="comment">// 代码4</span></span><br><span class="line"><span class="comment">// 通过 f.__proto__.__proto__ 找到 Object.prototype 上的方法</span></span><br><span class="line">f1.alert2(); <span class="comment">// 代码5</span></span><br><span class="line">f2.alert2();</span><br><span class="line">f3.alert2();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>代码1: f1 f2 本身没有 alert方法 但是通过原型链 找到 f1.<strong>proto</strong>即 Foo.prototype 上有该方法,因此可以调用</li>
+<li>代码2: 找到原型链的最后都没有找到 alert 因此不可调用</li>
+<li>代码3: 这里首先要说明 new 操作做了什么事情: <code>let foo = new Foo()</code> 相当于三个步骤:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = &#123;&#125;;</span><br><span class="line">foo.__proto__=Foo.prototype;</span><br><span class="line">Foo.call(foo);</span><br></pre></td></tr></table></figure>
+
+<p>因此,foo.<strong>proto</strong>并不会随着 Foo.prototype的改变而改变</p>
+<ul>
+<li>代码4 : 同上</li>
+<li>代码5 : 原型链查找</li>
+</ul>
+<p>常用对象原型链:</p>
+<ul>
+<li>Array</li>
+</ul>
+<p>new Array()._<em>proto_</em> =&gt; Array.prototype</p>
+<p>new Array()._<em>proto_</em>._<em>proto_</em> = Array.prototype._<em>proto_</em> =&gt; Object.prototype</p>
+<p>new Array()._<em>proto_</em>._<em>proto_</em>._<em>proto_</em> = Array.prototype._<em>proto_</em>._<em>proto_</em> = Object.prototype._<em>proto_</em> =&gt; null</p>
+<ul>
+<li>Object</li>
+</ul>
+<p>new Object()._<em>proto_</em> =&gt; Object.prototype</p>
+<p>new Object()._<em>proto_</em>._<em>proto_</em> = Object.prototype._<em>proto_</em> =&gt; null</p>
+<h2 id="函数对象和原型链"><a href="#函数对象和原型链" class="headerlink" title="函数对象和原型链"></a>函数对象和原型链</h2><p>函数对象原型链</p>
+<ul>
+<li>Function</li>
+</ul>
+<p>function Foo(){}</p>
+<p>Foo._<em>proto_</em> =&gt; Function.prototype</p>
+<p>Foo._<em>proto_</em>._<em>proto_</em> = Function.prototype._<em>proto_</em> =&gt; Object.prototype</p>
+<p>Foo._<em>proto_</em>._<em>proto_</em>._<em>proto_</em> = Function.prototype._<em>proto_</em>._<em>proto_</em> =  Object.prototype._<em>proto_</em> =&gt; null</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(Foo));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(<span class="built_in">Function</span>.prototype));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(<span class="built_in">Object</span>.prototype));</span><br></pre></td></tr></table></figure>
+
+<h2 id="proto-with-class"><a href="#proto-with-class" class="headerlink" title="proto with class"></a>proto with class</h2><p>ES6 引入了关键字 class,其本质还是跟原型链有一定关系的.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Polygon</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(height, width) &#123;</span><br><span class="line">        <span class="keyword">this</span>.height = height;</span><br><span class="line">        <span class="keyword">this</span>.width = width;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">get</span> area() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.height * <span class="keyword">this</span>.width;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Polygon</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(sideLength) &#123;</span><br><span class="line">        <span class="keyword">super</span>(sideLength, sideLength);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">set</span> sideLength(newLength) &#123;</span><br><span class="line">        <span class="keyword">this</span>.height = newLength;</span><br><span class="line">        <span class="keyword">this</span>.width = newLength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> square = <span class="keyword">new</span> Square(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(square.area);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Square is : <span class="subst">$&#123;<span class="keyword">typeof</span> Square&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Polygon is : <span class="subst">$&#123;<span class="keyword">typeof</span> Polygon&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(square));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`实例square 的 __proto__ 为类型 Square 的prototype : <span class="subst">$&#123;square.__proto__ === Square.prototype&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(square.__proto__)); <span class="comment">// Square.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`实例square 的 __proto__ 的 __proto__ 为类型 Polygon 的prototype : <span class="subst">$&#123;square.__proto__.__proto__ === Polygon.prototype&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(square.__proto__.__proto__));</span><br></pre></td></tr></table></figure>
+
+<p>可以看出, <strong>class</strong> 其实算是个语法糖,其本质还是通过定义function即构造函数,然后构造对象,而 <strong>extend</strong> 则是通过设置原型链来实现继承</p>
+]]></content>
+      <categories>
+        <category>knowledge</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>prototype</tag>
       </tags>
   </entry>
   <entry>
