@@ -40,6 +40,14 @@
     </url>
 
     <url>
+        <loc>http://baochen.name/2018/10/18/unicode/</loc>
+        <lastmod>2020-05-07T12:23:55.914Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://baochen.name/2017/03/21/sql-server-locks/</loc>
         <lastmod>2020-05-07T12:23:55.914Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -48,8 +56,8 @@
     </url>
 
     <url>
-        <loc>http://baochen.name/2018/10/18/unicode/</loc>
-        <lastmod>2020-05-07T12:23:55.914Z</lastmod>
+        <loc>http://baochen.name/2017/02/24/about-crontab/</loc>
+        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -64,7 +72,31 @@
     </url>
 
     <url>
+        <loc>http://baochen.name/2017/03/01/about-beian-2/</loc>
+        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/</loc>
+        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://baochen.name/2018/04/08/docker-intro/</loc>
+        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://baochen.name/2018/09/04/javascript-proto/</loc>
         <lastmod>2020-05-07T12:23:55.910Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -81,38 +113,6 @@
 
     <url>
         <loc>http://baochen.name/2017/03/01/how-sql-server-executes-a-query/</loc>
-        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://baochen.name/2018/09/04/javascript-proto/</loc>
-        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://baochen.name/2017/03/01/about-beian-2/</loc>
-        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://baochen.name/2017/02/24/about-crontab/</loc>
-        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/</loc>
         <lastmod>2020-05-07T12:23:55.910Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

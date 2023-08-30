@@ -52,14 +52,7 @@
     </url>
 
     <url>
-        <loc>http://baochen.name/tags/shell/</loc>
-        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://baochen.name/tags/crontab/</loc>
+        <loc>http://baochen.name/tags/hexo/</loc>
         <lastmod>2020-05-07T12:23:55.910Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -80,13 +73,6 @@
     </url>
 
     <url>
-        <loc>http://baochen.name/tags/hexo/</loc>
-        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://baochen.name/tags/docker/</loc>
         <lastmod>2020-05-07T12:23:55.910Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -95,6 +81,20 @@
 
     <url>
         <loc>http://baochen.name/tags/beian/</loc>
+        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://baochen.name/tags/shell/</loc>
+        <lastmod>2020-05-07T12:23:55.910Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://baochen.name/tags/crontab/</loc>
         <lastmod>2020-05-07T12:23:55.910Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
