@@ -18,6 +18,18 @@
       </tags>
   </entry>
   <entry>
+    <title>关于备案后续</title>
+    <url>/2017/03/01/about-beian-2/</url>
+    <content><![CDATA[<p>通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。<br>真可谓快。出乎了我的想象。<br>因为是个人备案，步骤很简单，一部手机+身份证就可以了。<br>据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>beian</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于crontab执行脚本环境变量问题</title>
     <url>/2017/02/24/about-crontab/</url>
     <content><![CDATA[<p>搭建自己的博客配置了自动化脚本，用来同步git仓库、执行hexo命令生成&amp;部署站点。</p>
@@ -44,18 +56,6 @@
       <tags>
         <tag>crontab</tag>
         <tag>shell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于备案后续</title>
-    <url>/2017/03/01/about-beian-2/</url>
-    <content><![CDATA[<p>通过腾讯云备案，腾讯初审大约用了2天（包括提交资料和照片），然后昨天（2017年2月28日 中午12:43）腾讯正式把备案材料提交给管局审核，今天（2017年3月1日 上午10:43）就收到了审核通过的邮件和短信。<br>真可谓快。出乎了我的想象。<br>因为是个人备案，步骤很简单，一部手机+身份证就可以了。<br>据说需要居住证的，也能没有要求提交，可能是放宽了政策吧。</p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>beian</tag>
       </tags>
   </entry>
   <entry>
@@ -183,144 +183,6 @@
       <tags>
         <tag>mssql</tag>
         <tag>performance tuning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>docker 入门</title>
-    <url>/2018/04/08/docker-intro/</url>
-    <content><![CDATA[<blockquote class="blockquote-center"><p>开发人员总是会这么说：“在我的机器上是正常的呀！”<br>这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。<br>Docker作为一种解决方案，很好的解决了这个问题。</p>
-</blockquote>
-
-<a id="more"></a>
-
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#背景">背景</a></li>
-<li><a href="#安装">安装</a></li>
-<li><a href="#HelloWorld">HelloWorld</a></li>
-<li><a href="#Image">Image</a></li>
-<li><a href="#Container">Container</a></li>
-<li><a href="#制作自己的Image">制作自己的Image</a></li>
-<li><a href="#微服务">微服务</a></li>
-</ul>
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>虚拟化技术应用非常广泛，主要有虚拟机和容器(LXC)两种。<br>虚拟机尤其有点也有缺点，冗余，占用资源高，启动慢，为此，诞生了Linux容器技术即LXC。<br>Docker 属于 Linux 容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>根据官网教程选择自己的平台对应的<a href="https://docs.docker.com/install/" target="_blank" rel="noopener">安装指引</a></p>
-<p>安装完成后，在命令行中运行查看是否安装成功:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker version</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker info</span></span><br></pre></td></tr></table></figure>
-
-<p>Docker 是服务器—-客户端架构。命令行运行docker命令的时候，需要本机有 Docker 服务。如果这项服务没有启动，可以用下面的命令启动(Linux宿主机。Windows 不需要)。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> service 命令的用法</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo service docker start</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> systemctl 命令的用法</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl start docker</span></span><br></pre></td></tr></table></figure>
-
-<p>补充一句，Windows下的Docker实际是通过Hyper-V创建了Linux虚拟机运行的。这个虚拟机已经配置好Docker的运行环境。</p>
-<h1 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">运行下面的命令，将 image 文件从仓库抓取到本地。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image pull library/hello-world</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">上面代码中，docker image pull是抓取 image 文件的命令。library/hello-world是 image 文件在仓库里面的位置，其中library是 image 文件所在的组，hello-world是 image 文件的名字。</span></span><br><span class="line"><span class="meta">#</span><span class="bash">由于 Docker 官方提供的 image 文件，都放在library组里面，所以它的是默认组，可以省略。因此，上面的命令可以写成下面这样。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image pull hello-world</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">抓取成功以后，就可以在本机看到这个 image 文件了。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image ls</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">运行</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container run hello-world</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以看到类似下面的输出</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Hello from Docker!</span></span><br><span class="line"><span class="meta">#</span><span class="bash">This message shows that your installation appears to be working correctly.</span></span><br></pre></td></tr></table></figure>
-
-<p>或者，可以直接输入命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container run hello-world</span><br></pre></td></tr></table></figure>
-
-<p>docker 会自动查找Image，如果本地没有，会从官方仓库中pull，然后运行。</p>
-<p>另外可以安装运行 Ubuntu</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container run -it ubuntu bash</span><br></pre></td></tr></table></figure>
-
-<p>但是安装的Ubuntu是以服务运行的，并不会自动停止，需要使用kill命令停止</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container kill [containID]</span><br></pre></td></tr></table></figure>
-
-<h1 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h1><p>Docker 把应用程序及其依赖，打包在 image 文件里面。只有通过这个文件，才能生成 Docker 容器。image 文件可以看作是容器的模板。Docker 根据 image 文件生成容器的实例。同一个 image 文件，可以生成多个同时运行的容器实例。</p>
-<p>image 是二进制文件。实际开发中，一个 image 文件往往通过继承另一个 image 文件，加上一些个性化设置而生成。举例来说，你可以在 Ubuntu 的 image 基础上，往里面加入 Apache 服务器，形成你的 image。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出本机的所有 image 文件。</span></span><br><span class="line">docker image ls</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除 image 文件</span></span><br><span class="line">docker image rm [imageName]</span><br><span class="line">image 文件是通用的，一台机器的 image 文件拷贝到另一台机器，照样可以使用。一般来说，为了节省时间，我们应该尽量使用别人制作好的 image 文件，而不是自己制作。即使要定制，也应该基于别人的 image 文件进行加工，而不是从零开始制作。</span><br></pre></td></tr></table></figure>
-
-<p>为了方便共享，image 文件制作完成后，可以上传到网上的仓库。Docker 的官方仓库 Docker Hub 是最重要、最常用的 image 仓库。此外，出售自己制作的 image 文件也是可以的。</p>
-<h1 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h1><p>image 文件生成的容器实例，本身也是一个文件，称为容器文件。也就是说，一旦容器生成，就会同时存在两个文件： image 文件和容器文件。而且关闭容器并不会删除容器文件，只是容器停止运行而已。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出本机正在运行的容器</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container ls</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出本机所有容器，包括终止运行的容器</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container ls --all</span></span><br></pre></td></tr></table></figure>
-
-<p>上面命令的输出结果之中，包括容器的 ID。很多地方都需要提供这个 ID，比如上一节终止容器运行的docker container kill命令。</p>
-<p>终止运行的容器文件，依然会占据硬盘空间，可以使用docker container rm命令删除。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker container rm [containerID]</span></span><br><span class="line">运行上面的命令之后，再使用docker container ls --all命令，就会发现被删除的容器文件已经消失了。</span><br></pre></td></tr></table></figure>
-
-<h1 id="制作自己的Image"><a href="#制作自己的Image" class="headerlink" title="制作自己的Image"></a>制作自己的Image</h1><p>下面以 koa-demos 项目为例，介绍怎么写 Dockerfile 文件，实现让用户在 Docker 容器里面运行 Koa 框架。<br>作为准备工作，请先下载源码。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">作为准备工作，请先下载源码。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/ruanyf/koa-demos.git</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> koa-demos</span></span><br></pre></td></tr></table></figure>
-
-<p>接下来编写 Dockerfile 文件，首先，在项目的根目录下，新建一个文本文件.dockerignore，写入下面的内容。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">.git</span><br><span class="line">node_modules</span><br><span class="line">npm-debug.log</span><br></pre></td></tr></table></figure>
-
-<p>上面代码表示，这三个路径要排除，不要打包进入 image 文件。如果你没有路径要排除，这个文件可以不新建。</p>
-<p>然后，在项目的根目录下，新建一个文本文件 Dockerfile，写入下面的内容。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">FROM node:8.4 #该 image 文件继承官方的 node image，冒号表示标签，这里标签是8.4，即8.4版本的 node。</span><br><span class="line">COPY . /app #将当前目录下的所有文件（除了.dockerignore排除的路径），都拷贝进入 image 文件的/app目录。</span><br><span class="line">WORKDIR /app #指定接下来的工作路径为/app。</span><br><span class="line">RUN npm install --registry=https://registry.npm.taobao.org #在/app目录下，运行npm install命令安装依赖。注意，安装后所有的依赖，都将打包进入 image 文件。</span><br><span class="line">EXPOSE 3000 #将容器 3000 端口暴露出来， 允许外部连接这个端口。</span><br></pre></td></tr></table></figure>
-
-<p>上面代码一共五行，含义如下:<br>FROM node:8.4：该 image 文件继承官方的 node image，冒号表示标签，这里标签是8.4，即8.4版本的 node。<br>COPY . /app：将当前目录下的所有文件（除了.dockerignore排除的路径），都拷贝进入 image 文件的/app目录。<br>WORKDIR /app：指定接下来的工作路径为/app。<br>RUN npm install：在/app目录下，运行npm install命令安装依赖。注意，安装后所有的依赖，都将打包进入 image 文件。<br>EXPOSE 3000：将容器 3000 端口暴露出来， 允许外部连接这个端口。</p>
-<p>接下来创建 image 文件，使用docker image build命令创建 image 文件。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker image build -t koa-demo .</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image build -t koa-demo:0.0.1 .</span></span><br><span class="line">上面代码中，-t参数用来指定 image 文件的名字，后面还可以用冒号指定标签。如果不指定，默认的标签就是latest。最后的那个点表示 Dockerfile 文件所在的路径，上例是当前路径，所以是一个点。</span><br></pre></td></tr></table></figure>
-
-<p>如果运行成功，就可以看到新生成的 image 文件koa-demo了。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker image ls</span><br></pre></td></tr></table></figure>
-
-<p>docker container run命令会从 image 文件生成容器。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker container run -p 8000:3000 -it koa-demo /bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container run -p 8000:3000 -it koa-demo:0.0.1 /bin/bash</span></span><br></pre></td></tr></table></figure>
-
-<p>上面命令的各个参数含义如下：</p>
-<p>-p参数：容器的 3000 端口映射到本机的 8000 端口。<br>-it参数：容器的 Shell 映射到当前的 Shell，然后你在本机窗口输入的命令，就会传入容器。<br>koa-demo:0.0.1：image 文件的名字（如果有标签，还需要提供标签，默认是 latest 标签）。<br>/bin/bash：容器启动以后，内部第一个执行的命令。这里是启动 Bash，保证用户可以使用 Shell。<br>如果一切正常，运行上面的命令以后，就会返回一个命令行提示符。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@66d80f4aaf1e:/app#</span><br><span class="line"><span class="meta">#</span><span class="bash">这表示你已经在容器里面了，返回的提示符就是容器内部的 Shell 提示符。执行下面的命令。</span></span><br><span class="line"></span><br><span class="line">root@66d80f4aaf1e:/app# node demos/01.js</span><br><span class="line"><span class="meta">#</span><span class="bash">这时，Koa 框架已经运行起来了。打开本机的浏览器，访问 http://127.0.0.1:8000，网页显示<span class="string">"Not Found"</span>，这是因为这个 demo 没有写路由。</span></span><br></pre></td></tr></table></figure>
-
-<p>这个例子中，Node 进程运行在 Docker 容器的虚拟环境里面，进程接触到的文件系统和网络接口都是虚拟的，与本机的文件系统和网络接口是隔离的，因此需要定义容器与物理机的端口映射（map）。<br>现在，在容器的命令行，按下 Ctrl + c 停止 Node 进程，然后按下 Ctrl + d （或者输入 exit）退出容器。此外，也可以用docker container kill终止容器运行。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在本机的另一个终端窗口，查出容器的 ID</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container ls</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止指定的容器运行</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container <span class="built_in">kill</span> [containerID]</span></span><br><span class="line">容器停止运行之后，并不会消失，用下面的命令删除容器文件。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查出容器的 ID</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container ls --all</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除指定的容器文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container rm [containerID]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 也可以使用docker container run命令的--rm参数，在容器终止运行后自动删除容器文件。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container run --rm -p 8000:3000 -it koa-demo /bin/bash</span></span><br></pre></td></tr></table></figure>
-
-<p>最后说一下CMD 命令，上面说到容器启动以后，需要手动输入命令node demos/01.js。我们可以把这个命令写在 Dockerfile 里面，这样容器启动以后，这个命令就已经执行了，不用再手动输入了。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">FROM node:8.4</span><br><span class="line">COPY . /app</span><br><span class="line">WORKDIR /app</span><br><span class="line">RUN npm install --registry=https://registry.npm.taobao.org</span><br><span class="line">EXPOSE 3000</span><br><span class="line">CMD node demos/01.js</span><br></pre></td></tr></table></figure>
-
-<p>上面的 Dockerfile 里面，多了最后一行CMD node demos/01.js，它表示容器启动后自动执行node demos/01.js。</p>
-<p>RUN命令与CMD命令的区别在哪里？简单说，RUN命令在 image 文件的构建阶段执行，执行结果都会打包进入 image 文件；CMD命令则是在容器启动后执行。另外，一个 Dockerfile 可以包含多个RUN命令，但是只能有一个CMD命令。</p>
-<p>注意，指定了CMD命令以后，docker container run命令就不能附加命令了（比如前面的/bin/bash），否则它会覆盖CMD命令。现在，启动容器可以使用下面的命令。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container run --rm -p 8000:3000 -it koa-demo:0.0.1</span><br></pre></td></tr></table></figure>
-
-<p>最后的最后，是发布 image 文件，容器运行成功后，就确认了 image 文件的有效性。这时，我们就可以考虑把 image 文件分享到网上，让其他人使用。</p>
-<p>首先，去 hub.docker.com 或 cloud.docker.com 注册一个账户。然后，用下面的命令登录。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker login</span></span><br><span class="line"><span class="meta">#</span><span class="bash">接着，为本地的 image 标注用户名和版本。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image tag [imageName] [username]/[repository]:[tag]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实例</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image tag koa-demos:0.0.1 guodp9u0/koa-demos:0.0.1</span></span><br><span class="line"><span class="meta">#</span><span class="bash">也可以不标注用户名，重新构建一下 image 文件。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image build -t [username]/[repository]:[tag] .</span></span><br><span class="line"><span class="meta">#</span><span class="bash">最后，发布 image 文件。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image push [username]/[repository]:[tag]</span></span><br></pre></td></tr></table></figure>
-
-<p>发布成功以后，登录 hub.docker.com，就可以看到已经发布的 image 文件。</p>
-<p>docker 的主要用法就是上面这些，此外还有几个命令，也非常有用。</p>
-<ul>
-<li>docker container start</li>
-</ul>
-<p>前面的docker container run命令是新建容器，每运行一次，就会新建一个容器。同样的命令运行两次，就会生成两个一模一样的容器文件。如果希望重复使用容器，就要使用docker container start命令，它用来启动已经生成、已经停止运行的容器文件。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container start [containerID]</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>docker container stop</li>
-</ul>
-<p>前面的docker container kill命令终止容器运行，相当于向容器里面的主进程发出 SIGKILL 信号。而docker container stop命令也是用来终止容器运行，相当于向容器里面的主进程发出 SIGTERM 信号，然后过一段时间再发出 SIGKILL 信号。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bash container stop [containerID]</span><br></pre></td></tr></table></figure>
-
-<p>这两个信号的差别是，应用程序收到 SIGTERM 信号以后，可以自行进行收尾清理工作，但也可以不理会这个信号。如果收到 SIGKILL 信号，就会强行立即终止，那些正在进行中的操作会全部丢失。</p>
-<ul>
-<li>docker container logs</li>
-</ul>
-<p>docker container logs命令用来查看 docker 容器的输出，即容器里面 Shell 的标准输出。如果docker run命令运行容器的时候，没有使用-it参数，就要用这个命令查看输出。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container logs [containerID]</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>docker container exec</li>
-</ul>
-<p>docker container exec命令用于进入一个正在运行的 docker 容器。如果docker run命令运行容器的时候，没有使用-it参数，就要用这个命令进入容器。一旦进入了容器，就可以在容器的 Shell 执行命令了。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container exec -it [containerID] /bin/bash</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>docker container cp</li>
-</ul>
-<p>docker container cp命令用于从正在运行的 Docker 容器里面，将文件拷贝到本机。下面是拷贝到当前目录的写法。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container cp [containID]:[/path/to/file] .</span><br></pre></td></tr></table></figure>
-
-<h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><h2 id="DIY-wordpress"><a href="#DIY-wordpress" class="headerlink" title="DIY wordpress"></a>DIY wordpress</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">启动 mysql 镜像</span></span><br><span class="line">sudo docker container run \</span><br><span class="line">  -d \ #后台运行</span><br><span class="line">  --rm \ #停止后删除</span><br><span class="line">  --name wordpressdb \ #指定名称</span><br><span class="line">  --env MYSQL_ROOT_PASSWORD=123456 \  #环境变量</span><br><span class="line">  --env MYSQL_DATABASE=wordpress \ #环境变量</span><br><span class="line">  mysql:5.7</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建工作目录</span></span><br><span class="line">mkdir docker-demo &amp;&amp; cd  docker-demo</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载 wordpress</span></span><br><span class="line"></span><br><span class="line">wget https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz</span><br><span class="line">tar -xvf wordpress-4.9.4-zh_CN.tar.gz</span><br><span class="line">hmod -R 777 wordpress #可写</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">基于php镜像创建 安装mysqli的镜像</span></span><br><span class="line">vi Dockerfile</span><br><span class="line"><span class="meta">#</span><span class="bash">输入文本 :</span></span><br><span class="line"><span class="meta">#</span><span class="bash">FROM php:5.6-apache</span></span><br><span class="line"><span class="meta">#</span><span class="bash">RUN docker-php-ext-install mysqli</span></span><br><span class="line"><span class="meta">#</span><span class="bash">CMD apache2-foreground</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">生成镜像</span></span><br><span class="line">docker build -t phpwithmysql .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">启动镜像</span></span><br><span class="line"></span><br><span class="line">sudo docker container run \</span><br><span class="line">  --rm \</span><br><span class="line">  --name wordpress \</span><br><span class="line">  --volume "$PWD/":/var/www/html \ #当前目录映射到container的 /var/www/html</span><br><span class="line">  --link wordpressdb:mysql \ #连接已有的container并提供别名</span><br><span class="line">  phpwithmysql</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器查看 http://172.17.0.2/wordpress</span></span><br><span class="line"><span class="meta">#</span><span class="bash">具体地址根据实际情况替换IP即可</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="官方-wordpress-镜像"><a href="#官方-wordpress-镜像" class="headerlink" title="官方 wordpress 镜像"></a>官方 wordpress 镜像</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">使用mysql镜像 启动container</span></span><br><span class="line">sudo docker container run \</span><br><span class="line">  -d \ #后台运行</span><br><span class="line">  --rm \ #停止后删除</span><br><span class="line">  --name wordpressdb \ #指定名称</span><br><span class="line">  --env MYSQL_ROOT_PASSWORD=123456 \  #环境变量</span><br><span class="line">  --env MYSQL_DATABASE=wordpress \ #环境变量</span><br><span class="line">  mysql:5.7</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用官方提供的wordpress镜像启动container</span></span><br><span class="line"></span><br><span class="line">sudo docker container run \</span><br><span class="line">  -d \</span><br><span class="line">  -p 127.0.0.2:8080:80 \</span><br><span class="line">  --rm \</span><br><span class="line">  --name wordpress \</span><br><span class="line">  --env WORDPRESS_DB_PASSWORD=123456 \</span><br><span class="line">  --link wordpressdb:mysql \</span><br><span class="line">  --volume "$PWD/wordpress":/var/www/html \</span><br><span class="line">  wordpress</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">查看container信息</span></span><br><span class="line"></span><br><span class="line">sudo docker container inspect wordpress</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">由于做了IP和端口映射 因此可以直接</span></span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器查看 http://127.0.0.2:8080/wordpress</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><p><a href="https://docs.docker.com/compose/install/#install-compose" target="_blank" rel="noopener">安装Docker Compose</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动所有服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker-compose up</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭所有服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker-compose stop</span></span><br><span class="line"></span><br><span class="line">cd docker-demo</span><br><span class="line">vi docker-compose.yml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">输入下面内容</span></span><br><span class="line"></span><br><span class="line">mysql:</span><br><span class="line">    image: mysql:5.7</span><br><span class="line">    environment:</span><br><span class="line">     - MYSQL_ROOT_PASSWORD=123456</span><br><span class="line">     - MYSQL_DATABASE=wordpress</span><br><span class="line">web:</span><br><span class="line">    image: wordpress</span><br><span class="line">    links:</span><br><span class="line">     - mysql</span><br><span class="line">    environment:</span><br><span class="line">     - WORDPRESS_DB_PASSWORD=123456</span><br><span class="line">    ports:</span><br><span class="line">     - "127.0.0.3:8080:80"</span><br><span class="line">    working_dir: /var/www/html</span><br><span class="line">    volumes:</span><br><span class="line">     - wordpress:/var/www/html</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动 compose</span></span><br><span class="line"></span><br><span class="line">docker-compose up</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器访问 http://127.0.0.3:8080</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">关闭</span></span><br><span class="line">docker-compose stop</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">移除</span></span><br><span class="line">docker-compose rm</span><br></pre></td></tr></table></figure>
-
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><p>安装完 Ununtu 建议替换默认源</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i 's/http:\/\/archive.ubuntu.com\/ubuntu\//http:\/\/mirrors.163.com\/ubuntu\//g' /etc/apt/sources.list</span><br><span class="line"><span class="meta">#</span><span class="bash">or</span></span><br><span class="line">cd /etc/apt-get</span><br><span class="line">mv sources.list sources.list.bak</span><br><span class="line">echo deb http://mirrors.163.com/debian/ jessie main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb http://mirrors.163.com/debian/ jessie-updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb http://mirrors.163.com/debian/ jessie-backports main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian/ jessie main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian/ jessie-updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian/ jessie-backports main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib &gt;&gt; sources.list</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>learning</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
@@ -472,6 +334,144 @@
       </categories>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>docker 入门</title>
+    <url>/2018/04/08/docker-intro/</url>
+    <content><![CDATA[<blockquote class="blockquote-center"><p>开发人员总是会这么说：“在我的机器上是正常的呀！”<br>这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。<br>Docker作为一种解决方案，很好的解决了这个问题。</p>
+</blockquote>
+
+<a id="more"></a>
+
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#背景">背景</a></li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#HelloWorld">HelloWorld</a></li>
+<li><a href="#Image">Image</a></li>
+<li><a href="#Container">Container</a></li>
+<li><a href="#制作自己的Image">制作自己的Image</a></li>
+<li><a href="#微服务">微服务</a></li>
+</ul>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>虚拟化技术应用非常广泛，主要有虚拟机和容器(LXC)两种。<br>虚拟机尤其有点也有缺点，冗余，占用资源高，启动慢，为此，诞生了Linux容器技术即LXC。<br>Docker 属于 Linux 容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>根据官网教程选择自己的平台对应的<a href="https://docs.docker.com/install/" target="_blank" rel="noopener">安装指引</a></p>
+<p>安装完成后，在命令行中运行查看是否安装成功:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker version</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker info</span></span><br></pre></td></tr></table></figure>
+
+<p>Docker 是服务器—-客户端架构。命令行运行docker命令的时候，需要本机有 Docker 服务。如果这项服务没有启动，可以用下面的命令启动(Linux宿主机。Windows 不需要)。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> service 命令的用法</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo service docker start</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> systemctl 命令的用法</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl start docker</span></span><br></pre></td></tr></table></figure>
+
+<p>补充一句，Windows下的Docker实际是通过Hyper-V创建了Linux虚拟机运行的。这个虚拟机已经配置好Docker的运行环境。</p>
+<h1 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">运行下面的命令，将 image 文件从仓库抓取到本地。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image pull library/hello-world</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">上面代码中，docker image pull是抓取 image 文件的命令。library/hello-world是 image 文件在仓库里面的位置，其中library是 image 文件所在的组，hello-world是 image 文件的名字。</span></span><br><span class="line"><span class="meta">#</span><span class="bash">由于 Docker 官方提供的 image 文件，都放在library组里面，所以它的是默认组，可以省略。因此，上面的命令可以写成下面这样。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image pull hello-world</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">抓取成功以后，就可以在本机看到这个 image 文件了。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image ls</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">运行</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container run hello-world</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以看到类似下面的输出</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Hello from Docker!</span></span><br><span class="line"><span class="meta">#</span><span class="bash">This message shows that your installation appears to be working correctly.</span></span><br></pre></td></tr></table></figure>
+
+<p>或者，可以直接输入命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container run hello-world</span><br></pre></td></tr></table></figure>
+
+<p>docker 会自动查找Image，如果本地没有，会从官方仓库中pull，然后运行。</p>
+<p>另外可以安装运行 Ubuntu</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container run -it ubuntu bash</span><br></pre></td></tr></table></figure>
+
+<p>但是安装的Ubuntu是以服务运行的，并不会自动停止，需要使用kill命令停止</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container kill [containID]</span><br></pre></td></tr></table></figure>
+
+<h1 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h1><p>Docker 把应用程序及其依赖，打包在 image 文件里面。只有通过这个文件，才能生成 Docker 容器。image 文件可以看作是容器的模板。Docker 根据 image 文件生成容器的实例。同一个 image 文件，可以生成多个同时运行的容器实例。</p>
+<p>image 是二进制文件。实际开发中，一个 image 文件往往通过继承另一个 image 文件，加上一些个性化设置而生成。举例来说，你可以在 Ubuntu 的 image 基础上，往里面加入 Apache 服务器，形成你的 image。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出本机的所有 image 文件。</span></span><br><span class="line">docker image ls</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除 image 文件</span></span><br><span class="line">docker image rm [imageName]</span><br><span class="line">image 文件是通用的，一台机器的 image 文件拷贝到另一台机器，照样可以使用。一般来说，为了节省时间，我们应该尽量使用别人制作好的 image 文件，而不是自己制作。即使要定制，也应该基于别人的 image 文件进行加工，而不是从零开始制作。</span><br></pre></td></tr></table></figure>
+
+<p>为了方便共享，image 文件制作完成后，可以上传到网上的仓库。Docker 的官方仓库 Docker Hub 是最重要、最常用的 image 仓库。此外，出售自己制作的 image 文件也是可以的。</p>
+<h1 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h1><p>image 文件生成的容器实例，本身也是一个文件，称为容器文件。也就是说，一旦容器生成，就会同时存在两个文件： image 文件和容器文件。而且关闭容器并不会删除容器文件，只是容器停止运行而已。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出本机正在运行的容器</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container ls</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出本机所有容器，包括终止运行的容器</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container ls --all</span></span><br></pre></td></tr></table></figure>
+
+<p>上面命令的输出结果之中，包括容器的 ID。很多地方都需要提供这个 ID，比如上一节终止容器运行的docker container kill命令。</p>
+<p>终止运行的容器文件，依然会占据硬盘空间，可以使用docker container rm命令删除。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker container rm [containerID]</span></span><br><span class="line">运行上面的命令之后，再使用docker container ls --all命令，就会发现被删除的容器文件已经消失了。</span><br></pre></td></tr></table></figure>
+
+<h1 id="制作自己的Image"><a href="#制作自己的Image" class="headerlink" title="制作自己的Image"></a>制作自己的Image</h1><p>下面以 koa-demos 项目为例，介绍怎么写 Dockerfile 文件，实现让用户在 Docker 容器里面运行 Koa 框架。<br>作为准备工作，请先下载源码。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">作为准备工作，请先下载源码。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/ruanyf/koa-demos.git</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> koa-demos</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来编写 Dockerfile 文件，首先，在项目的根目录下，新建一个文本文件.dockerignore，写入下面的内容。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">.git</span><br><span class="line">node_modules</span><br><span class="line">npm-debug.log</span><br></pre></td></tr></table></figure>
+
+<p>上面代码表示，这三个路径要排除，不要打包进入 image 文件。如果你没有路径要排除，这个文件可以不新建。</p>
+<p>然后，在项目的根目录下，新建一个文本文件 Dockerfile，写入下面的内容。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">FROM node:8.4 #该 image 文件继承官方的 node image，冒号表示标签，这里标签是8.4，即8.4版本的 node。</span><br><span class="line">COPY . /app #将当前目录下的所有文件（除了.dockerignore排除的路径），都拷贝进入 image 文件的/app目录。</span><br><span class="line">WORKDIR /app #指定接下来的工作路径为/app。</span><br><span class="line">RUN npm install --registry=https://registry.npm.taobao.org #在/app目录下，运行npm install命令安装依赖。注意，安装后所有的依赖，都将打包进入 image 文件。</span><br><span class="line">EXPOSE 3000 #将容器 3000 端口暴露出来， 允许外部连接这个端口。</span><br></pre></td></tr></table></figure>
+
+<p>上面代码一共五行，含义如下:<br>FROM node:8.4：该 image 文件继承官方的 node image，冒号表示标签，这里标签是8.4，即8.4版本的 node。<br>COPY . /app：将当前目录下的所有文件（除了.dockerignore排除的路径），都拷贝进入 image 文件的/app目录。<br>WORKDIR /app：指定接下来的工作路径为/app。<br>RUN npm install：在/app目录下，运行npm install命令安装依赖。注意，安装后所有的依赖，都将打包进入 image 文件。<br>EXPOSE 3000：将容器 3000 端口暴露出来， 允许外部连接这个端口。</p>
+<p>接下来创建 image 文件，使用docker image build命令创建 image 文件。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker image build -t koa-demo .</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image build -t koa-demo:0.0.1 .</span></span><br><span class="line">上面代码中，-t参数用来指定 image 文件的名字，后面还可以用冒号指定标签。如果不指定，默认的标签就是latest。最后的那个点表示 Dockerfile 文件所在的路径，上例是当前路径，所以是一个点。</span><br></pre></td></tr></table></figure>
+
+<p>如果运行成功，就可以看到新生成的 image 文件koa-demo了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker image ls</span><br></pre></td></tr></table></figure>
+
+<p>docker container run命令会从 image 文件生成容器。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker container run -p 8000:3000 -it koa-demo /bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container run -p 8000:3000 -it koa-demo:0.0.1 /bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<p>上面命令的各个参数含义如下：</p>
+<p>-p参数：容器的 3000 端口映射到本机的 8000 端口。<br>-it参数：容器的 Shell 映射到当前的 Shell，然后你在本机窗口输入的命令，就会传入容器。<br>koa-demo:0.0.1：image 文件的名字（如果有标签，还需要提供标签，默认是 latest 标签）。<br>/bin/bash：容器启动以后，内部第一个执行的命令。这里是启动 Bash，保证用户可以使用 Shell。<br>如果一切正常，运行上面的命令以后，就会返回一个命令行提示符。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@66d80f4aaf1e:/app#</span><br><span class="line"><span class="meta">#</span><span class="bash">这表示你已经在容器里面了，返回的提示符就是容器内部的 Shell 提示符。执行下面的命令。</span></span><br><span class="line"></span><br><span class="line">root@66d80f4aaf1e:/app# node demos/01.js</span><br><span class="line"><span class="meta">#</span><span class="bash">这时，Koa 框架已经运行起来了。打开本机的浏览器，访问 http://127.0.0.1:8000，网页显示<span class="string">"Not Found"</span>，这是因为这个 demo 没有写路由。</span></span><br></pre></td></tr></table></figure>
+
+<p>这个例子中，Node 进程运行在 Docker 容器的虚拟环境里面，进程接触到的文件系统和网络接口都是虚拟的，与本机的文件系统和网络接口是隔离的，因此需要定义容器与物理机的端口映射（map）。<br>现在，在容器的命令行，按下 Ctrl + c 停止 Node 进程，然后按下 Ctrl + d （或者输入 exit）退出容器。此外，也可以用docker container kill终止容器运行。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在本机的另一个终端窗口，查出容器的 ID</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container ls</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止指定的容器运行</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container <span class="built_in">kill</span> [containerID]</span></span><br><span class="line">容器停止运行之后，并不会消失，用下面的命令删除容器文件。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查出容器的 ID</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container ls --all</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除指定的容器文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container rm [containerID]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 也可以使用docker container run命令的--rm参数，在容器终止运行后自动删除容器文件。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker container run --rm -p 8000:3000 -it koa-demo /bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<p>最后说一下CMD 命令，上面说到容器启动以后，需要手动输入命令node demos/01.js。我们可以把这个命令写在 Dockerfile 里面，这样容器启动以后，这个命令就已经执行了，不用再手动输入了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">FROM node:8.4</span><br><span class="line">COPY . /app</span><br><span class="line">WORKDIR /app</span><br><span class="line">RUN npm install --registry=https://registry.npm.taobao.org</span><br><span class="line">EXPOSE 3000</span><br><span class="line">CMD node demos/01.js</span><br></pre></td></tr></table></figure>
+
+<p>上面的 Dockerfile 里面，多了最后一行CMD node demos/01.js，它表示容器启动后自动执行node demos/01.js。</p>
+<p>RUN命令与CMD命令的区别在哪里？简单说，RUN命令在 image 文件的构建阶段执行，执行结果都会打包进入 image 文件；CMD命令则是在容器启动后执行。另外，一个 Dockerfile 可以包含多个RUN命令，但是只能有一个CMD命令。</p>
+<p>注意，指定了CMD命令以后，docker container run命令就不能附加命令了（比如前面的/bin/bash），否则它会覆盖CMD命令。现在，启动容器可以使用下面的命令。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container run --rm -p 8000:3000 -it koa-demo:0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>最后的最后，是发布 image 文件，容器运行成功后，就确认了 image 文件的有效性。这时，我们就可以考虑把 image 文件分享到网上，让其他人使用。</p>
+<p>首先，去 hub.docker.com 或 cloud.docker.com 注册一个账户。然后，用下面的命令登录。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker login</span></span><br><span class="line"><span class="meta">#</span><span class="bash">接着，为本地的 image 标注用户名和版本。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image tag [imageName] [username]/[repository]:[tag]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实例</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image tag koa-demos:0.0.1 guodp9u0/koa-demos:0.0.1</span></span><br><span class="line"><span class="meta">#</span><span class="bash">也可以不标注用户名，重新构建一下 image 文件。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image build -t [username]/[repository]:[tag] .</span></span><br><span class="line"><span class="meta">#</span><span class="bash">最后，发布 image 文件。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker image push [username]/[repository]:[tag]</span></span><br></pre></td></tr></table></figure>
+
+<p>发布成功以后，登录 hub.docker.com，就可以看到已经发布的 image 文件。</p>
+<p>docker 的主要用法就是上面这些，此外还有几个命令，也非常有用。</p>
+<ul>
+<li>docker container start</li>
+</ul>
+<p>前面的docker container run命令是新建容器，每运行一次，就会新建一个容器。同样的命令运行两次，就会生成两个一模一样的容器文件。如果希望重复使用容器，就要使用docker container start命令，它用来启动已经生成、已经停止运行的容器文件。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container start [containerID]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>docker container stop</li>
+</ul>
+<p>前面的docker container kill命令终止容器运行，相当于向容器里面的主进程发出 SIGKILL 信号。而docker container stop命令也是用来终止容器运行，相当于向容器里面的主进程发出 SIGTERM 信号，然后过一段时间再发出 SIGKILL 信号。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bash container stop [containerID]</span><br></pre></td></tr></table></figure>
+
+<p>这两个信号的差别是，应用程序收到 SIGTERM 信号以后，可以自行进行收尾清理工作，但也可以不理会这个信号。如果收到 SIGKILL 信号，就会强行立即终止，那些正在进行中的操作会全部丢失。</p>
+<ul>
+<li>docker container logs</li>
+</ul>
+<p>docker container logs命令用来查看 docker 容器的输出，即容器里面 Shell 的标准输出。如果docker run命令运行容器的时候，没有使用-it参数，就要用这个命令查看输出。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container logs [containerID]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>docker container exec</li>
+</ul>
+<p>docker container exec命令用于进入一个正在运行的 docker 容器。如果docker run命令运行容器的时候，没有使用-it参数，就要用这个命令进入容器。一旦进入了容器，就可以在容器的 Shell 执行命令了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container exec -it [containerID] /bin/bash</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>docker container cp</li>
+</ul>
+<p>docker container cp命令用于从正在运行的 Docker 容器里面，将文件拷贝到本机。下面是拷贝到当前目录的写法。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container cp [containID]:[/path/to/file] .</span><br></pre></td></tr></table></figure>
+
+<h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><h2 id="DIY-wordpress"><a href="#DIY-wordpress" class="headerlink" title="DIY wordpress"></a>DIY wordpress</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">启动 mysql 镜像</span></span><br><span class="line">sudo docker container run \</span><br><span class="line">  -d \ #后台运行</span><br><span class="line">  --rm \ #停止后删除</span><br><span class="line">  --name wordpressdb \ #指定名称</span><br><span class="line">  --env MYSQL_ROOT_PASSWORD=123456 \  #环境变量</span><br><span class="line">  --env MYSQL_DATABASE=wordpress \ #环境变量</span><br><span class="line">  mysql:5.7</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建工作目录</span></span><br><span class="line">mkdir docker-demo &amp;&amp; cd  docker-demo</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载 wordpress</span></span><br><span class="line"></span><br><span class="line">wget https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz</span><br><span class="line">tar -xvf wordpress-4.9.4-zh_CN.tar.gz</span><br><span class="line">hmod -R 777 wordpress #可写</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">基于php镜像创建 安装mysqli的镜像</span></span><br><span class="line">vi Dockerfile</span><br><span class="line"><span class="meta">#</span><span class="bash">输入文本 :</span></span><br><span class="line"><span class="meta">#</span><span class="bash">FROM php:5.6-apache</span></span><br><span class="line"><span class="meta">#</span><span class="bash">RUN docker-php-ext-install mysqli</span></span><br><span class="line"><span class="meta">#</span><span class="bash">CMD apache2-foreground</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">生成镜像</span></span><br><span class="line">docker build -t phpwithmysql .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">启动镜像</span></span><br><span class="line"></span><br><span class="line">sudo docker container run \</span><br><span class="line">  --rm \</span><br><span class="line">  --name wordpress \</span><br><span class="line">  --volume "$PWD/":/var/www/html \ #当前目录映射到container的 /var/www/html</span><br><span class="line">  --link wordpressdb:mysql \ #连接已有的container并提供别名</span><br><span class="line">  phpwithmysql</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器查看 http://172.17.0.2/wordpress</span></span><br><span class="line"><span class="meta">#</span><span class="bash">具体地址根据实际情况替换IP即可</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="官方-wordpress-镜像"><a href="#官方-wordpress-镜像" class="headerlink" title="官方 wordpress 镜像"></a>官方 wordpress 镜像</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">使用mysql镜像 启动container</span></span><br><span class="line">sudo docker container run \</span><br><span class="line">  -d \ #后台运行</span><br><span class="line">  --rm \ #停止后删除</span><br><span class="line">  --name wordpressdb \ #指定名称</span><br><span class="line">  --env MYSQL_ROOT_PASSWORD=123456 \  #环境变量</span><br><span class="line">  --env MYSQL_DATABASE=wordpress \ #环境变量</span><br><span class="line">  mysql:5.7</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用官方提供的wordpress镜像启动container</span></span><br><span class="line"></span><br><span class="line">sudo docker container run \</span><br><span class="line">  -d \</span><br><span class="line">  -p 127.0.0.2:8080:80 \</span><br><span class="line">  --rm \</span><br><span class="line">  --name wordpress \</span><br><span class="line">  --env WORDPRESS_DB_PASSWORD=123456 \</span><br><span class="line">  --link wordpressdb:mysql \</span><br><span class="line">  --volume "$PWD/wordpress":/var/www/html \</span><br><span class="line">  wordpress</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">查看container信息</span></span><br><span class="line"></span><br><span class="line">sudo docker container inspect wordpress</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">由于做了IP和端口映射 因此可以直接</span></span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器查看 http://127.0.0.2:8080/wordpress</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><p><a href="https://docs.docker.com/compose/install/#install-compose" target="_blank" rel="noopener">安装Docker Compose</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动所有服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker-compose up</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭所有服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker-compose stop</span></span><br><span class="line"></span><br><span class="line">cd docker-demo</span><br><span class="line">vi docker-compose.yml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">输入下面内容</span></span><br><span class="line"></span><br><span class="line">mysql:</span><br><span class="line">    image: mysql:5.7</span><br><span class="line">    environment:</span><br><span class="line">     - MYSQL_ROOT_PASSWORD=123456</span><br><span class="line">     - MYSQL_DATABASE=wordpress</span><br><span class="line">web:</span><br><span class="line">    image: wordpress</span><br><span class="line">    links:</span><br><span class="line">     - mysql</span><br><span class="line">    environment:</span><br><span class="line">     - WORDPRESS_DB_PASSWORD=123456</span><br><span class="line">    ports:</span><br><span class="line">     - "127.0.0.3:8080:80"</span><br><span class="line">    working_dir: /var/www/html</span><br><span class="line">    volumes:</span><br><span class="line">     - wordpress:/var/www/html</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动 compose</span></span><br><span class="line"></span><br><span class="line">docker-compose up</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">浏览器访问 http://127.0.0.3:8080</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">关闭</span></span><br><span class="line">docker-compose stop</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">移除</span></span><br><span class="line">docker-compose rm</span><br></pre></td></tr></table></figure>
+
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><p>安装完 Ununtu 建议替换默认源</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -i 's/http:\/\/archive.ubuntu.com\/ubuntu\//http:\/\/mirrors.163.com\/ubuntu\//g' /etc/apt/sources.list</span><br><span class="line"><span class="meta">#</span><span class="bash">or</span></span><br><span class="line">cd /etc/apt-get</span><br><span class="line">mv sources.list sources.list.bak</span><br><span class="line">echo deb http://mirrors.163.com/debian/ jessie main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb http://mirrors.163.com/debian/ jessie-updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb http://mirrors.163.com/debian/ jessie-backports main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian/ jessie main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian/ jessie-updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian/ jessie-backports main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib &gt;&gt; sources.list</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>learning</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
