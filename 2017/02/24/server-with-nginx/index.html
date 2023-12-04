@@ -1,329 +1,35 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
+{% extends '_layout.swig' %}
+{% import '_macro/post.swig' as post_template %}
+{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"baochen.name","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="hexo server 不太好用，决定使用nginx。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="使用Nginx运行网站">
-<meta property="og:url" content="http://baochen.name/2017/02/24/server-with-nginx/index.html">
-<meta property="og:site_name" content="Dengpeng Guo">
-<meta property="og:description" content="hexo server 不太好用，决定使用nginx。">
-<meta property="og:locale">
-<meta property="article:published_time" content="2017-02-24T15:10:17.000Z">
-<meta property="article:modified_time" content="2020-05-07T12:23:55.914Z">
-<meta property="article:author" content="Dengpeng Guo">
-<meta property="article:tag" content="nginx">
-<meta name="twitter:card" content="summary">
+{% block page_class %}page-post-detail{% endblock %}
 
 
-<link rel="canonical" href="http://baochen.name/2017/02/24/server-with-nginx/">
+{% block content %}
 
+  <div id="posts" class="posts-expand">
+    {{ post_template.render(page) }}
 
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://baochen.name/2017/02/24/server-with-nginx/","path":"2017/02/24/server-with-nginx/","title":"使用Nginx运行网站"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>使用Nginx运行网站 | Dengpeng Guo</title>
-  
-
-
-
-
-
-
-
-
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    <div class="post-spread">
+      {% if theme.jiathis %}
+        {% include '_partials/share/jiathis.swig' %}
+      {% elseif theme.baidushare %}
+        {% include '_partials/share/baidushare.swig' %}
+      {% elseif theme.add_this_id %}
+        {% include '_partials/share/add-this.swig' %}
+      {% endif %}
     </div>
   </div>
 
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Dengpeng Guo</p>
-      <i class="logo-line"></i>
-    </a>
-      <p class="site-subtitle" itemprop="description">You'll Never Walk Alone</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-</header>
-        
-  
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-overview-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Dengpeng Guo</p>
-  <div class="site-description" itemprop="description">You'll Never Walk Alone</div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">14</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/categories/">
-        <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/tags/">
-        <span class="site-state-item-count">14</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-        </div>
-      </div>
-    </div>
-
-    
-  </aside>
-
-
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://baochen.name/2017/02/24/server-with-nginx/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Dengpeng Guo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dengpeng Guo">
-      <meta itemprop="description" content="You'll Never Walk Alone">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="使用Nginx运行网站 | Dengpeng Guo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          使用Nginx运行网站
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2017-02-24 23:10:17" itemprop="dateCreated datePublished" datetime="2017-02-24T23:10:17+08:00">2017-02-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2020-05-07 20:23:55" itemprop="dateModified" datetime="2020-05-07T20:23:55+08:00">2020-05-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/knowledge/" itemprop="url" rel="index"><span itemprop="name">knowledge</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><p>hexo server 不太好用，决定使用nginx。</p>
-<span id="more"></span>
-
-<p>首先在服务器上安装nginx，以ubuntu为例。使用apt-get安装比较方便，节省很多配置。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get nginx</span><br></pre></td></tr></table></figure>
-
-<p>然后开始配置nginx：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/nginx</span><br><span class="line">sudp cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak</span><br><span class="line">sudo vi /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
-
-<p>配置内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">user www-data;</span><br><span class="line"></span><br><span class="line">worker_processes auto;</span><br><span class="line"></span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">        worker_connections 768;</span><br><span class="line">        # multi_accept on;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line"></span><br><span class="line">        ##</span><br><span class="line">        # Basic Settings</span><br><span class="line">        ##</span><br><span class="line"></span><br><span class="line">        sendfile on;</span><br><span class="line">        tcp_nopush on;</span><br><span class="line">        tcp_nodelay on;</span><br><span class="line">        keepalive_timeout 65;</span><br><span class="line">        types_hash_max_size 2048;</span><br><span class="line">        # server_tokens off;</span><br><span class="line"></span><br><span class="line">        # server_names_hash_bucket_size 64;</span><br><span class="line">        # server_name_in_redirect off;</span><br><span class="line"></span><br><span class="line">        include /etc/nginx/mime.types;</span><br><span class="line">        default_type application/octet-stream;</span><br><span class="line"></span><br><span class="line">        ##</span><br><span class="line">        # SSL Settings</span><br><span class="line">        ##</span><br><span class="line"></span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line"></span><br><span class="line">        ##</span><br><span class="line">        # Logging Settings</span><br><span class="line">        ##</span><br><span class="line"></span><br><span class="line">        # log_format main &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27; &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27; &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">        error_log /var/log/nginx/error.log;</span><br><span class="line"></span><br><span class="line">        ##</span><br><span class="line">        # Gzip Settings</span><br><span class="line">        ##</span><br><span class="line"></span><br><span class="line">        gzip on;</span><br><span class="line">        gzip_disable &quot;msie6&quot;;</span><br><span class="line">        gzip_min_length 1k;</span><br><span class="line">        gzip_vary on;</span><br><span class="line">        gzip_proxied any;</span><br><span class="line">        gzip_comp_level 6;</span><br><span class="line">        gzip_buffers 16 8k;</span><br><span class="line">        gzip_http_version 1.1;</span><br><span class="line">        gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</span><br><span class="line"></span><br><span class="line">        ##</span><br><span class="line">        # Http Proxy Settings</span><br><span class="line">        ##</span><br><span class="line">        client_max_body_size   10m;</span><br><span class="line">        client_body_buffer_size   128k;</span><br><span class="line">        proxy_connect_timeout   75;</span><br><span class="line">        proxy_send_timeout   75;</span><br><span class="line">        proxy_read_timeout   75;</span><br><span class="line">        proxy_buffer_size   4k;</span><br><span class="line">        proxy_buffers   4 32k;</span><br><span class="line">        proxy_busy_buffers_size   64k;</span><br><span class="line">        proxy_temp_file_write_size  64k;</span><br><span class="line">        proxy_temp_path   /tmp/proxy_temp 1 2;</span><br><span class="line"></span><br><span class="line">        ##</span><br><span class="line">        # Upstream Settings</span><br><span class="line">        ##</span><br><span class="line"></span><br><span class="line">        upstream  backend  &#123; </span><br><span class="line">              ip_hash; </span><br><span class="line">              server   127.0.0.1:4000 max_fails=2 fail_timeout=30s ;  </span><br><span class="line">              # server   192.168.10.101:8080 max_fails=2 fail_timeout=30s ;  </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        ##</span><br><span class="line">        # Server Settings</span><br><span class="line">        ##</span><br><span class="line"></span><br><span class="line">        ## Server baochen.name</span><br><span class="line"></span><br><span class="line">        server &#123;</span><br><span class="line"></span><br><span class="line">                listen       80;</span><br><span class="line">                server_name  baochen.name;</span><br><span class="line">                charset utf-8;</span><br><span class="line">        </span><br><span class="line">                access_log      /var/log/nginx/baochen.name.access.log;</span><br><span class="line">                error_log       /var/log/nginx/baochen.name.error.log;</span><br><span class="line">        </span><br><span class="line">                location / &#123;</span><br><span class="line">                        # proxy_pass        http://backend;  </span><br><span class="line">                        # proxy_redirect off;</span><br><span class="line">                        # proxy_set_header  Host  $host;</span><br><span class="line">                        # proxy_set_header  X-Real-IP  $remote_addr;  </span><br><span class="line">                        # proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">                        # proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;</span><br><span class="line">                        root /var/www/hexoblog;</span><br><span class="line">                        index  index.html;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                location /nginx_status &#123;</span><br><span class="line">                        stub_status on;</span><br><span class="line">                        access_log /var/log/nginx/ngs.access.log;</span><br><span class="line">                        # allow 192.168.10.0/24;</span><br><span class="line">                        # deny all;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                location ~ ^/(WEB-INF)/ &#123;   </span><br><span class="line">                        deny all;   </span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                # error_page  404              /404.html;</span><br><span class="line">                # redirect server error pages to the static page /50x.html</span><br><span class="line">                #</span><br><span class="line"></span><br><span class="line">                error_page   500 502 503 504  /50x.html;</span><br><span class="line"></span><br><span class="line">                location = /50x.html &#123;</span><br><span class="line">                        root   html;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">        ##</span><br><span class="line">        # Virtual Host Configs</span><br><span class="line">        ##</span><br><span class="line"></span><br><span class="line">        include /etc/nginx/conf.d/*.conf;</span><br><span class="line">        include /etc/nginx/sites-enabled/*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>编辑完成后 esc -&gt; !wq 退出。</p>
-<p>编写crontab脚本:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#this srcipt call by cron </span><br><span class="line">#will not exoprt some env var in profile or .profile</span><br><span class="line"></span><br><span class="line">rm -fr ~/update.log</span><br><span class="line"></span><br><span class="line">#execute profile</span><br><span class="line">. /etc/profile</span><br><span class="line">. ~/.profile</span><br><span class="line"></span><br><span class="line">#auto pull source code , generate and deploy to git</span><br><span class="line">. ~/HexoBlog/AutoUpdate.sh &gt;&gt; ~/update.log # 根据实际位置填写</span><br><span class="line"></span><br><span class="line">#deploy</span><br><span class="line">sudo cp -r ~/HexoBlog/public/* /var/www/hexoblog # 注意权限</span><br></pre></td></tr></table></figure>
-
-<p>其中  脚本 AutoUpdate.sh 是自己随着库进行同步的 ，内容如下(之所以两个脚本原因看<a href="/2017/02/24/about-crontab/" title="关于crontab执行脚本环境变量问题">这里</a>)。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># 如果使用cron 定时call 更新脚本 </span><br><span class="line"># 会出现 一些定义在profile 中的环境变量无法引入的情况</span><br><span class="line"># 可以单独建立一个壳脚本 添加一些必要的变量 再呼叫当前脚本 AutoUpdate.sh</span><br><span class="line">#. /etc/profile</span><br><span class="line">#. ~/.profile</span><br><span class="line">#. ~/&lt;somepath&gt;/AutoUpdate.sh # call this srcipt</span><br><span class="line">DEFAULT_DIR=$HOME/HexoBlog</span><br><span class="line">echo &quot;========================================&quot; </span><br><span class="line">echo $(date +%y_%m_%d_%H_%I_%T) </span><br><span class="line">echo &quot;----------------------------------------&quot; </span><br><span class="line">echo &quot;HOME : $HOME&quot;</span><br><span class="line">echo &quot;PATH : $PATH&quot;</span><br><span class="line">echo &quot;NODE_HOME : $NODE_HOME&quot;</span><br><span class="line">echo `whereis hexo`</span><br><span class="line">echo &quot;----------------------------------------&quot; </span><br><span class="line">if [ $1 ] ; then        </span><br><span class="line">    echo &quot;first argument is not empty : $1&quot; </span><br><span class="line">    TAR_DIR=$1 </span><br><span class="line">    echo &quot;use first argument as target dir : $TAR_DIR&quot; </span><br><span class="line">else</span><br><span class="line">    echo &quot;first argument is empty&quot;   </span><br><span class="line">    # use $DEFAULT_DIR as the target dir    </span><br><span class="line">    TAR_DIR=$DEFAULT_DIR</span><br><span class="line">    echo &quot;use default dir as target dir : $TAR_DIR&quot; </span><br><span class="line">fi </span><br><span class="line">echo &quot;----------------------------------------&quot; </span><br><span class="line">if [ -d $TAR_DIR ] ; then </span><br><span class="line">    echo &quot;$TAR_DIR is a dir,try update&quot; </span><br><span class="line">    cd $TAR_DIR</span><br><span class="line">    echo &quot;++++++++++++++begin git pull++++++++++++&quot; </span><br><span class="line">    git pull </span><br><span class="line">    echo &quot;++++++++++++++begin  hexo clean+++++++++&quot;</span><br><span class="line">    hexo clean </span><br><span class="line">    echo &quot;++++++++++++++begin  hexo generate+++++++&quot;</span><br><span class="line">    hexo g </span><br><span class="line">    echo &quot;++++++++++++++begin hexo deploy+++++++++&quot;</span><br><span class="line">    hexo d </span><br><span class="line">    #echo &quot;++++++++++++++begin killall hexo++++++++&quot; </span><br><span class="line">    #killall hexo </span><br><span class="line">    #echo &quot;++++++++++++++begin hexo server+++++++++&quot;</span><br><span class="line">    #hexo server &amp;   </span><br><span class="line">else</span><br><span class="line">    echo &quot;$TAR_DIR is not a dir,do nothing&quot; </span><br><span class="line">fi</span><br><span class="line">echo &quot;----------------------------------------&quot; </span><br><span class="line">echo $(date +%y_%m_%d_%H_%I_%T) </span><br><span class="line">echo &quot;========================================&quot; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>然后  启动nginx ！</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx start</span><br></pre></td></tr></table></figure>
-
-<p>完成！</p>
-
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/nginx/" rel="tag"># nginx</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2017/02/24/about-crontab/" rel="prev" title="关于crontab执行脚本环境变量问题">
-                  <i class="fa fa-angle-left"></i> 关于crontab执行脚本环境变量问题
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2017/02/24/about-Beian/" rel="next" title="关于备案">
-                  关于备案 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2023</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Dengpeng Guo</span>
-  </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
-    </div>
-  </footer>
-
-  
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" integrity="sha256-tc4b48P1MPGS4PJXHRlChGCW1mEZy62jS/3JEsSHPzU=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-
-</body>
-</html>
+{% endblock %}
+
+{% block sidebar %}
+  {{ sidebar_template.render(true) }}
+{% endblock %}
+
+{% block script_extra %}
+  {% include '_scripts/pages/post-details.swig' %}
+{% endblock %}
