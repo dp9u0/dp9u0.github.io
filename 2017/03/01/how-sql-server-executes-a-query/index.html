@@ -1,35 +1,354 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"baochen.name","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01.SQL SERVER如何执行一个查询">
+<meta property="og:url" content="http://baochen.name/2017/03/01/how-sql-server-executes-a-query/index.html">
+<meta property="og:site_name" content="Dengpeng Guo">
+<meta property="og:description" content="根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。">
+<meta property="og:locale">
+<meta property="og:image" content="http://baochen.name/2017/03/01/how-sql-server-executes-a-query/mssqlarch.png">
+<meta property="article:published_time" content="2017-03-01T12:35:53.000Z">
+<meta property="article:modified_time" content="2020-05-07T12:23:55.910Z">
+<meta property="article:author" content="Dengpeng Guo">
+<meta property="article:tag" content="mssql">
+<meta property="article:tag" content="performance tuning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://baochen.name/2017/03/01/how-sql-server-executes-a-query/mssqlarch.png">
 
 
-{% block content %}
+<link rel="canonical" href="http://baochen.name/2017/03/01/how-sql-server-executes-a-query/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% endif %}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://baochen.name/2017/03/01/how-sql-server-executes-a-query/","path":"2017/03/01/how-sql-server-executes-a-query/","title":"01.SQL SERVER如何执行一个查询"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>01.SQL SERVER如何执行一个查询 | Dengpeng Guo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Dengpeng Guo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Dengpeng Guo</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">You'll Never Walk Alone</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">提交查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A7%A3%E6%9E%90%E5%99%A8-Command-Parser-%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">命令解析器(Command Parser)处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8-Query-Optimizer-%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">查询优化器(Query Optimizer)处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%A7%E8%A1%8C%E5%99%A8-Query-Executor-%E5%A4%84%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">查询执行器(Query Executor)处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="nav-number">5.</span> <span class="nav-text">修改数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98-Data-Cache"><span class="nav-number">6.</span> <span class="nav-text">数据缓存(Data Cache)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%B2%E5%87%80%E9%A1%B5%E5%92%8C%E8%84%8F%E9%A1%B5"><span class="nav-number">7.</span> <span class="nav-text">干净页和脏页</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">8.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Dengpeng Guo</p>
+  <div class="site-description" itemprop="description">You'll Never Walk Alone</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://baochen.name/2017/03/01/how-sql-server-executes-a-query/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Dengpeng Guo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dengpeng Guo">
+      <meta itemprop="description" content="You'll Never Walk Alone">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="01.SQL SERVER如何执行一个查询 | Dengpeng Guo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          01.SQL SERVER如何执行一个查询
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-03-01 20:35:53" itemprop="dateCreated datePublished" datetime="2017-03-01T20:35:53+08:00">2017-03-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2020-05-07 20:23:55" itemprop="dateModified" datetime="2020-05-07T20:23:55+08:00">2020-05-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/knowledge/" itemprop="url" rel="index"><span itemprop="name">knowledge</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>根据SQLpassion推送的 SQLpassion Performance Tuning Training Plan - Week 1: How SQL Server executes a Query。记录一下对查询执行的了解。</p>
+<span id="more"></span>
+
+<h1 id="提交查询"><a href="#提交查询" class="headerlink" title="提交查询"></a>提交查询</h1><p>客户端提交给数据库的查询通过SQL Server网络接口等协议层(Protocol Layer)传给命令解析器。</p>
+<h1 id="命令解析器-Command-Parser-处理"><a href="#命令解析器-Command-Parser-处理" class="headerlink" title="命令解析器(Command Parser)处理"></a>命令解析器(Command Parser)处理</h1><p>命令解释器接收到查询会做以下工作：</p>
+<ul>
+<li>检查<ul>
+<li>语法正确</li>
+<li>数据库表存在</li>
+<li>查询列存在</li>
+</ul>
+</li>
+<li>生成查询树(Query Tree)：重现查询</li>
+<li>查询树提交给查询优化器</li>
+</ul>
+<h1 id="查询优化器-Query-Optimizer-处理"><a href="#查询优化器-Query-Optimizer-处理" class="headerlink" title="查询优化器(Query Optimizer)处理"></a>查询优化器(Query Optimizer)处理</h1><ul>
+<li>查询优化器将查询树编译为查询计划(Execution Plan)</li>
+<li>将查询计划缓存到缓冲池(Buffer Pool)中的执行计划缓存区(Plan Cache)</li>
+<li>将查询计划提交给查询执行器</li>
+</ul>
+<h1 id="查询执行器-Query-Executor-处理"><a href="#查询执行器-Query-Executor-处理" class="headerlink" title="查询执行器(Query Executor)处理"></a>查询执行器(Query Executor)处理</h1><ul>
+<li>查询分析器根据查询计划向存取方法(Access Methods)拿指定的读取页,存取方法会向缓冲区管理器读取想要指定页。</li>
+<li>缓存区管理器(Buffer Manager)检查它是否已在数据缓存(data cache)，如果没找到的话就从磁盘加载到缓存。<ul>
+<li>当请求的页面已经被存在缓冲池时,页会被立即读取,称为逻辑读。</li>
+<li>如果请求的页没存在缓冲池,缓冲区管理器会发起异步I&#x2F;O操作把请求的页存储子系统中读到缓冲池,称为物理读。</li>
+</ul>
+</li>
+</ul>
+<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h1><p>当修改数据(INSERT,DELETE,UPDATE)时，需要与事务管理器进行交互，事务管理器把执行事务中描述的改变通过事务日志写到事务文件。</p>
+<img src="/2017/03/01/how-sql-server-executes-a-query/mssqlarch.png" class="" title="sql server 核心架构图">
+
+
+<h1 id="数据缓存-Data-Cache"><a href="#数据缓存-Data-Cache" class="headerlink" title="数据缓存(Data Cache)"></a>数据缓存(Data Cache)</h1><p>查看每个数据库占用了多大数据缓存(sys.dm_os_buffer_descriptors)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">count</span>(<span class="operator">*</span>)<span class="operator">*</span><span class="number">8</span><span class="operator">/</span><span class="number">1024</span> <span class="keyword">AS</span> <span class="string">&#x27;Cached Size (MB)&#x27;</span></span><br><span class="line">	,<span class="keyword">CASE</span> database_id</span><br><span class="line">		<span class="keyword">WHEN</span> <span class="number">32767</span> <span class="keyword">THEN</span> <span class="string">&#x27;ResourceDb&#x27;</span></span><br><span class="line">		<span class="keyword">ELSE</span> db_name(database_id)</span><br><span class="line">		<span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">&#x27;Database&#x27;</span></span><br><span class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> db_name(database_id),database_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="string">&#x27;Cached Size (MB)&#x27;</span> <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="干净页和脏页"><a href="#干净页和脏页" class="headerlink" title="干净页和脏页"></a>干净页和脏页</h1><p>清除干净页</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DBCC DROPCLEANBUFFERS</span><br></pre></td></tr></table></figure>
+
+<p>查询脏页</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> db_name(database_id) <span class="keyword">AS</span> <span class="string">&#x27;Database&#x27;</span>,<span class="built_in">count</span>(page_id) <span class="keyword">AS</span> <span class="string">&#x27;Dirty Pages&#x27;</span></span><br><span class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</span><br><span class="line"><span class="keyword">WHERE</span> is_modified <span class="operator">=</span><span class="number">1</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> db_name(database_id)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">count</span>(page_id) <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a href="http://rusanu.com/2013/08/01/understanding-how-sql-server-executes-a-query">understanding-how-sql-server-executes-a-query</a><br><a href="http://www.cnblogs.com/woodytu/p/4465649.html">第1&#x2F;24周 SQL Server 如何执行一个查询</a><br><a href="http://www.cnblogs.com/woodytu/p/4471386.html">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(1)</a><br><a href="http://www.cnblogs.com/woodytu/p/4472315.html">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(2)</a><br><a href="http://www.cnblogs.com/woodytu/p/4474652.html">SQL Server 2012：SQL Server体系结构——一个查询的生命周期(3)</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mssql/" rel="tag"># mssql</a>
+              <a href="/tags/performance-tuning/" rel="tag"># performance tuning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/03/01/about-beian-2/" rel="prev" title="关于备案后续">
+                  <i class="fa fa-angle-left"></i> 关于备案后续
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/03/01/data-pages-the-foundation-of-sql-server/" rel="next" title="02.SQL Server存储单位:页(Page)">
+                  02.SQL Server存储单位:页(Page) <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Dengpeng Guo</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" integrity="sha256-tc4b48P1MPGS4PJXHRlChGCW1mEZy62jS/3JEsSHPzU=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

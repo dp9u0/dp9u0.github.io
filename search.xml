@@ -3,7 +3,9 @@
   <entry>
     <title>关于备案</title>
     <url>/2017/02/24/about-Beian/</url>
-    <content><![CDATA[<blockquote class="blockquote-center"><p>为了规范互联网信息服务活动，促进互联网信息服务健康有序发展，根据国务院令第292号《互联网信息服务管理办法》和工信部令第33号《非经营性互联网信息服务备案管理办法》规定，国家对经营性互联网信息服务实行许可制度，对非经营性互联网信息服务实行备案制度。未取得许可或者未履行备案手续的，不得从事互联网信息服务，否则就属于违法行为。</p>
+    <content><![CDATA[<blockquote class="blockquote-center">
+<p>为了规范互联网信息服务活动，促进互联网信息服务健康有序发展，根据国务院令第292号《互联网信息服务管理办法》和工信部令第33号《非经营性互联网信息服务备案管理办法》规定，国家对经营性互联网信息服务实行许可制度，对非经营性互联网信息服务实行备案制度。未取得许可或者未履行备案手续的，不得从事互联网信息服务，否则就属于违法行为。</p>
+
 </blockquote>
 
 <span id="more"></span>
@@ -188,7 +190,9 @@
   <entry>
     <title>docker 入门</title>
     <url>/2018/04/08/docker-intro/</url>
-    <content><![CDATA[<blockquote class="blockquote-center"><p>开发人员总是会这么说：“在我的机器上是正常的呀！”<br>这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。<br>Docker作为一种解决方案，很好的解决了这个问题。</p>
+    <content><![CDATA[<blockquote class="blockquote-center">
+<p>开发人员总是会这么说：“在我的机器上是正常的呀！”<br>这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。<br>Docker作为一种解决方案，很好的解决了这个问题。</p>
+
 </blockquote>
 
 <span id="more"></span>
@@ -326,7 +330,9 @@
   <entry>
     <title>hexo搭建个人博客</title>
     <url>/2017/02/22/first-blog/</url>
-    <content><![CDATA[<blockquote class="blockquote-center"><p>发现一个基于 Node.js的高效的静态站点生成框架<a href="https://hexo.io/zh-cn/">Hexo</a>,使用 Markdown 编写文章,于是用来搭建自己的网站。<br>接下来介绍如何一步一步完成搭建的。</p>
+    <content><![CDATA[<blockquote class="blockquote-center">
+<p>发现一个基于 Node.js的高效的静态站点生成框架<a href="https://hexo.io/zh-cn/">Hexo</a>,使用 Markdown 编写文章,于是用来搭建自己的网站。<br>接下来介绍如何一步一步完成搭建的。</p>
+
 </blockquote>
 
 <span id="more"></span>
@@ -406,8 +412,10 @@
 <td align="center">source&#x2F;_drafts</td>
 </tr>
 </tbody></table>
-<blockquote class="blockquote-center"><p>更多的写作可以参考<a href="https://hexo.io/zh-cn/">官网</a>.</p>
+<blockquote class="blockquote-center">
+<p>更多的写作可以参考<a href="https://hexo.io/zh-cn/">官网</a>.</p>
 <p>建议创建页面 : tags 和categories 页面,生成的时候可以自动生成<a href="(http://localhost:4000/categories/)">分类</a>和<a href="http://localhost:4000/tags/">标签</a>页面的内容。</p>
+
 </blockquote> 
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page tags</span><br><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
@@ -435,7 +443,9 @@
 
 <p>CallHexoBlogAutoUpdate.sh脚本中，添加以下内容，呼叫仓库中的自动更新脚本：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">. ~/HexoBlog/AutoUpdate.sh</span><br></pre></td></tr></table></figure>
-<blockquote class="blockquote-center"><p>为什么要有两个脚本: CallHexoBlogAutoUpdate.sh  和 AutoUpdate.sh?<br>不知道怎么给 AutoUpdate.sh 添加权限 ，不同的操作系统clone后，权限依旧保留。<br>同时 . ~&#x2F;HexoBlog&#x2F;AutoUpdate.sh 如果直接配置在 crontab 环境变量好像有点问题。<br>因此将所以自动更新的逻辑放在 AutoUpdate.sh 并且在每个需要执行自动更新的机器上添加外壳程序 CallHexoBlogAutoUpdate.sh  用点符号执行脚本 AutoUpdate.sh。<br>并且外壳程序添加到定时任务中。</p>
+<blockquote class="blockquote-center">
+<p>为什么要有两个脚本: CallHexoBlogAutoUpdate.sh  和 AutoUpdate.sh?<br>不知道怎么给 AutoUpdate.sh 添加权限 ，不同的操作系统clone后，权限依旧保留。<br>同时 . ~&#x2F;HexoBlog&#x2F;AutoUpdate.sh 如果直接配置在 crontab 环境变量好像有点问题。<br>因此将所以自动更新的逻辑放在 AutoUpdate.sh 并且在每个需要执行自动更新的机器上添加外壳程序 CallHexoBlogAutoUpdate.sh  用点符号执行脚本 AutoUpdate.sh。<br>并且外壳程序添加到定时任务中。</p>
+
 </blockquote>
 
 <p>调用的自动更新脚本（该脚本加入到git仓库中，可以自更新）：</p>
@@ -453,13 +463,17 @@
 <h3 id="github-io"><a href="#github-io" class="headerlink" title="github.io"></a>github.io</h3><p>hexo deploy 命令根据站点配置文件_config.yml中的配置，将生成的内容发布到站点中。</p>
 <p>其中不同的type需要特殊的插件支持。<br>例如发布到git上，需要插件<a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a></p>
 <p>首先创建自己的<a href="https://github.com/dp9u0/dp9u0.github.io">github.io仓库</a></p>
-<blockquote class="blockquote-center"><p>关于github.io:如果建立了 用户名.github.io 的仓库，github会定时将这个仓库的静态页面发布到 用户名.github.io 的站点上.<br>可以了解更多关于 <a href="github.io">github.io</a>的内容</p>
+<blockquote class="blockquote-center">
+<p>关于github.io:如果建立了 用户名.github.io 的仓库，github会定时将这个仓库的静态页面发布到 用户名.github.io 的站点上.<br>可以了解更多关于 <a href="github.io">github.io</a>的内容</p>
+
 </blockquote> 
 
 <p>站点配置文件配置参考如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:dp9u0/dp9u0.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 
-<blockquote class="blockquote-center"><p>部署到git，需要有你的github仓库的push权限，可以参考<a href="https://help.github.com/articles/connecting-to-github-with-ssh/">github文档</a>中关于<a href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/">生成 SSH Key</a><br>以及<a href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/">添加SSH Key</a>的部分，配置通过SSH免密码push代码到github。</p>
+<blockquote class="blockquote-center">
+<p>部署到git，需要有你的github仓库的push权限，可以参考<a href="https://help.github.com/articles/connecting-to-github-with-ssh/">github文档</a>中关于<a href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/">生成 SSH Key</a><br>以及<a href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/">添加SSH Key</a>的部分，配置通过SSH免密码push代码到github。</p>
+
 </blockquote> 
 
 <p>然后，就可以运行生成部署命令了。</p>
