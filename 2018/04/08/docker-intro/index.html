@@ -1,238 +1,128 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html>
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"baochen.name","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="开发人员总是会这么说：“在我的机器上是正常的呀！”这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。Docker作为一种解决方案，很好的解决了这个问题。">
+  <meta charset="utf-8">
+  
+  
+  <title>docker 入门 | Guo &amp; Bao</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="开发人员总是会这么说：“在我的机器上是正常的呀！”这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。Docker作为一种解决方案，很好的解决了这个问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker 入门">
 <meta property="og:url" content="http://baochen.name/2018/04/08/docker-intro/index.html">
-<meta property="og:site_name" content="Dengpeng Guo">
+<meta property="og:site_name" content="Guo &amp; Bao">
 <meta property="og:description" content="开发人员总是会这么说：“在我的机器上是正常的呀！”这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。Docker作为一种解决方案，很好的解决了这个问题。">
-<meta property="og:locale">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-04-08T07:56:31.000Z">
-<meta property="article:modified_time" content="2020-05-07T12:23:55.910Z">
-<meta property="article:author" content="Dengpeng Guo">
+<meta property="article:modified_time" content="2023-12-19T02:51:08.575Z">
+<meta property="article:author" content="Guo Dengpeng">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
-
-
-<link rel="canonical" href="http://baochen.name/2018/04/08/docker-intro/">
-
-
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://baochen.name/2018/04/08/docker-intro/","path":"2018/04/08/docker-intro/","title":"docker 入门"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>docker 入门 | Dengpeng Guo</title>
   
+    <link rel="alternate" href="/atom.xml" title="Guo & Bao" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
 
-
-
-
-
-
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-<link rel="alternate" href="/atom.xml" title="Dengpeng Guo" type="application/atom+xml">
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Guo &amp; Bao</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">You will never walk alone</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://baochen.name"></form>
+      </div>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Dengpeng Guo</p>
-      <i class="logo-line"></i>
-    </a>
-      <p class="site-subtitle" itemprop="description">You'll Never Walk Alone</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
 </header>
+
+      <div class="outer">
+        <section id="main"><article id="post-docker-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/04/08/docker-intro/" class="article-date">
+  <time class="dt-published" datetime="2018-04-08T07:56:31.000Z" itemprop="datePublished">2018-04-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/learning/">learning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
         
   
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HelloWorld"><span class="nav-number">4.</span> <span class="nav-text">HelloWorld</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Image"><span class="nav-number">5.</span> <span class="nav-text">Image</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Container"><span class="nav-number">6.</span> <span class="nav-text">Container</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%B6%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84Image"><span class="nav-number">7.</span> <span class="nav-text">制作自己的Image</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">8.</span> <span class="nav-text">微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DIY-wordpress"><span class="nav-number">8.1.</span> <span class="nav-text">DIY wordpress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%98%E6%96%B9-wordpress-%E9%95%9C%E5%83%8F"><span class="nav-number">8.2.</span> <span class="nav-text">官方 wordpress 镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Compose"><span class="nav-number">8.3.</span> <span class="nav-text">Docker Compose</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tips"><span class="nav-number">9.</span> <span class="nav-text">Tips</span></a></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Dengpeng Guo</p>
-  <div class="site-description" itemprop="description">You'll Never Walk Alone</div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">14</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/categories/">
-        <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/tags/">
-        <span class="site-state-item-count">14</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-        </div>
-      </div>
-    </div>
-
-    
-  </aside>
-
-
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
+    <h1 class="p-name article-title" itemprop="headline name">
+      docker 入门
+    </h1>
   
 
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://baochen.name/2018/04/08/docker-intro/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Dengpeng Guo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dengpeng Guo">
-      <meta itemprop="description" content="You'll Never Walk Alone">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="docker 入门 | Dengpeng Guo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          docker 入门
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2018-04-08 15:56:31" itemprop="dateCreated datePublished" datetime="2018-04-08T15:56:31+08:00">2018-04-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2020-05-07 20:23:55" itemprop="dateModified" datetime="2020-05-07T20:23:55+08:00">2020-05-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/learning/" itemprop="url" rel="index"><span itemprop="name">learning</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
       </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody"><blockquote class="blockquote-center">
-<p>开发人员总是会这么说：“在我的机器上是正常的呀！”<br>这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。<br>Docker作为一种解决方案，很好的解决了这个问题。</p>
-
-</blockquote>
-
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>开发人员总是会这么说：“在我的机器上是正常的呀！”<br>这就是开发过程中避免不了的一个问题：开发和上线环境不一致的问题。<br>Docker作为一种解决方案，很好的解决了这个问题。</p>
 <span id="more"></span>
 
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li>
 <li><a href="#%E8%83%8C%E6%99%AF">背景</a></li>
 <li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
-<li><a href="#HelloWorld">HelloWorld</a></li>
-<li><a href="#Image">Image</a></li>
-<li><a href="#Container">Container</a></li>
-<li><a href="#%E5%88%B6%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84Image">制作自己的Image</a></li>
-<li><a href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1">微服务</a></li>
+<li><a href="#helloworld">HelloWorld</a></li>
+<li><a href="#image">Image</a></li>
+<li><a href="#container">Container</a></li>
+<li><a href="#%E5%88%B6%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84image">制作自己的Image</a></li>
+<li><a href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1">微服务</a><ul>
+<li><a href="#diy-wordpress">DIY wordpress</a></li>
+<li><a href="#%E5%AE%98%E6%96%B9-wordpress-%E9%95%9C%E5%83%8F">官方 wordpress 镜像</a></li>
+<li><a href="#docker-compose">Docker Compose</a></li>
+</ul>
+</li>
+<li><a href="#tips">Tips</a></li>
 </ul>
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>虚拟化技术应用非常广泛，主要有虚拟机和容器(LXC)两种。<br>虚拟机尤其有点也有缺点，冗余，占用资源高，启动慢，为此，诞生了Linux容器技术即LXC。<br>Docker 属于 Linux 容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>根据官网教程选择自己的平台对应的<a href="https://docs.docker.com/install/">安装指引</a></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>根据官网教程选择自己的平台对应的<a target="_blank" rel="noopener" href="https://docs.docker.com/install/">安装指引</a></p>
 <p>安装完成后，在命令行中运行查看是否安装成功:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker version</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker info</span></span><br></pre></td></tr></table></figure>
 
@@ -340,98 +230,162 @@
 
 <h2 id="官方-wordpress-镜像"><a href="#官方-wordpress-镜像" class="headerlink" title="官方 wordpress 镜像"></a>官方 wordpress 镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用mysql镜像 启动container</span></span><br><span class="line">sudo docker container run \</span><br><span class="line">  -d \ #后台运行</span><br><span class="line">  --rm \ #停止后删除</span><br><span class="line">  --name wordpressdb \ #指定名称</span><br><span class="line">  --env MYSQL_ROOT_PASSWORD=123456 \  #环境变量</span><br><span class="line">  --env MYSQL_DATABASE=wordpress \ #环境变量</span><br><span class="line">  mysql:5.7</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用官方提供的wordpress镜像启动container</span></span><br><span class="line"></span><br><span class="line">sudo docker container run \</span><br><span class="line">  -d \</span><br><span class="line">  -p 127.0.0.2:8080:80 \</span><br><span class="line">  --rm \</span><br><span class="line">  --name wordpress \</span><br><span class="line">  --env WORDPRESS_DB_PASSWORD=123456 \</span><br><span class="line">  --link wordpressdb:mysql \</span><br><span class="line">  --volume &quot;$PWD/wordpress&quot;:/var/www/html \</span><br><span class="line">  wordpress</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看container信息</span></span><br><span class="line"></span><br><span class="line">sudo docker container inspect wordpress</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">由于做了IP和端口映射 因此可以直接</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">浏览器查看 http://127.0.0.2:8080/wordpress</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><p><a href="https://docs.docker.com/compose/install/#install-compose">安装Docker Compose</a></p>
+<h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><p><a target="_blank" rel="noopener" href="https://docs.docker.com/compose/install/#install-compose">安装Docker Compose</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动所有服务</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker-compose up</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关闭所有服务</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker-compose stop</span></span><br><span class="line"></span><br><span class="line">cd docker-demo</span><br><span class="line">vi docker-compose.yml</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">输入下面内容</span></span><br><span class="line"></span><br><span class="line">mysql:</span><br><span class="line">    image: mysql:5.7</span><br><span class="line">    environment:</span><br><span class="line">     - MYSQL_ROOT_PASSWORD=123456</span><br><span class="line">     - MYSQL_DATABASE=wordpress</span><br><span class="line">web:</span><br><span class="line">    image: wordpress</span><br><span class="line">    links:</span><br><span class="line">     - mysql</span><br><span class="line">    environment:</span><br><span class="line">     - WORDPRESS_DB_PASSWORD=123456</span><br><span class="line">    ports:</span><br><span class="line">     - &quot;127.0.0.3:8080:80&quot;</span><br><span class="line">    working_dir: /var/www/html</span><br><span class="line">    volumes:</span><br><span class="line">     - wordpress:/var/www/html</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动 compose</span></span><br><span class="line"></span><br><span class="line">docker-compose up</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">浏览器访问 http://127.0.0.3:8080</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">关闭</span></span><br><span class="line">docker-compose stop</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">移除</span></span><br><span class="line">docker-compose rm</span><br></pre></td></tr></table></figure>
 
 <h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><p>安装完 Ununtu 建议替换默认源</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/http:\/\/archive.ubuntu.com\/ubuntu\//http:\/\/mirrors.163.com\/ubuntu\//g&#x27; /etc/apt/sources.list</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">or</span></span><br><span class="line">cd /etc/apt-get</span><br><span class="line">mv sources.list sources.list.bak</span><br><span class="line">echo deb http://mirrors.163.com/debian/ jessie main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb http://mirrors.163.com/debian/ jessie-updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb http://mirrors.163.com/debian/ jessie-backports main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian/ jessie main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian/ jessie-updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian/ jessie-backports main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line">echo deb-src http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib &gt;&gt; sources.list</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
     </div>
+    <footer class="article-footer">
+      <a data-url="http://baochen.name/2018/04/08/docker-intro/" data-id="clqbr5kur0009fvvbacm511s2" data-title="docker 入门" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
 
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/docker/" rel="tag"># docker</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2017/04/20/new-job-new-start/" rel="prev" title="离职">
-                  <i class="fa fa-angle-left"></i> 离职
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2018/09/04/javascript-proto/" rel="next" title="Javascript 原型链">
-                  Javascript 原型链 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
     </footer>
-  </article>
-</div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2023</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Dengpeng Guo</span>
   </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/04/javascript-proto/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Javascript 原型链
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/20/new-job-new-start/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">离职</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/learning/">learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/work/">work</a></li></ul>
+    </div>
   </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/beian/" rel="tag">beian</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crontab/" rel="tag">crontab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lock/" rel="tag">lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mssql/" rel="tag">mssql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/performance-tuning/" rel="tag">performance tuning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prototype/" rel="tag">prototype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicode/" rel="tag">unicode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utf-8-16-32/" rel="tag">utf-8&#x2F;16&#x2F;32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/" rel="tag">work</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/beian/" style="font-size: 13.33px;">beian</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/lock/" style="font-size: 13.33px;">lock</a> <a href="/tags/mssql/" style="font-size: 20px;">mssql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/performance-tuning/" style="font-size: 16.67px;">performance tuning</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/utf-8-16-32/" style="font-size: 10px;">utf-8/16/32</a> <a href="/tags/work/" style="font-size: 10px;">work</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/18/unicode/">关于字符编码 unicode utf-8 utf-16 utf-32</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/04/javascript-proto/">Javascript 原型链</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/08/docker-intro/">docker 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/20/new-job-new-start/">离职</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/24/sql-server-locks-part-ii/">sql server 锁(2)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 Guo Dengpeng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
 
     </div>
-  </footer>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
 
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
   </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" integrity="sha256-tc4b48P1MPGS4PJXHRlChGCW1mEZy62jS/3JEsSHPzU=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-
 </body>
 </html>

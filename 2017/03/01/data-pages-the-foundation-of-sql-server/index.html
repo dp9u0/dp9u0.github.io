@@ -1,223 +1,109 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html>
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"baochen.name","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="SQL Server 基本存储单位是页，一个页大小为8K。页分为不同的类型：">
+  <meta charset="utf-8">
+  
+  
+  <title>02.SQL Server存储单位:页(Page) | Guo &amp; Bao</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SQL Server 基本存储单位是页，一个页大小为8K。页分为不同的类型：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="02.SQL Server存储单位:页(Page)">
 <meta property="og:url" content="http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/index.html">
-<meta property="og:site_name" content="Dengpeng Guo">
+<meta property="og:site_name" content="Guo &amp; Bao">
 <meta property="og:description" content="SQL Server 基本存储单位是页，一个页大小为8K。页分为不同的类型：">
-<meta property="og:locale">
-<meta property="og:image" content="http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/112056586572951.png">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-03-01T13:53:53.000Z">
-<meta property="article:modified_time" content="2020-05-07T12:23:55.910Z">
-<meta property="article:author" content="Dengpeng Guo">
+<meta property="article:modified_time" content="2023-12-19T02:49:23.746Z">
+<meta property="article:author" content="Guo Dengpeng">
 <meta property="article:tag" content="mssql">
 <meta property="article:tag" content="performance tuning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/112056586572951.png">
-
-
-<link rel="canonical" href="http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/">
-
-
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/","path":"2017/03/01/data-pages-the-foundation-of-sql-server/","title":"02.SQL Server存储单位:页(Page)"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>02.SQL Server存储单位:页(Page) | Dengpeng Guo</title>
   
+    <link rel="alternate" href="/atom.xml" title="Guo & Bao" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
 
-
-
-
-
-
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-<link rel="alternate" href="/atom.xml" title="Dengpeng Guo" type="application/atom+xml">
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Guo &amp; Bao</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">You will never walk alone</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://baochen.name"></form>
+      </div>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Dengpeng Guo</p>
-      <i class="logo-line"></i>
-    </a>
-      <p class="site-subtitle" itemprop="description">You'll Never Walk Alone</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
 </header>
+
+      <div class="outer">
+        <section id="main"><article id="post-data-pages-the-foundation-of-sql-server" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/03/01/data-pages-the-foundation-of-sql-server/" class="article-date">
+  <time class="dt-published" datetime="2017-03-01T13:53:53.000Z" itemprop="datePublished">2017-03-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/knowledge/">knowledge</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
         
   
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-overview-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Dengpeng Guo</p>
-  <div class="site-description" itemprop="description">You'll Never Walk Alone</div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">14</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/categories/">
-        <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/tags/">
-        <span class="site-state-item-count">14</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-        </div>
-      </div>
-    </div>
-
-    
-  </aside>
-
-
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
+    <h1 class="p-name article-title" itemprop="headline name">
+      02.SQL Server存储单位:页(Page)
+    </h1>
   
 
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Dengpeng Guo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dengpeng Guo">
-      <meta itemprop="description" content="You'll Never Walk Alone">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="02.SQL Server存储单位:页(Page) | Dengpeng Guo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          02.SQL Server存储单位:页(Page)
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2017-03-01 21:53:53" itemprop="dateCreated datePublished" datetime="2017-03-01T21:53:53+08:00">2017-03-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2020-05-07 20:23:55" itemprop="dateModified" datetime="2020-05-07T20:23:55+08:00">2020-05-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/knowledge/" itemprop="url" rel="index"><span itemprop="name">knowledge</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
       </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody"><p>SQL Server 基本存储单位是页，一个页大小为8K。<br>页分为不同的类型：</p>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>SQL Server 基本存储单位是页，一个页大小为8K。<br>页分为不同的类型：</p>
 <span id="more"></span>
 
 <p>1 Data page 堆表和聚集索引的叶子节点数据<br>2 Index page	聚集索引的非叶子节点和非聚集索引的所有索引记录<br>3 Text mixed page	A text page that holds small chunks of LOB values plus internal parts of text tree. These can be shared between LOB values in the same partition of an index or heap.<br>4 Text tree page	A text page that holds large chunks of LOB values from a single column value.<br>7 Sort page	排序时所用到的临时页，排序中间操作存储数据用的。<br>8 GAM page 全局分配映射（Global Allocation Map，GAM）页面 这些页面记录了哪些区已经被分配并用作何种用途。<br>9 SGAM page	共享全局分配映射（Shared Global Allocation Map，GAM）页面 这些页面记录了哪些区当前被用作混合类型的区，并且这些区需含有至少一个未使用的页面。<br>10 IAM page  有关每个分配单元中表或索引所使用的区的信息<br>11 PFS page  有关页分配和页的可用空间的信息<br>13 boot page 记录了关于数据库的信息，仅存于每个数据库的第9页<br>15 file header page 记录了关于数据库文件的信息，存于每个数据库文件的第0页<br>16 DCM page	记录自从上次全备以来的数据改变的页面，以备差异备份<br>17 BCM page 有关每个分配单元中自最后一条 BACKUP LOG 语句之后的大容量操作所修改的区的信息</p>
@@ -318,7 +204,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">DB_NAME(database_id),</span><br><span class="line"><span class="built_in">SUM</span>(free_space_in_bytes) <span class="operator">/</span> <span class="number">1024</span> <span class="keyword">AS</span> <span class="string">&#x27;Free_KB&#x27;</span></span><br><span class="line"><span class="keyword">FROM</span> sys.dm_os_buffer_descriptors</span><br><span class="line"><span class="keyword">WHERE</span> database_id <span class="operator">&lt;&gt;</span> <span class="number">32767</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> database_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">SUM</span>(free_space_in_bytes) <span class="keyword">DESC</span></span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
 
 
-<img src="/2017/03/01/data-pages-the-foundation-of-sql-server/112056586572951.png" class="" title="SQL文件结构">
+
 
 <p>第1个页，页号0，是文件头（page type 15）。它保存着文件头信息。每个数据文件只有一个文件头页，而且是第0页的位置。文件头页里保存着数据文件信息，例如文件大小，最小大小，最大大小和文件增长方式等。</p>
 <p>第2个页，页号1，是第一个PFS页（page type 11）。PFS页在数据文件里是第2个页（页号1），紧跟在文件头后（页号0）。GAM和SGAM用来跟踪区分配状态，PFS页用来跟踪页分配级别。当分配页面的时候，数据库引擎使用GAM和SGAM来识别有空页的区。一旦数据库引擎找到有空页的区，它使用PFS页来识别区里空页的可用空间量。可用空间只在保存LOB值（ie text&#x2F;image, varchar(max),nvarchar(max),varbinary(max) ,row overflow data）或堆表页时跟踪。默认情况下，LOB数据保存在一个独立的页，在原页保存一个指向独立页的指针。这些就是数据能够保存的空页。对于索引页，因为数据的保存顺序和索引顺序是一致的，因此没有必用使用到PFS页。PFS页每8088个页重复一个。这就是说第1页，第8088页，第16176页，第24264页……在每个数据文件里都是PFS页。SQL Server： 理解PFS页。</p>
@@ -331,96 +217,159 @@
 <p>第10个页，页号9，是启动页（page type 13）。启动页只出现在主数据文件（prmary data file）里的第9页，启动页不会出现在第2个数据文件里。我们可以使用DBCC PAGE命令查看它的页信息，在这个页里保存的页信息值是自说明的。如果这个页因某些原因损坏的话，我们将不能使用命令DBCC CheckDb来修复。页还原也不能改变这个情况。只能从上一次好的数据库备份中恢复才可以修复这个问题。</p>
 <p>从第11页开始，你可以看到各种不同的页混合在一起，像数据页，索引页，IAM页，行溢出页和LOB页等等。数据页的页类型是1，索引页的页类型是2，行溢出（Row-overflow）页和LOB页的页类型是3。数据页和索引页是以同样结构保存的。SQL Server：理解数据页结构。</p>
 <p>行溢出（Row-overflow）页用来存储不能在一页里保存的数据。LOB页用来保存大型对象，并不作为行数据的一部分来保存。</p>
-<p><a href="http://www.cnblogs.com/wcyao/archive/2011/06/28/2092241.html">存储引擎揭秘</a><br><a href="http://www.cnblogs.com/woodytu/tag/SQL%20Server%20%E5%AD%98%E5%82%A8/">SQL Server 存储</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/wcyao/archive/2011/06/28/2092241.html">存储引擎揭秘</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/woodytu/tag/SQL%20Server%20%E5%AD%98%E5%82%A8/">SQL Server 存储</a></p>
 
+      
     </div>
+    <footer class="article-footer">
+      <a data-url="http://baochen.name/2017/03/01/data-pages-the-foundation-of-sql-server/" data-id="clqbr5kuo0008fvvbad58d2n8" data-title="02.SQL Server存储单位:页(Page)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mssql/" rel="tag">mssql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/performance-tuning/" rel="tag">performance tuning</a></li></ul>
 
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/mssql/" rel="tag"># mssql</a>
-              <a href="/tags/performance-tuning/" rel="tag"># performance tuning</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2017/03/01/how-sql-server-executes-a-query/" rel="prev" title="01.SQL SERVER如何执行一个查询">
-                  <i class="fa fa-angle-left"></i> 01.SQL SERVER如何执行一个查询
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2017/03/21/sql-server-extend-management/" rel="next" title="3.SQL Server基本管理单位:区(Extend)">
-                  3.SQL Server基本管理单位:区(Extend) <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
     </footer>
-  </article>
-</div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2023</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Dengpeng Guo</span>
   </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/21/sql-server-extend-management/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          3.SQL Server基本管理单位:区(Extend)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/01/how-sql-server-executes-a-query/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">01.SQL SERVER如何执行一个查询</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/learning/">learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/work/">work</a></li></ul>
+    </div>
   </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/beian/" rel="tag">beian</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/crontab/" rel="tag">crontab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lock/" rel="tag">lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mssql/" rel="tag">mssql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/performance-tuning/" rel="tag">performance tuning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prototype/" rel="tag">prototype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicode/" rel="tag">unicode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utf-8-16-32/" rel="tag">utf-8&#x2F;16&#x2F;32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/" rel="tag">work</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/beian/" style="font-size: 13.33px;">beian</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/lock/" style="font-size: 13.33px;">lock</a> <a href="/tags/mssql/" style="font-size: 20px;">mssql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/performance-tuning/" style="font-size: 16.67px;">performance tuning</a> <a href="/tags/prototype/" style="font-size: 10px;">prototype</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/utf-8-16-32/" style="font-size: 10px;">utf-8/16/32</a> <a href="/tags/work/" style="font-size: 10px;">work</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/18/unicode/">关于字符编码 unicode utf-8 utf-16 utf-32</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/04/javascript-proto/">Javascript 原型链</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/08/docker-intro/">docker 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/20/new-job-new-start/">离职</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/24/sql-server-locks-part-ii/">sql server 锁(2)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 Guo Dengpeng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
 
     </div>
-  </footer>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
 
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
   </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" integrity="sha256-tc4b48P1MPGS4PJXHRlChGCW1mEZy62jS/3JEsSHPzU=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-
 </body>
 </html>
